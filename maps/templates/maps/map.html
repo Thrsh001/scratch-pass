@@ -11,10 +11,8 @@
   <main class="map-shell">
     <h1>Scratch Pass</h1>
     <svg class="world-map" viewBox="0 0 1000 500" role="img" aria-label="World map">
-      <path id="US" data-region="US" class="region" d="M100,150 L250,150 L250,250 L100,250 Z" />
-      <path id="IT" data-region="IT" class="region" d="M400,150 L550,150 L550,250 L400,250 Z" />
-      <!-- Placeholder paths to prove click/localStorage wiring; replace with
-           full world SVG. Future subdivision ids will look like "IT:TO". -->
+      {% include "maps/partials/world.svg" %}
+      <!-- Future subdivision ids will look like "IT:TO". -->
     </svg>
   </main>
   <script src="{% static 'js/map.js' %}"></script>
