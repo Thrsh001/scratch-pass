@@ -2,19 +2,18 @@
 name: Scratch Pass Architecture
 overview: Architecture and implementation plan for a Django + vanilla HTML/CSS/JS Scratch Pass MVP (localStorage, country-level IDs), with a Phase 2 path to authenticated persistence via UserProfile JSONField and a future COUNTRY:SUBREGION id scheme (e.g. IT:TO).
 todos:
-  - id: scaffold
-    content: Create ~/Projects/scratch-pass, Django config + maps app, static/template wiring
-    status: pending
-  - id: mvp-map
-    content: Map view + SVG template + CSS transitions + localStorage JS (country IDs)
-    status: pending
-  - id: polish-stubs
-    content: Visual polish + UserProfile JSONField model stub for Phase 2
+  - id: checklist
+    content: Task tracking has moved to CHECKLIST.md (SP-1..SP-13) — that file is the source of truth, not this list.
     status: pending
 isProject: false
 ---
 
 # Scratch Pass — Project Plan & Architecture
+
+> **Task tracking lives in [`CHECKLIST.md`](./CHECKLIST.md)** (tickets
+> `SP-1`…`SP-13`). This doc is architecture/rationale — update it when a
+> locked decision changes, but track build progress in `CHECKLIST.md`, not
+> here.
 
 ## Stack decisions (locked)
 
