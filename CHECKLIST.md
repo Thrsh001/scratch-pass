@@ -47,15 +47,20 @@ Implementation note: markup lives in
 `{% include %}`, per the plan's guidance for a large inline SVG.
 
 ### SP-4: CSS visual polish
-**Status:** To Do
+**Status:** Done
 **Description:** Cohesive visited-state color, hover/focus-visible feedback,
 smooth transitions, reduced-motion support, branded layout/typography.
 **Acceptance criteria:**
-- [ ] `.region.visited` fill color set
-- [ ] Hover/focus-visible scale + brightness feedback
-- [ ] Transitions limited to `fill`/`transform`/`filter`
-- [ ] `prefers-reduced-motion: reduce` respected
-- [ ] "Scratch Pass" branding/typography in place (no default purple AI theme)
+- [x] `.region.visited` fill color set (`#2a9d8f` teal on `#d4d8de` neutral)
+- [x] Hover/focus-visible scale + brightness feedback
+- [x] Transitions limited to `fill`/`transform`/`filter`
+- [x] `prefers-reduced-motion: reduce` respected
+- [x] "Scratch Pass" branding/typography in place (card layout, system font
+      stack, tagline) — no default purple AI theme
+
+Implementation note: `.region:focus-visible` styling is in place but inert
+until SP-5 adds `tabindex` to the SVG paths (paths aren't keyboard-focusable
+yet) — flagged there, not a gap in this ticket.
 
 ### SP-5: JS click toggle + localStorage persistence
 **Status:** To Do
@@ -65,6 +70,9 @@ smooth transitions, reduced-motion support, branded layout/typography.
 - [ ] Click toggles class and updates the localStorage array
 - [ ] Refresh restores visited state from localStorage
 - [ ] No npm packages or build step introduced
+- [ ] Regions are keyboard-focusable (`tabindex="0"`) and toggle on
+      Enter/Space — `.region:focus-visible` CSS from SP-4 is already in
+      place and waiting on this
 
 ### SP-6: Mobile pass
 **Status:** To Do
