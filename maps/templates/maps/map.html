@@ -8,14 +8,16 @@
   <link rel="stylesheet" href="{% static 'css/map.css' %}">
 </head>
 <body>
-  <main class="map-shell">
-    <h1>Scratch Pass</h1>
-    <p class="tagline">Scratch off every place you've been.</p>
+  <div class="map-shell">
+    <header class="map-overlay">
+      <h1>Scratch Pass</h1>
+      <p class="tagline">Scratch off every place you've been.</p>
+    </header>
     <svg class="world-map" viewBox="0 0 1000 500" role="img" aria-label="World map">
       {% include "maps/partials/world.svg" %}
       <!-- Future subdivision ids will look like "IT:TO". -->
     </svg>
-  </main>
+  </div>
   <script src="{% static 'js/map.js' %}"></script>
 </body>
 </html>

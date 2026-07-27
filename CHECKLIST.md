@@ -88,6 +88,17 @@ Implementation notes:
   distance before treating a `pointerup` as a tap, so panning doesn't also
   toggle the region the drag started on — noted in `map.js`.
 
+### SP-4.2: Full-bleed layout
+**Status:** Done
+**Description:** Rework the centered card layout (max-width 960px) into a
+full-viewport map, giving the SP-4.1 zoom/pan the most room to work with.
+**Acceptance criteria:**
+- [x] `.map-shell` fills the viewport (`100vw` / `100dvh`)
+- [x] SVG fills `.map-shell` (`width`/`height: 100%`)
+- [x] Title/tagline moved into a floating `.map-overlay` card (top-left,
+      `pointer-events: none` so it doesn't block map interaction underneath)
+- [x] `html, body` set to `overflow: hidden` since the map is the whole page
+
 ### SP-5: JS click toggle + localStorage persistence
 **Status:** To Do
 **Description:** Click handler toggles `.visited` and persists region ids to
