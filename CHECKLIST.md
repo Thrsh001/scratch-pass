@@ -62,6 +62,32 @@ Implementation note: `.region:focus-visible` styling is in place but inert
 until SP-5 adds `tabindex` to the SVG paths (paths aren't keyboard-focusable
 yet) — flagged there, not a gap in this ticket.
 
+### SP-4.1: Map zoom & pan
+**Status:** Done
+**Description:** Scroll-wheel/pinch zoom toward the cursor or touch
+midpoint, single-pointer drag to pan, double-click/double-tap to reset —
+via `viewBox` manipulation, no dependencies. Refinement requested outside
+the original SP-1..13 scope; numbered as a sub-ticket of SP-4 since it's
+map-polish work.
+**Acceptance criteria:**
+- [x] Wheel zoom, centered on cursor position
+- [x] Pinch zoom (two-pointer), centered on touch midpoint
+- [x] Single-pointer drag pans the view
+- [x] Double-click/double-tap resets to the full-world view
+- [x] Zoom/pan clamped so the view can't go past the map edges or exceed a
+      max zoom-in
+- [x] No new dependencies (native Pointer Events API + `viewBox` only)
+
+Implementation notes:
+- `touch-action` on `.world-map` changed from `manipulation` to `none` so
+  the browser's native gesture handling doesn't fight the custom pinch/pan
+  — supersedes the `touch-action: manipulation` acceptance criterion
+  written for SP-6; SP-6 should verify `none` still gives an acceptable
+  mobile experience rather than re-adding `manipulation`.
+- SP-5's future click-to-toggle handler must check pointer movement
+  distance before treating a `pointerup` as a tap, so panning doesn't also
+  toggle the region the drag started on — noted in `map.js`.
+
 ### SP-5: JS click toggle + localStorage persistence
 **Status:** To Do
 **Description:** Click handler toggles `.visited` and persists region ids to
@@ -70,6 +96,8 @@ yet) — flagged there, not a gap in this ticket.
 - [ ] Click toggles class and updates the localStorage array
 - [ ] Refresh restores visited state from localStorage
 - [ ] No npm packages or build step introduced
+- [ ] Click handling distinguishes a tap from a pan (see SP-4.1 note) so
+      dragging the map doesn't also toggle a region
 - [ ] Regions are keyboard-focusable (`tabindex="0"`) and toggle on
       Enter/Space — `.region:focus-visible` CSS from SP-4 is already in
       place and waiting on this

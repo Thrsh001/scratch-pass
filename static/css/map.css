@@ -54,7 +54,14 @@ h1 {
   display: block;
   width: 100%;
   height: auto;
-  touch-action: manipulation;
+  /* Custom pinch/pan (map.js) needs full control of touch gestures — the
+     browser's native pan/zoom would otherwise fight it. */
+  touch-action: none;
+  cursor: grab;
+}
+
+.world-map:active {
+  cursor: grabbing;
 }
 
 .region {
