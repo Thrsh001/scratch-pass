@@ -2,13 +2,59 @@
 // pointer drag to pan, double-click/double-tap to reset. Pure viewBox
 // manipulation via the Pointer Events API — no dependencies.
 //
-// Note for SP-5 (click-to-toggle): a pointerdown->pointerup with little to
-// no movement is a tap; one that moved is a pan. Check drag distance before
-// treating a pointerup as a region toggle, so panning doesn't also toggle
-// whatever region you started the drag on.
+// Click-to-toggle: a pointerdown->pointerup with little to no movement is a
+// tap (toggles the region); one that moved past TAP_MOVE_THRESHOLD is a pan
+// and does not toggle anything.
 (() => {
   const svg = document.querySelector(".world-map");
   if (!svg) return;
+
+  const STORAGE_KEY = "scratchpass:visited:v1";
+  const TAP_MOVE_THRESHOLD = 6; // px, in screen space
+
+  function loadVisited() {
+    try {
+      const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      return Array.isArray(raw) ? raw : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveVisited(ids) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  }
+
+  let visited = loadVisited();
+
+  function applyVisited() {
+    document.querySelectorAll(".region").forEach((el) => {
+      const isVisited = visited.includes(el.dataset.region);
+      el.classList.toggle("visited", isVisited);
+      el.setAttribute("aria-pressed", String(isVisited));
+    });
+  }
+
+  function toggleRegion(el) {
+    const id = el.dataset.region;
+    if (!id) return;
+    visited = visited.includes(id)
+      ? visited.filter((x) => x !== id)
+      : [...visited, id];
+    saveVisited(visited);
+    el.classList.toggle("visited", visited.includes(id));
+    el.setAttribute("aria-pressed", String(visited.includes(id)));
+  }
+
+  applyVisited();
+
+  svg.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const el = e.target.closest(".region");
+    if (!el) return;
+    e.preventDefault();
+    toggleRegion(el);
+  });
 
   const FULL = { x: 0, y: 0, width: 1000, height: 500 };
   const MIN_WIDTH = FULL.width / 16; // ~16x max zoom-in
@@ -64,6 +110,7 @@
   const pointers = new Map();
   let dragLast = null;
   let pinchLastDist = null;
+  let tap = null; // { el, startX, startY } — candidate region tap, single pointer only
 
   const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
   const midpoint = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 });
@@ -75,8 +122,11 @@
       const [a, b] = [...pointers.values()];
       pinchLastDist = dist(a, b);
       dragLast = null;
+      tap = null;
     } else if (pointers.size === 1) {
       dragLast = { x: e.clientX, y: e.clientY };
+      const regionEl = e.target.closest(".region");
+      tap = regionEl ? { el: regionEl, startX: e.clientX, startY: e.clientY } : null;
     }
   });
 
@@ -85,6 +135,7 @@
     pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
     if (pointers.size === 2) {
+      tap = null;
       const [a, b] = [...pointers.values()];
       const newDist = dist(a, b);
       const mid = midpoint(a, b);
@@ -94,6 +145,9 @@
     }
 
     if (pointers.size === 1 && dragLast) {
+      if (tap && dist({ x: e.clientX, y: e.clientY }, { x: tap.startX, y: tap.startY }) > TAP_MOVE_THRESHOLD) {
+        tap = null; // moved past the tap threshold — this is a pan now
+      }
       const rect = svg.getBoundingClientRect();
       view.x -= ((e.clientX - dragLast.x) / rect.width) * view.width;
       view.y -= ((e.clientY - dragLast.y) / rect.height) * view.height;
@@ -103,14 +157,25 @@
     }
   });
 
-  function endPointer(e) {
-    pointers.delete(e.pointerId);
+  function resetPointerState() {
     pinchLastDist = pointers.size < 2 ? null : pinchLastDist;
     dragLast = pointers.size === 1 ? [...pointers.values()][0] : null;
   }
 
-  svg.addEventListener("pointerup", endPointer);
-  svg.addEventListener("pointercancel", endPointer);
+  svg.addEventListener("pointerup", (e) => {
+    if (pointers.size === 1 && tap) {
+      toggleRegion(tap.el);
+    }
+    pointers.delete(e.pointerId);
+    tap = null;
+    resetPointerState();
+  });
+
+  svg.addEventListener("pointercancel", (e) => {
+    pointers.delete(e.pointerId);
+    tap = null;
+    resetPointerState();
+  });
 
   svg.addEventListener("dblclick", (e) => {
     e.preventDefault();

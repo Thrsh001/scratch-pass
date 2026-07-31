@@ -89,6 +89,12 @@ body {
     transform 220ms ease,
     filter 220ms ease;
   cursor: pointer;
+  /* Chromium paints a default focus rectangle (bounding-box, not path-
+     shaped) on focusable SVG shapes that isn't fully governed by the
+     normal outline cascade the way it is on HTML elements — reset it
+     unconditionally on :focus, not just :focus-visible, and rely on the
+     stroke-based indicator below for the actual visible cue. */
+  outline: none;
 }
 
 .region:hover,

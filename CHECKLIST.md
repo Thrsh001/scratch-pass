@@ -100,18 +100,37 @@ full-viewport map, giving the SP-4.1 zoom/pan the most room to work with.
 - [x] `html, body` set to `overflow: hidden` since the map is the whole page
 
 ### SP-5: JS click toggle + localStorage persistence
-**Status:** To Do
+**Status:** Done
 **Description:** Click handler toggles `.visited` and persists region ids to
 `scratchpass:visited:v1`; state re-applies on load.
 **Acceptance criteria:**
-- [ ] Click toggles class and updates the localStorage array
-- [ ] Refresh restores visited state from localStorage
-- [ ] No npm packages or build step introduced
-- [ ] Click handling distinguishes a tap from a pan (see SP-4.1 note) so
+- [x] Click toggles class and updates the localStorage array
+- [x] Refresh restores visited state from localStorage
+- [x] No npm packages or build step introduced
+- [x] Click handling distinguishes a tap from a pan (see SP-4.1 note) so
       dragging the map doesn't also toggle a region
-- [ ] Regions are keyboard-focusable (`tabindex="0"`) and toggle on
-      Enter/Space — `.region:focus-visible` CSS from SP-4 is already in
-      place and waiting on this
+- [x] Regions are keyboard-focusable (`tabindex="0"`) and toggle on
+      Enter/Space — `.region:focus-visible` CSS from SP-4 is now fully
+      functional
+
+Verified end-to-end with a real headless-Chrome session (puppeteer-core,
+dev-only, not a project dependency): click toggles class/`aria-pressed`/
+localStorage both ways, state survives reload, `Tab` + `Enter` toggles via
+keyboard, and an 80px drag starting on a region does not toggle it.
+`aria-pressed` was added alongside `tabindex`/`role="button"` (in
+`world.svg`) for full toggle-button semantics, not just visual/keyboard
+access.
+
+**Fix:** a mouse click left a rectangular focus ring around the clicked
+region's bounding box (visible once the cursor moved off it) — a Chromium
+quirk where the default focus indicator on a focusable SVG shape isn't
+fully governed by `outline` the way it is on HTML elements, even though
+`getComputedStyle` reported `outline: none`. Confirmed via screenshot +
+`.blur()` diffing that it was genuinely focus-related. Fixed by moving
+`outline: none` onto the base `.region` rule (unconditional, not scoped to
+`:focus-visible`) in `static/css/map.css`. Re-verified: mouse click no
+longer shows a ring, and `Tab`-driven keyboard focus still shows the
+intended stroke-based indicator.
 
 ### SP-6: Mobile pass
 **Status:** To Do
