@@ -190,14 +190,14 @@ the zoom affordance from SP-4.1.
 ## Epic 2 — Phase 2: Accounts & Persistence
 
 ### SP-7: UserProfile model stub
-**Status:** To Do
+**Status:** Done
 **Description:** Add `UserProfile` (`OneToOneField` to `User`,
 `visited_regions` JSONField, default `list`), registered in admin. No API
 endpoints yet — stub only, per plan section 3/5.
 **Acceptance criteria:**
-- [ ] Model created + migration generated and applied
-- [ ] Registered in `maps/admin.py`
-- [ ] No views/endpoints added in this ticket
+- [x] Model created + migration generated and applied
+- [x] Registered in `maps/admin.py`
+- [x] No views/endpoints added in this ticket
 
 ### SP-8: Document the Phase 2 swap point in JS
 **Status:** To Do
