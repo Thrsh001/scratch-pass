@@ -42,6 +42,21 @@ region paths to prove the URL → view → template → static chain end to end.
       normalized from Natural Earth's `CN-TW` to standard `TW`; N. Cyprus and
       Somaliland omitted — no ISO 3166-1 alpha-2 code exists for either)
 
+**Known gap (found 2026-08-01, deferred to SP-13):** Natural Earth's 1:110m
+resolution omits small entities entirely rather than just simplifying their
+shape — confirmed by diffing against the 50m/10m datasets. 62 ISO 3166-1
+entities are missing from the current map, including 28 UN member states
+(Andorra, Monaco, Vatican City, San Marino, Singapore, Malta, Liechtenstein,
+Bahrain, Barbados, Cabo Verde, Comoros, Dominica, Grenada, Kiribati,
+Maldives, Marshall Is., Mauritius, Micronesia, Nauru, Palau, Saint Lucia,
+Samoa, São Tomé and Príncipe, Seychelles, St. Kitts and Nevis, St. Vincent
+and the Grenadines, Tonga, Tuvalu, Antigua and Barb.) plus ~34 dependent
+territories with their own ISO codes (Hong Kong, Bermuda, Gibraltar, Cayman
+Is., Guam, French Polynesia, etc.). User decision: keep the current 175 as
+they are for now; fold the missing entities in as part of SP-13 rather than
+patching SP-3 separately. SP-13's scope note below has been updated to
+reflect this.
+
 Implementation note: markup lives in
 `maps/templates/maps/partials/world.svg` and is pulled into `map.html` via
 `{% include %}`, per the plan's guidance for a large inline SVG.
@@ -223,10 +238,19 @@ with server state via a union merge rather than overwriting either side.
 - [ ] Merge is a union (no data loss on either side)
 - [ ] `localStorage` resynced from the server response after merge
 
-### SP-13: Subdivision maps *(Later)*
+### SP-13: Subdivision maps + missing-entity pass *(Later)*
 **Status:** To Do
 **Description:** Drill-down maps using `COUNTRY:SUBREGION` ids (e.g. `IT:TO`
-for Tuscany), per the locked id scheme.
+for Tuscany), per the locked id scheme. Scope expanded (2026-08-01, user
+decision) to also add the 62 ISO 3166-1 entities missing from the current
+top-level map — see the "Known gap" note under SP-3 for the full list and
+root cause (Natural Earth 1:110m omits them entirely, not just simplifies
+them; 50m/10m have them). Source those from the 50m or 10m dataset and
+reproject into the existing 1000×500 equirectangular `viewBox` without
+disturbing the current 175 paths' geometry.
 **Acceptance criteria:**
 - [ ] At least one country's subdivision map implemented
+- [ ] The 62 missing entities (28 UN member states + ~34 territories, listed
+      under SP-3) added to the top-level world map as individual `<path>`s,
+      consistent with the existing projection/style
 - [ ] Ids follow `CC:SUBDIV` format; existing country-level entries unaffected
