@@ -82,6 +82,10 @@ body {
   fill: var(--color-region);
   stroke: var(--color-region-stroke);
   stroke-width: 0.5;
+  /* Keep the border a constant screen-pixel width across the zoom range
+     (SP-4.1/SP-6) instead of scaling with viewBox — otherwise it swallows
+     small countries like Luxembourg at max zoom-in. */
+  vector-effect: non-scaling-stroke;
   transform-box: fill-box;
   transform-origin: center;
   transition:

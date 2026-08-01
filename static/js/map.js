@@ -57,7 +57,10 @@
   });
 
   const FULL = { x: 0, y: 0, width: 1000, height: 500 };
-  const MIN_WIDTH = FULL.width / 16; // ~16x max zoom-in
+  // ~40x max zoom-in — needed so the smallest countries (e.g. Luxembourg,
+  // Trinidad & Tobago) can reach a tappable size (~24px+) on mobile
+  // viewports; 16x left them at ~9px, well under the touch-target minimum.
+  const MIN_WIDTH = FULL.width / 40;
   const MAX_WIDTH = FULL.width; // can't zoom out past the initial fit
   const view = { ...FULL };
 

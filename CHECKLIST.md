@@ -133,13 +133,42 @@ longer shows a ring, and `Tab`-driven keyboard focus still shows the
 intended stroke-based indicator.
 
 ### SP-6: Mobile pass
-**Status:** To Do
+**Status:** Done
 **Description:** Verify and adjust the map for mobile viewports.
 **Acceptance criteria:**
-- [ ] Viewport meta tag present
-- [ ] `touch-action: manipulation` set
-- [ ] Tap targets usable at common mobile widths
-- [ ] No horizontal overflow at common mobile widths
+- [x] Viewport meta tag present (`map.html`, already in place since SP-1/2)
+- [x] `touch-action` set appropriately — kept as `none` (not `manipulation`),
+      per the SP-4.1 decision, since the custom pinch/pan needs full control
+      of touch gestures. Verified no unwanted native browser gesture
+      interference and no horizontal overflow at 360/375/390px widths.
+- [x] Tap targets usable at common mobile widths
+- [x] No horizontal overflow at common mobile widths (checked 360×740,
+      375×667, 390×844 — `scrollWidth === clientWidth` at all three)
+
+Verified with a real headless-Chrome session (puppeteer-core, dev-only, not
+a project dependency) at the three viewports above.
+
+**Finding:** at the original 16x max zoom (`MIN_WIDTH = FULL.width / 16`),
+the smallest countries (Luxembourg, Trinidad & Tobago, etc.) rendered at
+~9×11px even fully zoomed in — well under the ~24px touch-target minimum
+(WCAG 2.5.8 AA) and not practically tappable on a touchscreen. Two fixes:
+- `static/js/map.js`: raised max zoom-in from 16x to 40x
+  (`MIN_WIDTH = FULL.width / 40`). At 40x, Luxembourg (the smallest region
+  in the map) reaches ~24×28px on a 375px-wide viewport, the narrowest
+  tested — the practical floor for this 175-country map without adding
+  per-region hit-area overrides, which is out of scope here.
+- `static/css/map.css`: added `vector-effect: non-scaling-stroke` to
+  `.region` — at the deeper zoom, the fixed-width stroke was scaling up
+  with the viewBox and visually swallowing tiny countries; this keeps the
+  border a constant screen-pixel width across the whole zoom range.
+
+Regression-checked click-toggle, keyboard-toggle (Enter), localStorage
+persistence across reload, drag-pan not toggling the region it starts on,
+and double-click reset — all still behave correctly after these changes.
+
+Full zoom-out tap precision for micro-nations remains inherently limited
+(true on desktop too, not mobile-specific) — mitigated, not eliminated, by
+the zoom affordance from SP-4.1.
 
 ---
 
