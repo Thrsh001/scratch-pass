@@ -206,13 +206,44 @@ writes will become a `POST /api/me/visits/toggle/` call with CSRF.
 **Acceptance criteria:**
 - [x] Comment present near the toggle logic, describing the future fetch call
 
-### SP-9: Auth flow *(Later)*
-**Status:** To Do
-**Description:** Wire Django auth (login/logout) so a user can have an
-authenticated session.
+### SP-9: Auth flow
+**Status:** Done
+**Description:** Wire Django auth (login/logout/register) so a user can
+create an account and have an authenticated session. Scope expanded
+2026-08-06 (user decision) to include a registration form/view for new
+users, not just login/logout — pulled forward ahead of SP-10/SP-11 per
+user request.
 **Acceptance criteria:**
-- [ ] Login/logout views wired
-- [ ] `UserProfile` created on user signup (signal or `get_or_create`)
+- [x] Login/logout views wired
+- [x] Registration view + form for new users, auto-logs in on success
+- [x] `UserProfile` created on user signup (signal, so it covers
+      admin-created users too, not just self-registration)
+
+Implementation notes:
+- `maps/signals.py`: `post_save` receiver on `AUTH_USER_MODEL` creates the
+  `UserProfile` via `get_or_create` for *any* user creation path (self
+  registration, `createsuperuser`, admin-created users) — wired in
+  `MapsConfig.ready()`, not tied to the register view.
+- `maps/views.register_view` uses `django.contrib.auth.forms
+  .UserCreationForm` (no new dependency) and logs the user in immediately
+  on success, redirecting to the map.
+- Login/logout use Django's built-in `LoginView`/`LogoutView`; logout is a
+  POST-only form (CSRF-protected) rather than a GET link, per current
+  Django auth-view guidance.
+- Templates (`maps/templates/maps/login.html`, `register.html`) follow the
+  app-namespace convention; `map.html`'s overlay header gained an
+  `.auth-nav` (login/register links, or username + logout when
+  authenticated) — `pointer-events: auto` re-enabled locally since the
+  overlay itself is `pointer-events: none`.
+- Existing `UserProfileTests` updated: they previously called
+  `UserProfile.objects.create(user=user)` after `create_user`, which now
+  conflicts with the auto-create signal (`OneToOneField` uniqueness) — now
+  read `user.profile` instead, plus new tests for the signal itself,
+  registration, login, and logout.
+- Verified end-to-end with a real headless-Chrome session (puppeteer-core,
+  dev-only, not a project dependency): register → auto-login → map shows
+  username + logout, logout clears session, re-login with the same
+  credentials works, and a bad-password attempt shows the expected error.
 
 ### SP-10: Toggle API endpoint *(Later)*
 **Status:** To Do

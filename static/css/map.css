@@ -64,6 +64,114 @@ body {
   font-size: 0.85rem;
 }
 
+.auth-nav {
+  /* .map-overlay is pointer-events: none so it doesn't block map
+     interaction underneath — re-enable it just for the nav's own links. */
+  pointer-events: auto;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.auth-nav a,
+.auth-nav button {
+  color: var(--color-ink);
+  text-decoration: none;
+  font: inherit;
+}
+
+.auth-nav a:hover,
+.auth-nav button:hover {
+  text-decoration: underline;
+}
+
+.logout-form {
+  display: inline;
+}
+
+.logout-form button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.auth-user {
+  color: var(--color-muted);
+}
+
+/* Standalone auth pages (login/register) — the base html/body rules above
+   are full-bleed/overflow-hidden for the map; these override just enough
+   to center a simple card instead. */
+.auth-body {
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.auth-card {
+  width: min(360px, calc(100vw - 2rem));
+  background: var(--color-surface);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+
+.auth-card h1 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.auth-card form p {
+  margin: 0 0 0.75rem;
+}
+
+.auth-card label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--color-region);
+  border-radius: 6px;
+  font: inherit;
+}
+
+.auth-card button[type="submit"] {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.25rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-visited);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-error {
+  color: #b3261e;
+  font-size: 0.85rem;
+  margin: 0 0 0.75rem;
+}
+
+.auth-switch {
+  margin: 1rem 0 0;
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
 .world-map {
   display: block;
   width: 100%;
