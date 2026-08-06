@@ -25,6 +25,21 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
   }
 
+  // Phase 2 swap point (SP-10/SP-11): once a user is authenticated, region
+  // toggles will also need to sync to the server so `visited_regions`
+  // persists across devices. Planned shape, per CLAUDE.md's API rules:
+  //
+  //   toggleRegion() will POST to /api/me/visits/toggle/ with:
+  //     - body: { region: id }
+  //     - header: X-CSRFToken, read from the `csrftoken` cookie
+  //   The response returns the full updated `visited` list (not just a
+  //   success flag), which saveVisited() then writes back to localStorage
+  //   so localStorage keeps acting as an offline cache of server state.
+  //
+  // Until SP-9 (auth) lands, there's no session to attach this to, so
+  // toggleRegion() below stays localStorage-only — this comment marks
+  // where the fetch call gets added, not a TODO to build it now.
+
   let visited = loadVisited();
 
   function applyVisited() {

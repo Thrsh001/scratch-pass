@@ -200,11 +200,11 @@ endpoints yet — stub only, per plan section 3/5.
 - [x] No views/endpoints added in this ticket
 
 ### SP-8: Document the Phase 2 swap point in JS
-**Status:** To Do
+**Status:** Done
 **Description:** Comment block in `map.js` documenting how localStorage
 writes will become a `POST /api/me/visits/toggle/` call with CSRF.
 **Acceptance criteria:**
-- [ ] Comment present near the toggle logic, describing the future fetch call
+- [x] Comment present near the toggle logic, describing the future fetch call
 
 ### SP-9: Auth flow *(Later)*
 **Status:** To Do
