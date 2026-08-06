@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if active_tab == 'register' %}Create an account{% else %}Log in{% endif %} — Scratch Pass</title>
+  <link rel="stylesheet" href="{% static 'css/map.css' %}">
+</head>
+<body class="auth-body">
+  <div class="auth-shell">
+    <aside class="auth-hero" aria-hidden="true">
+      <svg class="auth-hero-globe" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+        <ellipse cx="100" cy="100" rx="38" ry="90" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+        <ellipse cx="100" cy="100" rx="70" ry="90" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.35"/>
+        <line x1="10" y1="100" x2="190" y2="100" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+        <line x1="20" y1="55" x2="180" y2="55" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+        <line x1="20" y1="145" x2="180" y2="145" stroke="currentColor" stroke-width="1" opacity="0.35"/>
+      </svg>
+      <div class="auth-hero-text">
+        <h1>Scratch Pass</h1>
+        <p>Track every place you've scratched off — sign in to keep it synced across devices.</p>
+      </div>
+    </aside>
+
+    <main class="auth-card-wrap">
+      <div class="auth-card">
+        <div class="auth-logo">
+          <!-- Placeholder mark — swap for the real logo later. -->
+          <svg class="auth-logo-mark" viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+            <ellipse cx="24" cy="24" rx="8" ry="20" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="4" y1="24" x2="44" y2="24" stroke="currentColor" stroke-width="2"/>
+            <line x1="7" y1="14" x2="41" y2="14" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="7" y1="34" x2="41" y2="34" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <span class="auth-brand">Scratch Pass</span>
+        </div>
+
+        <input type="radio" name="auth-tab" id="tab-login" class="auth-tab-input" {% if active_tab == 'login' %}checked{% endif %}>
+        <input type="radio" name="auth-tab" id="tab-register" class="auth-tab-input" {% if active_tab == 'register' %}checked{% endif %}>
+        <div class="auth-tab-labels">
+          <label for="tab-login">Log in</label>
+          <label for="tab-register">Sign up</label>
+        </div>
+
+        <section class="auth-panel auth-panel-login">
+          {% if login_form.errors %}
+            <p class="auth-error">Your username and password didn't match. Please try again.</p>
+          {% endif %}
+          <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ login_form.as_p }}
+            <input type="hidden" name="next" value="{{ next }}">
+            <button type="submit" class="auth-submit">Log in</button>
+          </form>
+          <div class="auth-divider"><span>or</span></div>
+          <div class="social-buttons">
+            <button type="button" class="social-btn" disabled title="Coming soon">
+              <span class="social-badge social-badge-google" aria-hidden="true">G</span>
+              Continue with Google
+            </button>
+            <button type="button" class="social-btn" disabled title="Coming soon">
+              <span class="social-badge social-badge-facebook" aria-hidden="true">f</span>
+              Continue with Facebook
+            </button>
+          </div>
+        </section>
+
+        <section class="auth-panel auth-panel-register">
+          {% if register_form.errors %}
+            <p class="auth-error">Please fix the errors below.</p>
+          {% endif %}
+          <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            {{ register_form.as_p }}
+            <button type="submit" class="auth-submit">Sign up</button>
+          </form>
+          <div class="auth-divider"><span>or</span></div>
+          <div class="social-buttons">
+            <button type="button" class="social-btn" disabled title="Coming soon">
+              <span class="social-badge social-badge-google" aria-hidden="true">G</span>
+              Continue with Google
+            </button>
+            <button type="button" class="social-btn" disabled title="Coming soon">
+              <span class="social-badge social-badge-facebook" aria-hidden="true">f</span>
+              Continue with Facebook
+            </button>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

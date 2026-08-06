@@ -31,59 +31,67 @@ body {
 }
 
 .map-shell {
-  position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   height: 100dvh;
 }
 
-.map-overlay {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 10;
-  max-width: calc(100vw - 2rem);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(6px);
-  border-radius: 12px;
-  padding: 0.75rem 1.25rem;
-  box-shadow: var(--shadow-card);
-  pointer-events: none;
-}
-
-.map-overlay h1 {
-  margin: 0 0 0.15rem;
-  font-size: clamp(1.1rem, 3vw, 1.5rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-
-.map-overlay .tagline {
-  margin: 0;
-  color: var(--color-muted);
-  font-size: 0.85rem;
-}
-
-.auth-nav {
-  /* .map-overlay is pointer-events: none so it doesn't block map
-     interaction underneath — re-enable it just for the nav's own links. */
-  pointer-events: auto;
-  margin-top: 0.5rem;
+/* Persistent bar (not an overlay on top of the map) — reduces the map's
+   height instead of floating above it, so its controls are always
+   reliably clickable (SP-9.1; the old floating .map-overlay pattern
+   competed with the map's own pointer-event handling for clicks). */
+.top-bar {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.85rem;
+  gap: 1rem;
+  height: 56px;
+  padding: 0 1.25rem;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  z-index: 10;
 }
 
-.auth-nav a,
-.auth-nav button {
+.top-bar-left,
+.top-bar-right {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.top-bar-right {
+  justify-content: flex-end;
+}
+
+.top-bar-center {
+  flex: 0 0 auto;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.top-bar-username {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.top-bar a,
+.top-bar button {
   color: var(--color-ink);
   text-decoration: none;
   font: inherit;
+  font-size: 0.85rem;
 }
 
-.auth-nav a:hover,
-.auth-nav button:hover {
+.top-bar a:hover,
+.top-bar button:hover {
   text-decoration: underline;
 }
 
@@ -98,32 +106,225 @@ body {
   cursor: pointer;
 }
 
-.auth-user {
-  color: var(--color-muted);
-}
-
 /* Standalone auth pages (login/register) — the base html/body rules above
    are full-bleed/overflow-hidden for the map; these override just enough
-   to center a simple card instead. */
+   to lay out a two-panel page instead. */
 .auth-body {
   overflow: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   min-height: 100%;
 }
 
+.auth-shell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Decorative side panel — hidden on narrow viewports (see media query
+   below), where the card alone fills the page. */
+.auth-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 3rem;
+  background: linear-gradient(160deg, #17251f 0%, #234a3f 55%, var(--color-visited) 140%);
+  color: #fff;
+  overflow: hidden;
+}
+
+.auth-hero-globe {
+  width: min(55%, 300px);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.auth-hero-text {
+  max-width: 320px;
+  text-align: center;
+}
+
+.auth-hero-text h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.auth-hero-text p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.auth-card-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  background: var(--color-bg);
+}
+
+@media (max-width: 860px) {
+  .auth-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-hero {
+    display: none;
+  }
+}
+
 .auth-card {
-  width: min(360px, calc(100vw - 2rem));
+  width: min(400px, 100%);
   background: var(--color-surface);
-  border-radius: 12px;
-  padding: 1.5rem;
+  border-radius: 16px;
+  padding: 2rem;
   box-shadow: var(--shadow-card);
 }
 
-.auth-card h1 {
-  margin: 0 0 1rem;
-  font-size: 1.25rem;
+.auth-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  color: var(--color-visited);
+}
+
+.auth-logo-mark {
+  width: 40px;
+  height: 40px;
+}
+
+.auth-brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+/* CSS-only tab switch — hidden-but-focusable radios (not display:none, so
+   Tab/Space still reach them) toggle which panel is visible via the
+   general sibling combinator. No JS needed. */
+/* `.auth-card input` (below) has equal specificity and comes later in the
+   cascade, so it would otherwise win and stretch this to 100% width —
+   qualify with `.auth-card` too so this outranks it unambiguously. */
+.auth-card input.auth-tab-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.auth-tab-labels {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+  border-bottom: 1px solid var(--color-region);
+}
+
+.auth-tab-labels label {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  color: var(--color-muted);
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.auth-tab-labels label:hover {
+  color: var(--color-ink);
+}
+
+.auth-panel {
+  display: none;
+}
+
+#tab-login:checked ~ .auth-panel-login,
+#tab-register:checked ~ .auth-panel-register {
+  display: block;
+}
+
+#tab-login:checked ~ .auth-tab-labels label[for="tab-login"],
+#tab-register:checked ~ .auth-tab-labels label[for="tab-register"] {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-visited);
+}
+
+#tab-login:focus-visible ~ .auth-tab-labels label[for="tab-login"],
+#tab-register:focus-visible ~ .auth-tab-labels label[for="tab-register"] {
+  outline: 2px solid var(--color-visited);
+  outline-offset: 2px;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.25rem 0 1rem;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-region);
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--color-region);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: not-allowed;
+}
+
+.social-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  opacity: 0.85;
+}
+
+.social-badge-google {
+  background: #ea4335;
+}
+
+.social-badge-facebook {
+  background: #1877f2;
 }
 
 .auth-card form p {
@@ -132,50 +333,106 @@ body {
 
 .auth-card label {
   display: block;
+  margin-top: 0.25rem;
   margin-bottom: 0.25rem;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--color-muted);
 }
 
 .auth-card input {
   width: 100%;
-  padding: 0.5rem 0.6rem;
+  padding: 0.55rem 0.65rem;
   border: 1px solid var(--color-region);
-  border-radius: 6px;
+  border-radius: 8px;
   font: inherit;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
 }
 
-.auth-card button[type="submit"] {
+.auth-card input:focus {
+  outline: none;
+  border-color: var(--color-visited);
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.18);
+}
+
+/* Django's UserCreationForm renders per-field help text (username rules,
+   password requirements) as a .helptext span. */
+.auth-card .helptext {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+/* The password field's help text is a <ul> *inside* that span in Django's
+   source HTML, but a <ul> isn't allowed inside a <p> — browsers close the
+   <p> (and the .helptext span with it) before inserting it, so in the
+   parsed DOM it ends up as a sibling of the <p>, not a descendant of
+   .helptext. Target it directly rather than via .helptext ul. */
+.auth-card form ul {
+  margin: 0.2rem 0 0.75rem;
+  padding-left: 1.1rem;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.auth-card form li {
+  font-size: 0.78rem;
+}
+
+.auth-submit {
   width: 100%;
-  padding: 0.6rem;
+  padding: 0.65rem;
   margin-top: 0.25rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   background: var(--color-visited);
   color: #fff;
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+  transition:
+    background 150ms ease,
+    transform 100ms ease;
+}
+
+.auth-submit:hover {
+  background: #24897c;
+}
+
+.auth-submit:active {
+  transform: scale(0.99);
 }
 
 .auth-error {
   color: #b3261e;
-  font-size: 0.85rem;
+  font-size: 1rem;
+  font-weight: 500;
   margin: 0 0 0.75rem;
 }
 
-.auth-switch {
-  margin: 1rem 0 0;
-  font-size: 0.85rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 0.75rem;
+/* Django's per-field validation errors (UserCreationForm etc.) render as
+   a plain <ul class="errorlist"> with no styling of their own. */
+.auth-card .errorlist {
+  margin: 0 0 0.5rem;
+  padding-left: 1.1rem;
+  color: #b3261e;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.auth-card .errorlist li {
+  font-size: 0.95rem;
 }
 
 .world-map {
   display: block;
   width: 100%;
-  height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   /* Custom pinch/pan (map.js) needs full control of touch gestures — the
      browser's native pan/zoom would otherwise fight it. */
   touch-action: none;
@@ -232,9 +489,13 @@ body {
 }
 
 @media (max-width: 480px) {
-  .map-overlay {
-    top: 0.5rem;
-    left: 0.5rem;
-    padding: 0.5rem 0.85rem;
+  .top-bar {
+    height: 48px;
+    padding: 0 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .top-bar-center {
+    font-size: 0.75rem;
   }
 }

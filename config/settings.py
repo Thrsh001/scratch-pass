@@ -132,4 +132,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'map'
-LOGOUT_REDIRECT_URL = 'map'
+# 'map' now requires login (SP-9.1), so bouncing a logged-out user through
+# it after logout would just trigger a second redirect to 'login' anyway —
+# send them there directly instead.
+LOGOUT_REDIRECT_URL = 'login'

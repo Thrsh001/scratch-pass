@@ -245,6 +245,112 @@ Implementation notes:
   username + logout, logout clears session, re-login with the same
   credentials works, and a bad-password attempt shows the expected error.
 
+### SP-9.1: Auth section refinement
+**Status:** Done
+**Description:** Fix + redesign the login/register UI from SP-9. Bug: the
+floating `.map-overlay`'s Login/Register/Logout controls aren't reliably
+clickable on the map view. Numbered as a sub-ticket of SP-9 (same pattern
+as SP-4.1/SP-4.2), inserted ahead of SP-10 per user request (2026-08-06).
+Decisions made with the user before starting:
+- Google/Facebook buttons are **UI placeholders only** this ticket (no
+  `django-allauth`/new dependency, no OAuth wiring) — same spirit as the
+  "logo to be replaced later" placeholder. Real OAuth is a future ticket.
+- Login and register become **one page** with a tab switch between them
+  (CSS-only via radio inputs, no JS needed), not two separate pages.
+- Mid-ticket revision (2026-08-06, user feedback on first pass): the plain
+  single-column card looked bare — reworked into a two-panel page (a
+  decorative teal/dark hero panel with a globe motif + tagline on the
+  left, the card on the right; hero hidden under 860px, card alone fills
+  the page on mobile).
+- Mid-ticket scope addition (2026-08-06, user request): **`/` (the map)
+  now requires an authenticated session** — anonymous visitors are
+  redirected to `/login/?next=/` via `@login_required`. This supersedes
+  SP-9.1's original "logged-out top bar" criterion (the map's top bar no
+  longer has a logged-out state — it can't render for anonymous users)
+  and **narrows Phase 1's original guest/localStorage-only design** — flag
+  for SP-12 ("guest-to-login merge"), which assumed anonymous
+  `localStorage` use was still possible; that ticket's premise may need
+  revisiting or explicit re-confirmation before it's picked up.
+**Acceptance criteria:**
+- [x] Combined login/register template (`maps/account.html`) with a
+      world-map logo placeholder and a CSS-only tab switch between the two
+      forms; `login`/`register` URLs both render it with the right tab
+      active and their own form's errors
+- [x] "Continue with Google" / "Continue with Facebook" buttons present on
+      both tabs, visibly disabled/non-functional (no dependency added)
+- [x] Map view's floating overlay replaced with a persistent top bar that
+      reduces the map's height (not an absolutely-positioned overlay on
+      top of it) — fixes the click-through bug structurally
+- [x] Logged-in top bar: username on the left, visited-country count in
+      the center (client-side from localStorage, consistent with Phase 1
+      — no API yet), logout on the right
+- [x] `/` requires an authenticated session; anonymous visitors redirect to
+      `/login/?next=/` (supersedes the original "logged-out top bar"
+      criterion — see scope-addition note above)
+- [x] Regression-checked: click-toggle, keyboard-toggle, zoom/pan, and
+      localStorage persistence from SP-4.1–SP-6 still work with the
+      resized map viewport
+
+Implementation notes:
+- `maps/views.py`: `register_view` and a new `LoginView` (subclasses
+  Django's `LoginView`, overrides `get_context_data` to add `active_tab`
+  and the *other* form) both render the same `maps/account.html`; old
+  per-page `login.html`/`register.html` deleted as dead code.
+- `maps/templates/maps/account.html`: CSS-only tab switch via two
+  visually-hidden-but-focusable radio inputs + the general sibling
+  combinator — no JS. Social buttons are `disabled` with a "Coming soon"
+  title, per the UI-placeholder-only decision.
+- **CSS specificity bug found + fixed during verification:** the hidden
+  tab radios (`.auth-tab-input`, meant to collapse to 1px) were losing to
+  `.auth-card input { width: 100% }` — same specificity, later in the
+  cascade — which stretched them to full card width and caused ~45px of
+  horizontal overflow on mobile only (didn't show on desktop, where the
+  extra width fit). Fixed by qualifying the selector to
+  `.auth-card input.auth-tab-input` to unambiguously outrank it.
+- `static/css/map.css` + `map.html`: `.map-shell` is now `flex-direction:
+  column` with a `.top-bar` (fixed height) + `.world-map` (`flex: 1 1
+  auto`) instead of the old absolutely-positioned `.map-overlay` —
+  structural fix for the reported click-through bug, not just a z-index
+  tweak.
+- `static/js/map.js`: `updateVisitedCount()` writes to a
+  `[data-visited-count]` element (only present when logged in), called
+  from both `applyVisited()` (page load) and `toggleRegion()`.
+- Verified end-to-end with a real headless-Chrome session (puppeteer-core,
+  dev-only): real mouse click on the top bar's Login link, CSS-tab switch
+  via label click, register → top bar shows username + count + logout,
+  clicking a region live-updates the count, logout/re-login work via real
+  clicks (not just `page.goto`), 375px mobile has no horizontal overflow.
+  Full SP-4.1–SP-6 regression pass: keyboard toggle + reload persistence
+  + wheel zoom + drag pan + double-click reset (confirmed via direct event
+  dispatch after Puppeteer's synthetic `dblclick` proved unreliable in
+  headless — not an app bug) all still work with the resized viewport.
+- **Revision pass (post-user-review):** `account.html` reworked into
+  `.auth-shell` (CSS grid, two columns) — `.auth-hero` (decorative
+  gradient + inline SVG globe motif + tagline, `display: none` under
+  860px) and `.auth-card-wrap` (the existing card, now with refined input
+  focus rings, submit-button hover state, and small colored letter badges
+  on the social buttons). `maps/views.map_view` gained `@login_required`;
+  `LOGOUT_REDIRECT_URL` changed from `'map'` to `'login'` in
+  `config/settings.py` since routing a logged-out user through `map` now
+  just triggers a second redirect anyway. `map.html`'s top bar simplified
+  to drop its now-unreachable logged-out branch (username/count/logout
+  always render, since the view guarantees authentication). Re-verified
+  with the same puppeteer flow plus an explicit anonymous-GET-`/`-redirect
+  check; full Django suite (13 tests) still green.
+- **Final polish pass (user review):** removed the now-pointless "Back to
+  map" link from `account.html` (map requires login, so it just looped an
+  anonymous visitor back to `/login/`) and its now-unused `.auth-switch`
+  CSS. Sized down Django's password-requirements help text — found it's
+  rendered as `<span class="helptext"><ul>...</ul></span>` in Django's
+  source HTML, but browsers can't nest a `<ul>` inside the `<p>` that
+  wraps the field, so the parser ejects it to become a sibling of the
+  `<p>` instead of a descendant of `.helptext` — targeted
+  `.auth-card form ul/li` directly rather than `.helptext ul/li`, which
+  matched nothing. Styled Django's per-field `.errorlist` (previously
+  unstyled — plain black bullets) red and slightly larger, and bumped the
+  "Please fix the errors below" summary to bold/1rem so real validation
+  errors read clearly distinct from the neutral gray help text above them.
+
 ### SP-10: Toggle API endpoint *(Later)*
 **Status:** To Do
 **Description:** `POST /api/me/visits/toggle/` — CSRF-protected, validates

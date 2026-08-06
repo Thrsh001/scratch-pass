@@ -9,21 +9,19 @@
 </head>
 <body>
   <div class="map-shell">
-    <header class="map-overlay">
-      <h1>Scratch Pass</h1>
-      <p class="tagline">Scratch off every place you've been.</p>
-      <nav class="auth-nav">
-        {% if user.is_authenticated %}
-          <span class="auth-user">{{ user.username }}</span>
-          <form method="post" action="{% url 'logout' %}" class="logout-form">
-            {% csrf_token %}
-            <button type="submit">Log out</button>
-          </form>
-        {% else %}
-          <a href="{% url 'login' %}">Log in</a>
-          <a href="{% url 'register' %}">Register</a>
-        {% endif %}
-      </nav>
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <span class="top-bar-username">{{ user.username }}</span>
+      </div>
+      <div class="top-bar-center">
+        <span class="visited-count" data-visited-count>0 countries visited</span>
+      </div>
+      <div class="top-bar-right">
+        <form method="post" action="{% url 'logout' %}" class="logout-form">
+          {% csrf_token %}
+          <button type="submit">Log out</button>
+        </form>
+      </div>
     </header>
     <svg class="world-map" viewBox="0 0 1000 500" role="img" aria-label="World map">
       {% include "maps/partials/world.svg" %}

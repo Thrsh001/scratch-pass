@@ -60,6 +60,24 @@ class RegisterViewTests(TestCase):
         self.assertFalse(User.objects.filter(username="frank").exists())
 
 
+class AccountPageTests(TestCase):
+    def test_login_url_renders_shared_template_with_login_tab_active(self):
+        response = self.client.get(reverse("login"))
+
+        self.assertTemplateUsed(response, "maps/account.html")
+        self.assertEqual(response.context["active_tab"], "login")
+        self.assertContains(response, 'id="tab-login" class="auth-tab-input" checked')
+        self.assertContains(response, "Continue with Google")
+        self.assertContains(response, "Continue with Facebook")
+
+    def test_register_url_renders_shared_template_with_register_tab_active(self):
+        response = self.client.get(reverse("register"))
+
+        self.assertTemplateUsed(response, "maps/account.html")
+        self.assertEqual(response.context["active_tab"], "register")
+        self.assertContains(response, 'id="tab-register" class="auth-tab-input" checked')
+
+
 class LoginLogoutViewTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="gina", password="pw12345")
@@ -85,5 +103,23 @@ class LoginLogoutViewTests(TestCase):
 
         response = self.client.post(reverse("logout"))
 
-        self.assertRedirects(response, reverse("map"))
+        self.assertRedirects(response, reverse("login"))
         self.assertNotIn("_auth_user_id", self.client.session)
+
+
+class MapViewTests(TestCase):
+    def test_redirects_to_login_when_logged_out(self):
+        response = self.client.get(reverse("map"))
+
+        self.assertRedirects(
+            response, f"{reverse('login')}?next={reverse('map')}"
+        )
+
+    def test_renders_map_when_logged_in(self):
+        User.objects.create_user(username="hank", password="pw12345")
+        self.client.login(username="hank", password="pw12345")
+
+        response = self.client.get(reverse("map"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "maps/map.html")

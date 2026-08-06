@@ -36,11 +36,22 @@
   //   success flag), which saveVisited() then writes back to localStorage
   //   so localStorage keeps acting as an offline cache of server state.
   //
-  // Until SP-9 (auth) lands, there's no session to attach this to, so
-  // toggleRegion() below stays localStorage-only — this comment marks
-  // where the fetch call gets added, not a TODO to build it now.
+  // Auth now exists (SP-9), but the toggle/get-visits endpoints don't yet
+  // (SP-10/SP-11) — toggleRegion() below stays localStorage-only until
+  // then; this comment marks where the fetch call gets added, not a TODO
+  // to build it now.
 
   let visited = loadVisited();
+
+  // Top bar's visited-country count (SP-9.1) — only rendered when logged
+  // in; guarded since it's absent on the map page when logged out.
+  const visitedCountEl = document.querySelector("[data-visited-count]");
+
+  function updateVisitedCount() {
+    if (!visitedCountEl) return;
+    const n = visited.length;
+    visitedCountEl.textContent = `${n} ${n === 1 ? "country" : "countries"} visited`;
+  }
 
   function applyVisited() {
     document.querySelectorAll(".region").forEach((el) => {
@@ -48,6 +59,7 @@
       el.classList.toggle("visited", isVisited);
       el.setAttribute("aria-pressed", String(isVisited));
     });
+    updateVisitedCount();
   }
 
   function toggleRegion(el) {
@@ -57,6 +69,7 @@
       ? visited.filter((x) => x !== id)
       : [...visited, id];
     saveVisited(visited);
+    updateVisitedCount();
     el.classList.toggle("visited", visited.includes(id));
     el.setAttribute("aria-pressed", String(visited.includes(id)));
   }
