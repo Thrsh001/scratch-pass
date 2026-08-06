@@ -466,7 +466,11 @@ body {
   outline: none;
 }
 
-.region:hover,
+.region:hover {
+  filter: brightness(0.96);
+  outline: none;
+}
+
 .region:focus-visible {
   transform: scale(1.03);
   filter: brightness(0.96);

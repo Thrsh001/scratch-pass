@@ -114,6 +114,26 @@ full-viewport map, giving the SP-4.1 zoom/pan the most room to work with.
       `pointer-events: none` so it doesn't block map interaction underneath)
 - [x] `html, body` set to `overflow: hidden` since the map is the whole page
 
+### SP-4.3: Remove hover scale pop
+**Status:** Done
+**Description:** `.region:hover` scaled up (`transform: scale(1.03)`)
+alongside the brightness dim from SP-4 — user found the "pop" distracting
+and asked to keep only the color/brightness change on hover. Numbered as
+a further SP-4 sub-ticket (same pattern as SP-4.1/SP-4.2); split out of
+the SP-9.1 conversation since it's an unrelated map-CSS tweak, not part
+of the auth work (2026-08-06).
+**Acceptance criteria:**
+- [x] `.region:hover` no longer scales; brightness dim on hover unchanged
+- [x] `.region:focus-visible` keeps its scale — not part of this ask, and
+      it's a distinct keyboard-focus affordance separate from the
+      stroke-based indicator already in place
+
+Implementation note: split the combined `.region:hover, .region:focus-
+visible` rule so `:hover` only sets `filter: brightness(0.96)` and
+`:focus-visible` keeps both `transform: scale(1.03)` and the brightness
+dim. Verified via a real headless-Chrome session: computed `transform` on
+a region stays `none` during a real `hover()`, `filter` still dims.
+
 ### SP-5: JS click toggle + localStorage persistence
 **Status:** Done
 **Description:** Click handler toggles `.visited` and persists region ids to
