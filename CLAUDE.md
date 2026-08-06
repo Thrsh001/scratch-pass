@@ -129,6 +129,9 @@ click through it), summarize what changed and flag any risks.
 ## Git & commits
 
 - Solo project: commit straight to `main`, no feature branches or PRs.
+- After every commit, push to `origin main` immediately — no need to ask
+  first, this is standing authorization for this project (single dev,
+  single branch, no PR review to wait for).
 - One commit per logical unit of work — roughly one per phase-plan checklist
   item — not per file save; keep history bisectable.
 - Imperative, present-tense subject line (e.g. "Add map view + placeholder
