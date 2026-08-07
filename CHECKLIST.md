@@ -411,12 +411,45 @@ Implementation notes:
   scope is the backend endpoint only; `map.js` stays localStorage-only
   until SP-11 (GET endpoint) also exists, per the SP-8 comment.
 
-### SP-11: Get-visits API endpoint *(Later)*
-**Status:** To Do
+### SP-11: Get-visits API endpoint
+**Status:** Done
 **Description:** `GET /api/me/visits/` — hydrates the map with the logged-in
-user's `visited_regions` on load.
+user's `visited_regions` on load. Scope expanded (2026-08-07, user
+decision) to also wire the frontend to both this and SP-10's endpoint —
+`map.js` now actually calls them, per the plan doc's step 1-3 flow —
+rather than leaving that as a separate follow-up ticket.
 **Acceptance criteria:**
-- [ ] Returns the current user's visited list only (authz enforced)
+- [x] Returns the current user's visited list only (authz enforced)
+- [x] `map.js` calls `GET /api/me/visits/` on load to hydrate state
+      (server is the source of truth; `localStorage` is now an offline
+      cache/fallback, not authoritative)
+- [x] `map.js` calls `POST /api/me/visits/toggle/` on each click/keyboard
+      toggle (optimistic UI, rolls back on a failed request)
+
+Implementation notes:
+- `maps/views.get_visits`: same auth/response-shape pattern as
+  `toggle_visit` — clean `401` JSON for anonymous requests, `@require_GET`,
+  returns `{"visited": [...]}`.
+- `static/js/map.js`: `setVisited()` is the single place that updates
+  `visited`, `localStorage`, and the DOM together, used by initial
+  hydration, toggle's optimistic update, the server's confirmation
+  response, and the failure-rollback path — avoids the four call sites
+  drifting out of sync with each other.
+- Deliberately does a **replace**, not a union merge, on hydration — the
+  map has required login since SP-9.1, so there's no meaningful guest
+  `localStorage` state left to preserve by the time this runs (SP-12's
+  merge ticket predates that change and may need revisiting, per the note
+  under SP-9.1).
+- Verified end-to-end with a real headless-Chrome session (puppeteer-core,
+  dev-only): confirmed the actual network calls fire (`GET` on load,
+  `POST` on toggle) via Puppeteer's request listener, not just the
+  resulting UI state. Proved hydration is genuinely server-backed (not
+  just re-reading `localStorage`) by clearing `localStorage`, reloading,
+  and confirming the visited region + count still render correctly from
+  the server, with `localStorage` then resynced. Regression-checked
+  keyboard toggle and zoom/pan still work. 29 Django tests unaffected
+  (this ticket only added backend tests for `get_visits`; the frontend
+  wiring has no Python-side test surface).
 
 ### SP-12: Guest-to-login merge *(Later)*
 **Status:** To Do

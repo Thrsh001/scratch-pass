@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_GET, require_POST
 
 from .regions import valid_region_ids
 
@@ -14,6 +14,14 @@ from .regions import valid_region_ids
 @login_required
 def map_view(request):
     return render(request, "maps/map.html")
+
+
+@require_GET
+def get_visits(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "authentication required"}, status=401)
+
+    return JsonResponse({"visited": request.user.profile.visited_regions})
 
 
 @require_POST

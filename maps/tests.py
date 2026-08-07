@@ -236,3 +236,38 @@ class ToggleVisitViewTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 403)
+
+
+class GetVisitsViewTests(TestCase):
+    def test_returns_empty_list_when_nothing_visited(self):
+        User.objects.create_user(username="liam", password="pw12345")
+        self.client.login(username="liam", password="pw12345")
+
+        response = self.client.get(reverse("get_visits"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"visited": []})
+
+    def test_returns_only_the_requesting_users_visited_list(self):
+        liam = User.objects.create_user(username="liam2", password="pw12345")
+        liam.profile.toggle_region("US")
+        mia = User.objects.create_user(username="mia", password="pw12345")
+        mia.profile.toggle_region("IT")
+
+        self.client.login(username="liam2", password="pw12345")
+        response = self.client.get(reverse("get_visits"))
+
+        self.assertEqual(response.json(), {"visited": ["US"]})
+
+    def test_rejects_anonymous_request(self):
+        response = self.client.get(reverse("get_visits"))
+
+        self.assertEqual(response.status_code, 401)
+
+    def test_rejects_post_request(self):
+        User.objects.create_user(username="noah", password="pw12345")
+        self.client.login(username="noah", password="pw12345")
+
+        response = self.client.post(reverse("get_visits"))
+
+        self.assertEqual(response.status_code, 405)

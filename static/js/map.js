@@ -25,21 +25,17 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
   }
 
-  // Phase 2 swap point (SP-10/SP-11): once a user is authenticated, region
-  // toggles will also need to sync to the server so `visited_regions`
-  // persists across devices. Planned shape, per CLAUDE.md's API rules:
-  //
-  //   toggleRegion() will POST to /api/me/visits/toggle/ with:
-  //     - body: { region: id }
-  //     - header: X-CSRFToken, read from the `csrftoken` cookie
-  //   The response returns the full updated `visited` list (not just a
-  //   success flag), which saveVisited() then writes back to localStorage
-  //   so localStorage keeps acting as an offline cache of server state.
-  //
-  // Auth now exists (SP-9), but the toggle/get-visits endpoints don't yet
-  // (SP-10/SP-11) — toggleRegion() below stays localStorage-only until
-  // then; this comment marks where the fetch call gets added, not a TODO
-  // to build it now.
+  function getCsrfToken() {
+    const match = document.cookie.match(/(?:^|; )csrftoken=([^;]+)/);
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  // Server sync (SP-10/SP-11): the map only ever renders for an
+  // authenticated user (SP-9.1's @login_required), so on load we hydrate
+  // from the server rather than trusting whatever's in localStorage, and
+  // every toggle both updates the UI optimistically *and* persists to the
+  // server. localStorage stays in sync throughout, acting as an offline
+  // cache/fallback if a request fails, not the source of truth.
 
   let visited = loadVisited();
 
@@ -62,19 +58,45 @@
     updateVisitedCount();
   }
 
+  function setVisited(ids) {
+    visited = Array.isArray(ids) ? ids : visited;
+    saveVisited(visited);
+    applyVisited();
+  }
+
   function toggleRegion(el) {
     const id = el.dataset.region;
     if (!id) return;
-    visited = visited.includes(id)
-      ? visited.filter((x) => x !== id)
-      : [...visited, id];
-    saveVisited(visited);
-    updateVisitedCount();
-    el.classList.toggle("visited", visited.includes(id));
-    el.setAttribute("aria-pressed", String(visited.includes(id)));
+
+    const wasVisited = visited.includes(id);
+    // Optimistic: reflect the change immediately, don't wait on the network.
+    setVisited(wasVisited ? visited.filter((x) => x !== id) : [...visited, id]);
+
+    fetch("/api/me/visits/toggle/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": getCsrfToken(),
+      },
+      body: JSON.stringify({ region: id }),
+    })
+      .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+      .then((data) => setVisited(data.visited))
+      .catch(() => {
+        // Server didn't confirm it (offline, error) — roll back so the UI
+        // doesn't drift from what's actually persisted.
+        setVisited(wasVisited ? [...visited, id] : visited.filter((x) => x !== id));
+      });
   }
 
   applyVisited();
+
+  fetch("/api/me/visits/", { headers: { Accept: "application/json" } })
+    .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+    .then((data) => setVisited(data.visited))
+    .catch(() => {
+      // Offline or the request failed — keep whatever localStorage had.
+    });
 
   svg.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
