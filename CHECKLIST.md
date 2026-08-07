@@ -465,22 +465,87 @@ back on failure). `localStorage` is now always a mirror/fallback of
 server state, never a source of local-only data the server doesn't have,
 so there is nothing left to merge. Confirmed with the user before removal.
 
-### SP-13: Subdivision maps + missing-entity pass *(Later)*
-**Status:** To Do
-**Description:** Drill-down maps using `COUNTRY:SUBREGION` ids (e.g. `IT:TO`
-for Tuscany), per the locked id scheme. Scope expanded (2026-08-01, user
-decision) to also add the 62 ISO 3166-1 entities missing from the current
-top-level map — see the "Known gap" note under SP-3 for the full list and
-root cause (Natural Earth 1:110m omits them entirely, not just simplifies
-them; 50m/10m have them). Source those from the 50m or 10m dataset and
-reproject into the existing 1000×500 equirectangular `viewBox` without
-disturbing the current 175 paths' geometry.
+### SP-13: Subdivision maps + missing-entity pass
+**Status:** Split into SP-13.1 + SP-13.2 (2026-08-07, planning decision)
+**Description:** Originally bundled two very differently-sized pieces of
+work — adding the 62 missing top-level entities (data-only, low risk) and
+building the first `COUNTRY:SUBREGION` drill-down map (new UI pattern,
+higher risk). Split so the smaller, lower-risk half ships and gets
+reviewed before the bigger one starts, same pattern as the SP-4.x/SP-9.x
+sub-tickets. See `/home/thrsh/.claude/plans/wiggly-dancing-fog.md` for the
+full researched plan (data sources, projection formulas, verified ISO
+codes) behind both sub-tickets.
+
+### SP-13.1: Missing-entity pass
+**Status:** Done
+**Description:** Add the 62 ISO 3166-1 entities missing from the top-level
+map — see the "Known gap" note under SP-3 for the full list and root cause
+(Natural Earth 1:110m omits them entirely, not just simplifies them; 50m
+has them). Sourced from `ne_50m_admin_0_countries.geojson`
+(nvkelso/natural-earth-vector — same public-domain lineage as SP-3),
+reprojected with the exact same equirectangular formula already in use
+(`x=(lon+180)*(1000/360)`, `y=(90-lat)*(500/180)`, reverse-engineered and
+confirmed against existing IT/FR paths) and appended — not interleaved —
+so the original 175 paths' geometry is provably untouched (git diff shows
+insertions only).
 **Acceptance criteria:**
-- [ ] At least one country's subdivision map implemented
-- [ ] The 62 missing entities (28 UN member states + ~34 territories, listed
-      under SP-3) added to the top-level world map as individual `<path>`s,
-      consistent with the existing projection/style
-- [ ] Ids follow `CC:SUBDIV` format; existing country-level entries unaffected
+- [x] The 62 missing entities added to the top-level world map as
+      individual `<path>`s, consistent with the existing projection/style
+- [x] Existing 175 paths' geometry unaffected (append-only diff)
+
+Implementation notes:
+- One-off Python conversion script (not committed — same precedent as
+  SP-3's original script, which also wasn't shipped): fetches the 50m
+  geojson, pre-processes with `ogr2ogr -wrapdateline` (so Pacific entries
+  crossing the antimeridian don't produce broken geometry), filters to the
+  62 missing `ISO_A2` codes (diffed precisely against the current 175
+  during planning — matches the "28 UN states + ~34 territories"
+  breakdown exactly), projects, and appends `<path>` elements matching the
+  existing attribute set/style exactly.
+- No backend code changes needed — `maps/regions.py`'s
+  `valid_region_ids()` already derives its allowlist by parsing
+  `world.svg` directly (a deliberate SP-10 design choice specifically so
+  additions like this wouldn't require touching Python).
+- **Investigated and ruled out as a false alarm:** Kiribati and Fiji's
+  `getBBox()` widths initially looked like antimeridian-wrapping bugs
+  (~970-1000, nearly the full map width). Verified against raw coordinates
+  and rendered screenshots — both are legitimate: Kiribati's islands
+  genuinely span from ~169°E to ~151°W in reality (a well-known geography
+  fact — it's the only country in all four hemispheres), and Fiji
+  genuinely straddles the antimeridian, splitting into two well-formed
+  fragments at opposite map edges — an inherent, expected property of any
+  equirectangular projection at the date line (same as how Russia/Alaska
+  typically render on flat world maps), not a rendering defect. No fix
+  needed; each individual sub-polygon is compact and correctly shaped.
+- **Finding, not fixed (flagged for a possible future ticket):** several
+  of the new micro-states (e.g. Monaco, ~8.7×5.6px even at the current 40x
+  max zoom) fall well under the 24px WCAG touch-target minimum SP-6
+  established for the original 175 — they're smaller than Luxembourg was.
+  Raising max zoom further is a global map-behavior change affecting more
+  than just these entities, so it's out of scope here; not blocking.
+- Verified end-to-end with a real headless-Chrome session (puppeteer-core,
+  dev-only): all 237 regions render, a new entity (Monaco) is clickable
+  and toggles correctly with the count updating, full SP-4.1–SP-6
+  regression pass (keyboard toggle, zoom, pan, reload persistence, mobile
+  no-overflow at 375px) all still pass. 30 Django tests (2 new).
+
+### SP-13.2: Italy subdivision drill-down *(Later)*
+**Status:** To Do
+**Description:** Drill-down maps using `COUNTRY:SUBREGION` ids, per the
+locked id scheme — first implementation for Italy. Full plan (data
+pipeline, projection, UI pattern, all decisions already confirmed with the
+user) at `/home/thrsh/.claude/plans/wiggly-dancing-fog.md`.
+**Acceptance criteria:**
+- [ ] Italy's 20 regions implemented as a drill-down map, ids using real
+      ISO 3166-2:IT codes (e.g. `IT:52` for Toscana) — confirmed via
+      Wikipedia during planning, not invented abbreviations
+- [ ] In-place swap UI: a "view regions" affordance appears once Italy is
+      the last-tapped region on the world map; swaps to the region map in
+      the same page, with a way back
+- [ ] Region toggles (`IT:52`) and the country-level toggle (`IT`) are
+      fully independent — no derived/aggregate logic
+- [ ] `maps/regions.py`'s allowlist covers subdivision ids automatically
+      (glob-based, no hardcoded list, consistent with SP-10's design)
 
 ### SP-14: PostgreSQL production database switch *(Later)*
 **Status:** To Do

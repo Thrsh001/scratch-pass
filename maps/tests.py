@@ -155,7 +155,14 @@ class ValidRegionIdsTests(TestCase):
 
         self.assertIn("US", ids)
         self.assertIn("IT", ids)
-        self.assertEqual(len(ids), 175)
+        self.assertEqual(len(ids), 237)
+
+    def test_contains_sp13_missing_entities(self):
+        ids = valid_region_ids()
+
+        self.assertIn("MC", ids)  # Monaco
+        self.assertIn("SG", ids)  # Singapore
+        self.assertIn("VA", ids)  # Vatican City
 
     def test_excludes_malformed_or_unknown_codes(self):
         ids = valid_region_ids()
