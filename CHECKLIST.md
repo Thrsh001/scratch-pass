@@ -411,3 +411,27 @@ disturbing the current 175 paths' geometry.
       under SP-3) added to the top-level world map as individual `<path>`s,
       consistent with the existing projection/style
 - [ ] Ids follow `CC:SUBDIV` format; existing country-level entries unaffected
+
+### SP-14: PostgreSQL production database switch *(Later)*
+**Status:** To Do
+**Description:** Wire `config/settings.py`'s `DATABASES` to switch from
+SQLite (dev default) to PostgreSQL via environment variables, per the
+plan doc's locked "SQLite (dev) → PostgreSQL (prod)" decision (`CLAUDE.md`
+Stack section; plan doc line ~37). No model/schema changes needed —
+`UserProfile.visited_regions` (JSONField) works identically on both
+engines under Django's ORM. Deploy-config work, not blocking SP-10–13
+(those are ORM-level and work the same against SQLite); added as its own
+ticket (2026-08-07, user request) rather than folding into deployment
+happening implicitly, so it's tracked and doesn't get skipped.
+**Acceptance criteria:**
+- [ ] `DATABASES` reads Postgres connection settings from environment
+      variables (consistent with the existing `python-decouple` pattern
+      used for `SECRET_KEY`/`DEBUG`), falling back to the current SQLite
+      config when those vars are unset — local `runserver`/tests keep
+      working with zero setup
+- [ ] Postgres driver added to `requirements.txt`
+- [ ] `README.md` documents the required env vars and how to point at a
+      local or production Postgres instance
+- [ ] Verified against a real (e.g. Dockerized) Postgres instance, not
+      just SQLite: migrations apply cleanly, `UserProfile` CRUD and the
+      existing test suite pass with `DATABASES` pointed at it
