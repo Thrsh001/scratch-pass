@@ -451,13 +451,19 @@ Implementation notes:
   (this ticket only added backend tests for `get_visits`; the frontend
   wiring has no Python-side test surface).
 
-### SP-12: Guest-to-login merge *(Later)*
-**Status:** To Do
-**Description:** On first login, reconcile existing `localStorage` state
-with server state via a union merge rather than overwriting either side.
-**Acceptance criteria:**
-- [ ] Merge is a union (no data loss on either side)
-- [ ] `localStorage` resynced from the server response after merge
+### SP-12: Guest-to-login merge
+**Status:** Removed (2026-08-07) — superseded by SP-9.1/SP-11
+**Description (original):** On first login, reconcile existing
+`localStorage` state with server state via a union merge rather than
+overwriting either side.
+**Why removed:** This ticket assumed an anonymous/guest phase where
+`localStorage` could accumulate visited regions before an account existed,
+needing reconciliation on first login. That phase no longer exists —
+SP-9.1 made the map require login before any toggle can happen, and SP-11
+made every toggle sync to the server immediately (optimistic UI, rolls
+back on failure). `localStorage` is now always a mirror/fallback of
+server state, never a source of local-only data the server doesn't have,
+so there is nothing left to merge. Confirmed with the user before removal.
 
 ### SP-13: Subdivision maps + missing-entity pass *(Later)*
 **Status:** To Do
