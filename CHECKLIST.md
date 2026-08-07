@@ -529,23 +529,78 @@ Implementation notes:
   regression pass (keyboard toggle, zoom, pan, reload persistence, mobile
   no-overflow at 375px) all still pass. 30 Django tests (2 new).
 
-### SP-13.2: Italy subdivision drill-down *(Later)*
-**Status:** To Do
+### SP-13.2: Italy subdivision drill-down
+**Status:** Done
 **Description:** Drill-down maps using `COUNTRY:SUBREGION` ids, per the
 locked id scheme — first implementation for Italy. Full plan (data
-pipeline, projection, UI pattern, all decisions already confirmed with the
-user) at `/home/thrsh/.claude/plans/wiggly-dancing-fog.md`.
+pipeline, projection, UI pattern, all decisions confirmed with the user)
+at `/home/thrsh/.claude/plans/wiggly-dancing-fog.md`.
 **Acceptance criteria:**
-- [ ] Italy's 20 regions implemented as a drill-down map, ids using real
-      ISO 3166-2:IT codes (e.g. `IT:52` for Toscana) — confirmed via
-      Wikipedia during planning, not invented abbreviations
-- [ ] In-place swap UI: a "view regions" affordance appears once Italy is
+- [x] Italy's 20 regions implemented as a drill-down map, ids using real
+      ISO 3166-2:IT codes (e.g. `IT:52` for Toscana) — verified against
+      Wikipedia's ISO_3166-2:IT article during planning, not invented
+      abbreviations
+- [x] In-place swap UI: a "view regions" affordance appears once Italy is
       the last-tapped region on the world map; swaps to the region map in
       the same page, with a way back
-- [ ] Region toggles (`IT:52`) and the country-level toggle (`IT`) are
+- [x] Region toggles (`IT:52`) and the country-level toggle (`IT`) are
       fully independent — no derived/aggregate logic
-- [ ] `maps/regions.py`'s allowlist covers subdivision ids automatically
+- [x] `maps/regions.py`'s allowlist covers subdivision ids automatically
       (glob-based, no hardcoded list, consistent with SP-10's design)
+
+Implementation notes:
+- One-off Python conversion script (not committed, same precedent as
+  SP-3/SP-13.1): dissolves Natural Earth's 1:10m admin-1
+  provinces/states set (filtered to Italy's 110 provinces) into the 20
+  real regions via `ogr2ogr -dialect sqlite -sql "SELECT region,
+  ST_Union(geometry) ... GROUP BY region"`, maps each to its real ISO
+  3166-2:IT code via a small hand-built lookup table (Natural Earth's
+  admin-1 data has no region-level ISO code for Italy, only
+  province-level — needed either way regardless of code scheme), and
+  projects with a **local** equirectangular fit to Italy's own bounding
+  box (not the world map's 1000×500 space, where these would be
+  sub-pixel) into a new `maps/templates/maps/partials/subdivisions/it.svg`.
+- `data-region` uses the colon form (`IT:52`, the locked separator) but
+  `id` uses a dash (`IT-52`) — deliberately diverging, since `:` is
+  reserved in CSS selector syntax and would break `#id` lookups;
+  `data-region` remains the single source of truth per CLAUDE.md.
+- `maps/regions.py`: `valid_region_ids()` now also globs
+  `partials/subdivisions/*.svg` and accepts the `XX:YY` id form —
+  automatic, no hardcoded per-country list.
+- No other backend changes: `UserProfile.toggle_region` and the
+  toggle/get-visits endpoints already treated region ids as opaque
+  validated strings; a colon-containing id needed no special handling.
+- `map.js`/`map.html`/`map.css`: turned out simpler than planned — the
+  subdivision view needs no zoom/pan/tap-vs-drag machinery at all (20
+  regions in a tightly-fitted local viewBox, plain click/keydown reusing
+  the existing `toggleRegion`), so no generalization of the world map's
+  pan/zoom code was needed. `updateVisitedCount()` gained a mode: total
+  country count normally, region-count-within-Italy while drilled in.
+- **Bug found + fixed during verification:** `.hidden = true/false` does
+  not reliably reflect to the `hidden` content attribute on `SVGElement`
+  in this environment (it does on plain HTML elements, which is why the
+  drill-down/back buttons worked immediately but the `<svg>` swap
+  silently did nothing) — switched to explicit
+  `setAttribute`/`removeAttribute("hidden")` for the two `<svg>` elements.
+- **Bug found + fixed during verification:** the refactored
+  `updateVisitedCount()` produced "2 countrys visited" — the generic
+  `label + (n===1?"":"s")` pluralization doesn't handle an irregular
+  plural; fixed with explicit singular/plural strings for both "country"/
+  "countries" and "region"/"regions".
+- Investigated Kiribati/Fiji's unusually wide `getBBox()` during SP-13.1
+  and initially suspected a rendering bug — ruled out (legitimate
+  antimeridian geography), documented under SP-13.1.
+- Verified end-to-end with a real headless-Chrome session (puppeteer-core,
+  dev-only): clicking Italy at world scale still toggles `IT` normally
+  (independence check) and reveals the drill-down button; drilling in
+  renders and correctly positions all 20 regions (visually confirmed —
+  unmistakably Italy, Sardinia/Sicily correctly placed); toggling Toscana
+  fires `POST {"region":"IT:52"}`, highlights the right region, and
+  switches the count to "N regions visited"; the back button returns to
+  the world map with `IT`'s own toggle state unaffected; both toggles
+  persist across a full page reload. Full regression pass (keyboard
+  toggle, zoom/pan, mobile no-overflow at 375px) still green. 34 Django
+  tests (5 new).
 
 ### SP-14: PostgreSQL production database switch *(Later)*
 **Status:** To Do

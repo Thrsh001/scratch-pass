@@ -15,6 +15,8 @@
       </div>
       <div class="top-bar-center">
         <span class="visited-count" data-visited-count>0 countries visited</span>
+        <button type="button" class="drill-down-btn" data-drill-down-btn hidden></button>
+        <button type="button" class="back-to-world-btn" data-back-to-world-btn hidden>&larr; World map</button>
       </div>
       <div class="top-bar-right">
         <form method="post" action="{% url 'logout' %}" class="logout-form">
@@ -25,7 +27,12 @@
     </header>
     <svg class="world-map" viewBox="0 0 1000 500" role="img" aria-label="World map">
       {% include "maps/partials/world.svg" %}
-      <!-- Future subdivision ids will look like "IT:TO". -->
+    </svg>
+    <!-- Subdivision drill-down maps (SP-13.2) — one per drillable country,
+         hidden until map.js swaps to it. Only Italy exists so far; this'll
+         need to become a loop once a second country gets subdivisions. -->
+    <svg class="subdivision-map" viewBox="0 0 700 682.7" role="img" aria-label="Italy's regions" data-country="IT" hidden>
+      {% include "maps/partials/subdivisions/it.svg" %}
     </svg>
   </div>
   <script src="{% static 'js/map.js' %}"></script>

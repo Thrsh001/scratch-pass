@@ -155,7 +155,9 @@ class ValidRegionIdsTests(TestCase):
 
         self.assertIn("US", ids)
         self.assertIn("IT", ids)
-        self.assertEqual(len(ids), 237)
+        # 237 top-level (world.svg) + 20 Italy subdivisions (SP-13.2)
+        self.assertEqual(len(ids), 257)
+        self.assertEqual(sum(1 for i in ids if ":" not in i), 237)
 
     def test_contains_sp13_missing_entities(self):
         ids = valid_region_ids()
@@ -163,6 +165,12 @@ class ValidRegionIdsTests(TestCase):
         self.assertIn("MC", ids)  # Monaco
         self.assertIn("SG", ids)  # Singapore
         self.assertIn("VA", ids)  # Vatican City
+
+    def test_contains_italy_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("IT:52", ids)  # Toscana
+        self.assertEqual(sum(1 for i in ids if i.startswith("IT:")), 20)
 
     def test_excludes_malformed_or_unknown_codes(self):
         ids = valid_region_ids()
@@ -205,6 +213,26 @@ class ToggleVisitViewTests(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(UserProfile.objects.get(user=self.user).visited_regions, [])
+
+    def test_accepts_subdivision_region_id(self):
+        response = self._post("IT:52")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"visited": ["IT:52"]})
+
+    def test_country_and_subdivision_toggles_are_independent(self):
+        self._post("IT")
+        self._post("IT:52")
+
+        self.assertEqual(
+            sorted(UserProfile.objects.get(user=self.user).visited_regions),
+            ["IT", "IT:52"],
+        )
+
+    def test_rejects_unknown_subdivision_id(self):
+        response = self._post("IT:99")
+
+        self.assertEqual(response.status_code, 400)
 
     def test_rejects_missing_region_key(self):
         response = self.client.post(
