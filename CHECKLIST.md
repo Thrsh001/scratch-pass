@@ -371,14 +371,45 @@ Implementation notes:
   "Please fix the errors below" summary to bold/1rem so real validation
   errors read clearly distinct from the neutral gray help text above them.
 
-### SP-10: Toggle API endpoint *(Later)*
-**Status:** To Do
+### SP-10: Toggle API endpoint
+**Status:** Done
 **Description:** `POST /api/me/visits/toggle/` — CSRF-protected, validates
 the submitted region id, returns the full updated `visited` list.
 **Acceptance criteria:**
-- [ ] Endpoint validates region id format before storing
-- [ ] CSRF enforced
-- [ ] Response returns updated list; response shape matches `GET` (SP-11)
+- [x] Endpoint validates region id format before storing
+- [x] CSRF enforced
+- [x] Response returns updated list; response shape matches `GET` (SP-11)
+      — `{"visited": [...]}`, both endpoints will share it
+
+Implementation notes:
+- `maps/regions.py`: `valid_region_ids()` — the allowlist is sourced
+  directly from `world.svg`'s `data-region` attributes (regex + cached
+  with `lru_cache`) rather than a hand-maintained duplicate list, so it
+  can't drift out of sync with the map and automatically picks up SP-13's
+  future additions.
+- `maps/models.py`: persistence logic lives in
+  `UserProfile.toggle_region()`, not the view, per CLAUDE.md. Wrapped in
+  `transaction.atomic()` with `select_for_update()` — a toggle is a
+  read-modify-write, so without the row lock two rapid requests (double-
+  click, multi-tab) could race and clobber each other's result. This is a
+  no-op on SQLite (dev) but becomes real row locking once SP-14 switches
+  to Postgres.
+- `maps/views.py`: `toggle_visit` returns a clean `401` JSON body for
+  unauthenticated requests rather than `@login_required`'s HTML redirect,
+  since this is a JSON API, not a page. `@require_POST` for the method
+  check; CSRF is enforced by the existing global `CsrfViewMiddleware` (no
+  `@csrf_exempt`) — the cookie is already set on every map page load via
+  the logout form's `{% csrf_token %}`.
+- Verified end-to-end with a real headless-Chrome session (puppeteer-core,
+  dev-only): real `fetch()` with the `X-CSRFToken` header read from
+  `document.cookie` — toggle adds/removes correctly, a request missing the
+  CSRF header gets `403`, an unknown region id (`"ZZ"`) gets `400` and
+  isn't stored. 25 Django tests total (8 new), all green, including
+  `Client(enforce_csrf_checks=True)` to confirm CSRF is genuinely enforced
+  and not silently bypassed by the test client's default.
+- Frontend JS is intentionally **not** wired to this endpoint yet — SP-10's
+  scope is the backend endpoint only; `map.js` stays localStorage-only
+  until SP-11 (GET endpoint) also exists, per the SP-8 comment.
 
 ### SP-11: Get-visits API endpoint *(Later)*
 **Status:** To Do
