@@ -21,3 +21,12 @@ def valid_region_ids():
     for text in texts:
         ids.update(_REGION_ATTR_RE.findall(text))
     return frozenset(ids)
+
+
+def has_subdivisions(code):
+    """True if `code` is a country with its own drill-down regions (e.g.
+    "IT"). Such a country's visited state is derived client-side from its
+    regions rather than stored directly, so it should never be toggled on
+    its own — used to reject that at the API boundary too."""
+    prefix = f"{code}:"
+    return any(region_id.startswith(prefix) for region_id in valid_region_ids())

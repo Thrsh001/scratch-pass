@@ -15,8 +15,6 @@
       </div>
       <div class="top-bar-center">
         <span class="visited-count" data-visited-count>0 countries visited</span>
-        <button type="button" class="drill-down-btn" data-drill-down-btn hidden></button>
-        <button type="button" class="back-to-world-btn" data-back-to-world-btn hidden>&larr; World map</button>
       </div>
       <div class="top-bar-right">
         <form method="post" action="{% url 'logout' %}" class="logout-form">
@@ -27,13 +25,21 @@
     </header>
     <svg class="world-map" viewBox="0 0 1000 500" role="img" aria-label="World map">
       {% include "maps/partials/world.svg" %}
+      <!-- Subdivision drill-down (redefined): rendered in the SAME
+           coordinate space as world.svg (same projection formula), so
+           clicking a country zooms in on it in place rather than swapping
+           to a separate view — neighbors stay visible. One <g> per
+           drillable country, hidden until map.js swaps it in. Only Italy
+           exists so far; this'll need to become a loop once a second
+           country gets subdivisions. -->
+      <g class="subdivision-group" data-country="IT" hidden>
+        {% include "maps/partials/subdivisions/it.svg" %}
+      </g>
     </svg>
-    <!-- Subdivision drill-down maps (SP-13.2) — one per drillable country,
-         hidden until map.js swaps to it. Only Italy exists so far; this'll
-         need to become a loop once a second country gets subdivisions. -->
-    <svg class="subdivision-map" viewBox="0 0 700 682.7" role="img" aria-label="Italy's regions" data-country="IT" hidden>
-      {% include "maps/partials/subdivisions/it.svg" %}
-    </svg>
+    <!-- Plain text hint for now — may become a real clickable button
+         (an explicit tap-to-exit affordance) instead of a pure gesture
+         hint, if double-click/tap alone doesn't prove discoverable enough. -->
+    <div class="drilldown-hint" data-drilldown-hint hidden>Double click/tap to return</div>
   </div>
   <script src="{% static 'js/map.js' %}"></script>
 </body>

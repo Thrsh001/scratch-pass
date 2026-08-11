@@ -78,24 +78,6 @@ body {
   white-space: nowrap;
 }
 
-/* SP-13.2 drill-down affordance + its "back" counterpart — same look as
-   the top bar's other text buttons/links. */
-.drill-down-btn,
-.back-to-world-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  color: var(--color-visited);
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.drill-down-btn:hover,
-.back-to-world-btn:hover {
-  text-decoration: underline;
-}
-
 .top-bar-username {
   font-weight: 600;
   overflow: hidden;
@@ -464,28 +446,6 @@ body {
   cursor: grabbing;
 }
 
-/* Subdivision drill-down maps (SP-13.2) — share the world map's sizing
-   rule so swapping which one is visible doesn't shift layout, but no
-   touch-action/cursor overrides since there's no pan gesture here, just
-   plain clicks. */
-.subdivision-map {
-  display: block;
-  width: 100%;
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-/* map.js toggles the `hidden` attribute to swap between .world-map and
-   .subdivision-map. Both set their own unconditional `display: block`
-   above (same specificity as the browser's default `[hidden] {
-   display:none }`) — author styles win origin ties over user-agent
-   styles regardless of specificity, so without this override `hidden`
-   would do nothing. */
-.world-map[hidden],
-.subdivision-map[hidden] {
-  display: none;
-}
-
 .region {
   fill: var(--color-region);
   stroke: var(--color-region-stroke);
@@ -499,7 +459,8 @@ body {
   transition:
     fill 420ms ease,
     transform 220ms ease,
-    filter 220ms ease;
+    filter 220ms ease,
+    opacity 220ms ease;
   cursor: pointer;
   /* Chromium paints a default focus rectangle (bounding-box, not path-
      shaped) on focusable SVG shapes that isn't fully governed by the
@@ -507,6 +468,15 @@ body {
      unconditionally on :focus, not just :focus-visible, and rely on the
      stroke-based indicator below for the actual visible cue. */
   outline: none;
+}
+
+/* SVG has no `[hidden] { display: none }` rule in its default stylesheet
+   at all (unlike HTML) — without this, the `hidden` attribute map.js sets
+   on the drilled-out-of-view country path and on `.subdivision-group`
+   has zero visual effect and both layers render simultaneously. */
+.region[hidden],
+.subdivision-group[hidden] {
+  display: none;
 }
 
 .region:hover {
@@ -527,6 +497,30 @@ body {
 
 .region.visited {
   fill: var(--color-visited);
+}
+
+/* Drill-down (redefined): every region outside the country being explored
+   dims and goes inert — map.js also drops tabindex to -1 alongside this,
+   so a dimmed region is unreachable by mouse, touch, and keyboard alike.
+   The only way back is double-click/tap (locked out of pan/zoom too). */
+.region.dimmed {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.drilldown-hint {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 20;
+  background: rgb(61 105 84 / 70%);
+  color: #fff;
+  padding: 1.5rem 1.9rem;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  font-weight: 550;
+  box-shadow: var(--shadow-card);
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

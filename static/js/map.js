@@ -5,6 +5,12 @@
 // Click-to-toggle: a pointerdown->pointerup with little to no movement is a
 // tap (toggles the region); one that moved past TAP_MOVE_THRESHOLD is a pan
 // and does not toggle anything.
+//
+// Subdivision drill-down: clicking a country with subdivisions (currently
+// just Italy) zooms in on it in place — same <svg>, same coordinate space,
+// neighbors stay visible — rather than swapping to a separate view.
+// Double-click/tap while drilled in zooms back out to wherever the view was
+// before drilling in, instead of resetting to the whole world.
 (() => {
   const svg = document.querySelector(".world-map");
   if (!svg) return;
@@ -39,104 +45,83 @@
 
   let visited = loadVisited();
 
-  // Subdivision drill-down (SP-13.2) — country-level ("IT") and
-  // subdivision-level ("IT:52") ids are fully independent entries in the
-  // same flat `visited` list (no derived/aggregate logic). SUBDIVISIONS
-  // maps a top-level code to its drill-down <svg>; only Italy exists so
-  // far, but this stays a lookup rather than hardcoding "IT" everywhere
-  // so a second country is a one-line addition, not a rewrite.
+  // Countries with a drill-down map. bbox is that country's real lon/lat
+  // extent, padded a couple degrees for neighbor context, used to zoom in
+  // on click. A country listed here is never manually toggled — its
+  // visited state is *derived* (see isCountryVisitedViaSubdivisions): any
+  // one of its regions being visited marks the whole country visited.
   const SUBDIVISIONS = {
-    IT: { label: "Italy" },
+    IT: { bbox: { lonMin: 4.6, lonMax: 20.52, latMin: 33.49, latMax: 49.09 } },
   };
-  let activeSubdivision = null; // e.g. "IT" while its region map is shown
-  let lastTappedRegion = null;
+  let drilldownCountry = null; // e.g. "IT" while its regions are shown
+  let preDrilldownView = null; // view rect saved the moment drill-down started
 
-  const drillDownBtn = document.querySelector("[data-drill-down-btn]");
-  const backToWorldBtn = document.querySelector("[data-back-to-world-btn]");
+  // `.hidden = true/false` doesn't reliably reflect to the `hidden`
+  // content attribute on SVGElement in this environment (it does on plain
+  // HTML elements) — set the attribute directly so `[hidden]` CSS rules
+  // actually take effect.
+  function setHidden(el, isHidden) {
+    if (isHidden) el.setAttribute("hidden", "");
+    else el.removeAttribute("hidden");
+  }
 
-  function subdivisionSvgFor(code) {
-    return document.querySelector(`.subdivision-map[data-country="${code}"]`);
+  function isCountryVisitedViaSubdivisions(code) {
+    if (!SUBDIVISIONS[code]) return null;
+    const prefix = `${code}:`;
+    return visited.some((id) => id.startsWith(prefix));
+  }
+
+  // Dims every region outside the active drill-down (everything but the
+  // country being explored) and makes them inert — `.dimmed`'s CSS sets
+  // pointer-events: none, and dropping tabindex removes them from the tab
+  // order too, so a keyboard user can't reach an unclickable region either.
+  function setDimmed(isDimmed) {
+    document.querySelectorAll(".region").forEach((el) => {
+      if (el.closest(".subdivision-group")) return;
+      el.classList.toggle("dimmed", isDimmed);
+      el.setAttribute("tabindex", isDimmed ? "-1" : "0");
+    });
+  }
+
+  // `.region` elements don't change at runtime, so the top-level (country)
+  // code list only needs computing once, not on every count update.
+  const topLevelCodes = [...document.querySelectorAll(".region")]
+    .map((el) => el.dataset.region)
+    .filter((code) => code && !code.includes(":"));
+
+  function isEffectivelyVisited(code) {
+    const derived = isCountryVisitedViaSubdivisions(code);
+    return derived !== null ? derived : visited.includes(code);
   }
 
   // Top bar's visited count (SP-9.1) — only rendered when logged in;
   // guarded since it's absent on the map page when logged out. Counts
-  // top-level countries normally, or just the active country's regions
-  // while drilled in (SP-13.2) — an "IT:52" entry shouldn't inflate the
-  // world country count, and vice versa.
+  // top-level countries normally (using the same derived-or-literal check
+  // as the map's fill, so a country visited only via its subdivisions
+  // still counts), or just the drilled-in country's regions while zoomed
+  // into it.
   const visitedCountEl = document.querySelector("[data-visited-count]");
+  const drilldownHintEl = document.querySelector("[data-drilldown-hint]");
 
   function updateVisitedCount() {
     if (!visitedCountEl) return;
     let n, singular, plural;
-    if (activeSubdivision) {
-      const prefix = `${activeSubdivision}:`;
+    if (drilldownCountry) {
+      const prefix = `${drilldownCountry}:`;
       n = visited.filter((id) => id.startsWith(prefix)).length;
       singular = "region";
       plural = "regions";
     } else {
-      n = visited.filter((id) => !id.includes(":")).length;
+      n = topLevelCodes.filter(isEffectivelyVisited).length;
       singular = "country";
       plural = "countries"; // irregular plural — not just singular + "s"
     }
     visitedCountEl.textContent = `${n} ${n === 1 ? singular : plural} visited`;
   }
 
-  // `.hidden = true/false` doesn't reliably reflect to the `hidden`
-  // content attribute on SVGElement in this environment (it does on plain
-  // HTML elements like the buttons below) — set the attribute directly so
-  // the `[hidden] { display: none }` CSS rule actually takes effect.
-  function setHidden(el, isHidden) {
-    if (isHidden) el.setAttribute("hidden", "");
-    else el.removeAttribute("hidden");
-  }
-
-  function updateDrillDownAffordance() {
-    if (!drillDownBtn) return;
-    const code = lastTappedRegion && lastTappedRegion.dataset.region;
-    const sub = code && !activeSubdivision ? SUBDIVISIONS[code] : null;
-    if (sub) {
-      drillDownBtn.textContent = `View ${sub.label}'s regions →`;
-      drillDownBtn.dataset.country = code;
-      drillDownBtn.hidden = false;
-    } else {
-      drillDownBtn.hidden = true;
-    }
-  }
-
-  function enterSubdivision(code) {
-    const subSvg = subdivisionSvgFor(code);
-    if (!SUBDIVISIONS[code] || !subSvg) return;
-    setHidden(svg, true);
-    setHidden(subSvg, false);
-    activeSubdivision = code;
-    if (drillDownBtn) drillDownBtn.hidden = true;
-    if (backToWorldBtn) backToWorldBtn.hidden = false;
-    updateVisitedCount();
-  }
-
-  function exitSubdivision() {
-    if (!activeSubdivision) return;
-    const subSvg = subdivisionSvgFor(activeSubdivision);
-    if (subSvg) setHidden(subSvg, true);
-    setHidden(svg, false);
-    activeSubdivision = null;
-    if (backToWorldBtn) backToWorldBtn.hidden = true;
-    updateDrillDownAffordance();
-    updateVisitedCount();
-  }
-
-  if (drillDownBtn) {
-    drillDownBtn.addEventListener("click", () => {
-      if (drillDownBtn.dataset.country) enterSubdivision(drillDownBtn.dataset.country);
-    });
-  }
-  if (backToWorldBtn) {
-    backToWorldBtn.addEventListener("click", exitSubdivision);
-  }
-
   function applyVisited() {
     document.querySelectorAll(".region").forEach((el) => {
-      const isVisited = visited.includes(el.dataset.region);
+      const isVisited = isEffectivelyVisited(el.dataset.region);
       el.classList.toggle("visited", isVisited);
       el.setAttribute("aria-pressed", String(isVisited));
     });
@@ -150,9 +135,6 @@
   }
 
   function toggleRegion(el) {
-    lastTappedRegion = el;
-    updateDrillDownAffordance();
-
     const id = el.dataset.region;
     if (!id) return;
 
@@ -179,37 +161,12 @@
 
   applyVisited();
 
-  // Subdivision maps don't need the world map's pan/zoom/tap-vs-drag
-  // machinery below — they're a fixed, tightly-fitted local viewBox, so a
-  // plain click/keydown is enough (SP-13.2).
-  document.querySelectorAll(".subdivision-map").forEach((subSvg) => {
-    subSvg.addEventListener("click", (e) => {
-      const el = e.target.closest(".region");
-      if (el) toggleRegion(el);
-    });
-    subSvg.addEventListener("keydown", (e) => {
-      if (e.key !== "Enter" && e.key !== " ") return;
-      const el = e.target.closest(".region");
-      if (!el) return;
-      e.preventDefault();
-      toggleRegion(el);
-    });
-  });
-
   fetch("/api/me/visits/", { headers: { Accept: "application/json" } })
     .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
     .then((data) => setVisited(data.visited))
     .catch(() => {
       // Offline or the request failed — keep whatever localStorage had.
     });
-
-  svg.addEventListener("keydown", (e) => {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    const el = e.target.closest(".region");
-    if (!el) return;
-    e.preventDefault();
-    toggleRegion(el);
-  });
 
   const FULL = { x: 0, y: 0, width: 1000, height: 500 };
   // ~40x max zoom-in — needed so the smallest countries (e.g. Luxembourg,
@@ -255,10 +212,87 @@
     setViewBox();
   }
 
+  function lonLatToWorld(lon, lat) {
+    return {
+      x: (lon + 180) * (FULL.width / 360),
+      y: (90 - lat) * (FULL.height / 180),
+    };
+  }
+
+  function zoomToLonLatBox({ lonMin, lonMax, latMin, latMax }) {
+    const topLeft = lonLatToWorld(lonMin, latMax);
+    const bottomRight = lonLatToWorld(lonMax, latMin);
+    const boxWidth = bottomRight.x - topLeft.x;
+    const boxHeight = bottomRight.y - topLeft.y;
+    // clamp() forces height = width * 0.5 to preserve the map's fixed 2:1
+    // aspect ratio — pick whichever dimension needs more width so neither
+    // axis of the target box gets cropped.
+    const widthNeededForHeight = boxHeight * (FULL.width / FULL.height);
+    view.width = Math.max(boxWidth, widthNeededForHeight);
+    view.height = view.width * (FULL.height / FULL.width);
+    view.x = topLeft.x + boxWidth / 2 - view.width / 2;
+    view.y = topLeft.y + boxHeight / 2 - view.height / 2;
+    clamp();
+    setViewBox();
+  }
+
+  function enterDrilldown(code) {
+    const sub = SUBDIVISIONS[code];
+    const countryEl = document.querySelector(`.region[data-region="${code}"]`);
+    const group = document.querySelector(`.subdivision-group[data-country="${code}"]`);
+    if (!sub || !countryEl || !group) return;
+    preDrilldownView = { ...view };
+    setHidden(countryEl, true);
+    setHidden(group, false);
+    drilldownCountry = code;
+    setDimmed(true);
+    if (drilldownHintEl) setHidden(drilldownHintEl, false);
+    zoomToLonLatBox(sub.bbox);
+    updateVisitedCount();
+  }
+
+  function exitDrilldown() {
+    if (!drilldownCountry) return;
+    const countryEl = document.querySelector(`.region[data-region="${drilldownCountry}"]`);
+    const group = document.querySelector(`.subdivision-group[data-country="${drilldownCountry}"]`);
+    if (group) setHidden(group, true);
+    if (countryEl) setHidden(countryEl, false);
+    drilldownCountry = null;
+    setDimmed(false);
+    if (drilldownHintEl) setHidden(drilldownHintEl, true);
+    if (preDrilldownView) {
+      Object.assign(view, preDrilldownView);
+      setViewBox();
+    }
+    updateVisitedCount();
+  }
+
+  // Dispatcher for both the pointer-tap and keyboard activation paths: a
+  // country with subdivisions always drills in instead of toggling;
+  // everything else (including regions inside an open drill-down) toggles
+  // normally.
+  function handleRegionActivate(el) {
+    const code = el.dataset.region;
+    if (code && SUBDIVISIONS[code] && !drilldownCountry) {
+      enterDrilldown(code);
+    } else {
+      toggleRegion(el);
+    }
+  }
+
+  svg.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const el = e.target.closest(".region");
+    if (!el) return;
+    e.preventDefault();
+    handleRegionActivate(el);
+  });
+
   svg.addEventListener(
     "wheel",
     (e) => {
       e.preventDefault();
+      if (drilldownCountry) return; // locked — double-click/tap is the only way back
       const factor = e.deltaY > 0 ? 1.15 : 1 / 1.15;
       zoomAt(e.clientX, e.clientY, factor);
     },
@@ -297,7 +331,7 @@
       const [a, b] = [...pointers.values()];
       const newDist = dist(a, b);
       const mid = midpoint(a, b);
-      if (pinchLastDist) zoomAt(mid.x, mid.y, pinchLastDist / newDist);
+      if (pinchLastDist && !drilldownCountry) zoomAt(mid.x, mid.y, pinchLastDist / newDist);
       pinchLastDist = newDist;
       return;
     }
@@ -306,11 +340,14 @@
       if (tap && dist({ x: e.clientX, y: e.clientY }, { x: tap.startX, y: tap.startY }) > TAP_MOVE_THRESHOLD) {
         tap = null; // moved past the tap threshold — this is a pan now
       }
-      const rect = svg.getBoundingClientRect();
-      view.x -= ((e.clientX - dragLast.x) / rect.width) * view.width;
-      view.y -= ((e.clientY - dragLast.y) / rect.height) * view.height;
-      clamp();
-      setViewBox();
+      if (!drilldownCountry) {
+        // Locked while drilled in — double-click/tap is the only way back.
+        const rect = svg.getBoundingClientRect();
+        view.x -= ((e.clientX - dragLast.x) / rect.width) * view.width;
+        view.y -= ((e.clientY - dragLast.y) / rect.height) * view.height;
+        clamp();
+        setViewBox();
+      }
       dragLast = { x: e.clientX, y: e.clientY };
     }
   });
@@ -322,7 +359,7 @@
 
   svg.addEventListener("pointerup", (e) => {
     if (pointers.size === 1 && tap) {
-      toggleRegion(tap.el);
+      handleRegionActivate(tap.el);
     }
     pointers.delete(e.pointerId);
     tap = null;
@@ -337,7 +374,11 @@
 
   svg.addEventListener("dblclick", (e) => {
     e.preventDefault();
-    resetView();
+    if (drilldownCountry) {
+      exitDrilldown();
+    } else {
+      resetView();
+    }
   });
 
   setViewBox();

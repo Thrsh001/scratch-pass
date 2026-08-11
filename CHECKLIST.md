@@ -530,21 +530,40 @@ Implementation notes:
   no-overflow at 375px) all still pass. 30 Django tests (2 new).
 
 ### SP-13.2: Italy subdivision drill-down
-**Status:** Done
+**Status:** Done — redefined (2026-08-08) after first shipping
 **Description:** Drill-down maps using `COUNTRY:SUBREGION` ids, per the
-locked id scheme — first implementation for Italy. Full plan (data
-pipeline, projection, UI pattern, all decisions confirmed with the user)
-at `/home/thrsh/.claude/plans/wiggly-dancing-fog.md`.
+locked id scheme — first implementation for Italy.
+
+**First pass** (shipped, then reworked per user feedback after using it):
+a *separate view* — clicking Italy swapped the whole world map `<svg>` out
+for a second `<svg>` with its own locally-fitted coordinate space, no
+neighbors visible, explicit "View regions"/"Back" buttons, `IT`/`IT:52`
+toggles fully independent.
+
+**Redefined** (this is what shipped): clicking Italy **zooms in on the
+world map itself** — same `<svg>`, same coordinate space, neighbors
+(France, Switzerland, Austria, Slovenia) stay visible and stay
+interactive. Full plan for the redefinition at
+`/home/thrsh/.claude/plans/wiggly-dancing-fog.md`.
 **Acceptance criteria:**
 - [x] Italy's 20 regions implemented as a drill-down map, ids using real
       ISO 3166-2:IT codes (e.g. `IT:52` for Toscana) — verified against
       Wikipedia's ISO_3166-2:IT article during planning, not invented
       abbreviations
-- [x] In-place swap UI: a "view regions" affordance appears once Italy is
-      the last-tapped region on the world map; swaps to the region map in
-      the same page, with a way back
-- [x] Region toggles (`IT:52`) and the country-level toggle (`IT`) are
-      fully independent — no derived/aggregate logic
+- [x] Clicking Italy zooms in on it in place (not a separate view);
+      neighboring countries stay visible and independently toggleable
+- [x] Italy's country-level visited state is **derived** — any one region
+      visited marks the whole country visited at the zoomed-out view;
+      `IT` is never manually toggled once it has subdivisions (reverses
+      the original "fully independent toggles" decision, confirmed with
+      the user)
+- [x] Exiting drill-down (double-click/tap) restores the exact
+      pre-drilldown view, not a full reset to the whole world
+- [x] Regions outside the drilled-in country dim and go fully inert
+      (unclickable, untabbable) while drilled in; pan/zoom are locked —
+      double-click/tap is the only way back
+- [x] A "Double click/tap to return" hint appears bottom-right while
+      drilled in
 - [x] `maps/regions.py`'s allowlist covers subdivision ids automatically
       (glob-based, no hardcoded list, consistent with SP-10's design)
 
@@ -556,51 +575,84 @@ Implementation notes:
   ST_Union(geometry) ... GROUP BY region"`, maps each to its real ISO
   3166-2:IT code via a small hand-built lookup table (Natural Earth's
   admin-1 data has no region-level ISO code for Italy, only
-  province-level — needed either way regardless of code scheme), and
-  projects with a **local** equirectangular fit to Italy's own bounding
-  box (not the world map's 1000×500 space, where these would be
-  sub-pixel) into a new `maps/templates/maps/partials/subdivisions/it.svg`.
+  province-level — needed either way regardless of code scheme).
+  Reprojected with the **same global equirectangular formula as
+  `world.svg`** (`x=(lon+180)*(1000/360)`, `y=(90-lat)*(500/180)`, same
+  2-decimal precision as every other country path) so the region paths
+  align pixel-for-pixel with where Italy already sits among its
+  neighbors — confirmed via a rendered overlay before wiring into the
+  app. `maps/templates/maps/partials/subdivisions/it.svg` is now included
+  directly inside `<svg class="world-map">`, wrapped in
+  `<g class="subdivision-group" data-country="IT" hidden>`, not a
+  separate `<svg>`.
 - `data-region` uses the colon form (`IT:52`, the locked separator) but
   `id` uses a dash (`IT-52`) — deliberately diverging, since `:` is
   reserved in CSS selector syntax and would break `#id` lookups;
   `data-region` remains the single source of truth per CLAUDE.md.
-- `maps/regions.py`: `valid_region_ids()` now also globs
-  `partials/subdivisions/*.svg` and accepts the `XX:YY` id form —
-  automatic, no hardcoded per-country list.
-- No other backend changes: `UserProfile.toggle_region` and the
-  toggle/get-visits endpoints already treated region ids as opaque
-  validated strings; a colon-containing id needed no special handling.
-- `map.js`/`map.html`/`map.css`: turned out simpler than planned — the
-  subdivision view needs no zoom/pan/tap-vs-drag machinery at all (20
-  regions in a tightly-fitted local viewBox, plain click/keydown reusing
-  the existing `toggleRegion`), so no generalization of the world map's
-  pan/zoom code was needed. `updateVisitedCount()` gained a mode: total
-  country count normally, region-count-within-Italy while drilled in.
-- **Bug found + fixed during verification:** `.hidden = true/false` does
-  not reliably reflect to the `hidden` content attribute on `SVGElement`
-  in this environment (it does on plain HTML elements, which is why the
-  drill-down/back buttons worked immediately but the `<svg>` swap
-  silently did nothing) — switched to explicit
-  `setAttribute`/`removeAttribute("hidden")` for the two `<svg>` elements.
-- **Bug found + fixed during verification:** the refactored
-  `updateVisitedCount()` produced "2 countrys visited" — the generic
-  `label + (n===1?"":"s")` pluralization doesn't handle an irregular
-  plural; fixed with explicit singular/plural strings for both "country"/
-  "countries" and "region"/"regions".
+- `maps/regions.py`: `valid_region_ids()` globs `partials/subdivisions/
+  *.svg` and accepts the `XX:YY` id form — automatic, no hardcoded
+  per-country list. Added `has_subdivisions(code)`, used by
+  `toggle_visit` to reject `POST {"region": "IT"}` directly (400) —
+  defense in depth now that `IT` is derived-only, consistent with
+  CLAUDE.md's "never trust a client-submitted region code" rule.
+- `map.js`: region taps inside the subdivision group now go through the
+  **same** pointer/keyboard handling as every other region (one `<svg>`,
+  one event-handling system) — no separate simplified click-listener path
+  needed, which the first pass required. `isCountryVisitedViaSubdivisions()`
+  drives both the map fill and the top-bar count via a single
+  `isEffectivelyVisited()` check, so a country visited only through its
+  subdivisions can't drift out of sync between the two.
+  `zoomToLonLatBox()` fits Italy's padded lon/lat bbox into the view,
+  sizing whichever axis needs more width so `clamp()`'s fixed 2:1 aspect
+  ratio doesn't crop the box. `enterDrilldown()` saves the view rect
+  before zooming; `exitDrilldown()` restores it exactly — "zoom out one
+  level," not a full reset. `setDimmed()` toggles `.dimmed` (opacity
+  0.35, `pointer-events: none`, `tabindex="-1"`) on every region outside
+  the active drill-down; wheel/drag-pan handlers early-return while
+  `drilldownCountry` is set (tap-vs-drag threshold logic still runs, only
+  the actual view mutation is skipped, so a jittery tap still can't
+  misfire as a toggle). A `.drilldown-hint` element ("Double click/tap to
+  return") shows/hides alongside enter/exit — plain text for now, noted
+  in `map.html` as a candidate to become a real clickable button later if
+  the gesture-only exit doesn't prove discoverable enough.
+- **Bug found + fixed during verification (redefinition):** SVG has **no
+  `[hidden] { display: none }` rule in its default stylesheet at all**
+  (unlike HTML) — this is a different manifestation of the same
+  underlying gap as the first pass's `.hidden` property bug, not the same
+  bug recurring. Without an explicit `.region[hidden], .subdivision-group
+  [hidden] { display: none }` rule, the whole-Italy shape and its 20
+  regions rendered simultaneously at all times, which is what caused a
+  thin colored outline tracing Italy's coastline (the two datasets have
+  slightly different coastline detail, so the mismatch showed at the
+  edges) — user correctly diagnosed the coastline-mismatch contribution
+  but the primary cause was the missing CSS rule; fixed by adding it.
+- **Bug found + fixed during verification (first pass):** `.hidden = true/
+  false` does not reliably reflect to the `hidden` content attribute on
+  `SVGElement` in this environment (it does on plain HTML elements) —
+  switched to explicit `setAttribute`/`removeAttribute("hidden")` via a
+  `setHidden()` helper, reused throughout the redefinition.
+- **Bug found + fixed during verification (first pass):** the refactored
+  `updateVisitedCount()` produced "2 countrys visited" — fixed with
+  explicit singular/plural strings instead of a naive `+"s"`.
 - Investigated Kiribati/Fiji's unusually wide `getBBox()` during SP-13.1
   and initially suspected a rendering bug — ruled out (legitimate
   antimeridian geography), documented under SP-13.1.
 - Verified end-to-end with a real headless-Chrome session (puppeteer-core,
-  dev-only): clicking Italy at world scale still toggles `IT` normally
-  (independence check) and reveals the drill-down button; drilling in
-  renders and correctly positions all 20 regions (visually confirmed —
-  unmistakably Italy, Sardinia/Sicily correctly placed); toggling Toscana
-  fires `POST {"region":"IT:52"}`, highlights the right region, and
-  switches the count to "N regions visited"; the back button returns to
-  the world map with `IT`'s own toggle state unaffected; both toggles
-  persist across a full page reload. Full regression pass (keyboard
-  toggle, zoom/pan, mobile no-overflow at 375px) still green. 34 Django
-  tests (5 new).
+  dev-only): clicking Italy zooms in (viewBox actually changes) with
+  neighbors still visible and independently toggleable; the 20 regions
+  render in the correct real-world position (visually confirmed via a
+  rendered overlay against `world.svg`); toggling Toscana fires
+  `POST {"region":"IT:52"}` and switches the count to "N regions
+  visited"; double-click/tap restores the exact pre-drilldown viewBox
+  (compared, not just "some" reset) and Italy shows visited (derived,
+  never directly toggled); `POST {"region":"IT"}` is rejected (400);
+  neighbors dim to 0.35 opacity with `pointer-events: none` and
+  `tabindex="-1"` while drilled in, and a raw click at their center does
+  nothing; wheel-zoom and drag-pan are both no-ops while drilled in
+  (viewBox unchanged); the hint shows/hides correctly and doesn't cause
+  mobile overflow at 375px. Full regression pass (keyboard toggle,
+  zoom/pan on a non-Italy country, reload persistence, mobile
+  no-overflow) still green. 37 Django tests (8 net new since SP-13.1).
 
 ### SP-14: PostgreSQL production database switch *(Later)*
 **Status:** To Do

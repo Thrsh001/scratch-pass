@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_POST
 
-from .regions import valid_region_ids
+from .regions import has_subdivisions, valid_region_ids
 
 
 @login_required
@@ -37,6 +37,11 @@ def toggle_visit(request):
     region = payload.get("region")
     if not isinstance(region, str) or region not in valid_region_ids():
         return JsonResponse({"error": "unknown region id"}, status=400)
+    if has_subdivisions(region):
+        return JsonResponse(
+            {"error": "region has subdivisions and can't be toggled directly"},
+            status=400,
+        )
 
     visited = request.user.profile.toggle_region(region)
     return JsonResponse({"visited": visited})

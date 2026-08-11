@@ -5,7 +5,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from .models import UserProfile
-from .regions import valid_region_ids
+from .regions import has_subdivisions, valid_region_ids
 
 
 class UserProfileTests(TestCase):
@@ -172,6 +172,15 @@ class ValidRegionIdsTests(TestCase):
         self.assertIn("IT:52", ids)  # Toscana
         self.assertEqual(sum(1 for i in ids if i.startswith("IT:")), 20)
 
+    def test_has_subdivisions_true_for_country_with_regions(self):
+        self.assertTrue(has_subdivisions("IT"))
+
+    def test_has_subdivisions_false_for_plain_country(self):
+        self.assertFalse(has_subdivisions("US"))
+
+    def test_has_subdivisions_false_for_subdivision_itself(self):
+        self.assertFalse(has_subdivisions("IT:52"))
+
     def test_excludes_malformed_or_unknown_codes(self):
         ids = valid_region_ids()
 
@@ -220,14 +229,11 @@ class ToggleVisitViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"visited": ["IT:52"]})
 
-    def test_country_and_subdivision_toggles_are_independent(self):
-        self._post("IT")
-        self._post("IT:52")
+    def test_rejects_toggling_a_region_that_has_subdivisions(self):
+        response = self._post("IT")
 
-        self.assertEqual(
-            sorted(UserProfile.objects.get(user=self.user).visited_regions),
-            ["IT", "IT:52"],
-        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(UserProfile.objects.get(user=self.user).visited_regions, [])
 
     def test_rejects_unknown_subdivision_id(self):
         response = self._post("IT:99")
