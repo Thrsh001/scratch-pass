@@ -10,7 +10,11 @@
 // just Italy) zooms in on it in place — same <svg>, same coordinate space,
 // neighbors stay visible — rather than swapping to a separate view.
 // Double-click/tap while drilled in zooms back out to wherever the view was
-// before drilling in, instead of resetting to the whole world.
+// before drilling in, instead of resetting to the whole world. A country's
+// subdivision geometry is fetched from the server on first drill-down (not
+// shipped in the initial page) and the resulting <g> stays in the DOM as
+// its own cache, so re-entering the same country later doesn't re-fetch
+// (SP-13.3).
 (() => {
   const svg = document.querySelector(".world-map");
   if (!svg) return;
@@ -55,6 +59,7 @@
   };
   let drilldownCountry = null; // e.g. "IT" while its regions are shown
   let preDrilldownView = null; // view rect saved the moment drill-down started
+  const loadingSubdivisions = new Set(); // codes with a fetch in flight
 
   // `.hidden = true/false` doesn't reliably reflect to the `hidden`
   // content attribute on SVGElement in this environment (it does on plain
@@ -236,11 +241,33 @@
     setViewBox();
   }
 
-  function enterDrilldown(code) {
+  async function enterDrilldown(code) {
     const sub = SUBDIVISIONS[code];
     const countryEl = document.querySelector(`.region[data-region="${code}"]`);
-    const group = document.querySelector(`.subdivision-group[data-country="${code}"]`);
-    if (!sub || !countryEl || !group) return;
+    if (!sub || !countryEl || drilldownCountry || loadingSubdivisions.has(code)) return;
+
+    let group = document.querySelector(`.subdivision-group[data-country="${code}"]`);
+    if (!group) {
+      loadingSubdivisions.add(code);
+      let markup;
+      try {
+        const res = await fetch(`/api/subdivisions/${code}/`);
+        if (!res.ok) throw new Error(res.status);
+        markup = await res.text();
+      } catch {
+        loadingSubdivisions.delete(code);
+        return; // couldn't load — stay on the world view, no partial state
+      }
+      loadingSubdivisions.delete(code);
+      group = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      group.setAttribute("class", "subdivision-group");
+      group.setAttribute("data-country", code);
+      group.setAttribute("hidden", "");
+      group.innerHTML = markup;
+      svg.appendChild(group);
+      applyVisited(); // newly-added paths need their visited/aria-pressed state set
+    }
+
     preDrilldownView = { ...view };
     setHidden(countryEl, true);
     setHidden(group, false);

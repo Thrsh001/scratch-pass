@@ -654,6 +654,79 @@ Implementation notes:
   zoom/pan on a non-Italy country, reload persistence, mobile
   no-overflow) still green. 37 Django tests (8 net new since SP-13.1).
 
+### SP-13.3: Lazy-fetch subdivision infra + Italy resimplification
+**Status:** Done
+**Description:** Shared plumbing for scaling `COUNTRY:SUBREGION` drill-down
+(SP-13.2) beyond Italy. Scoped 2026-09-18 after measuring cost — Italy's
+subdivisions were 1:10m resolution (~7.8KB/path, almost as heavy as the
+entire top-level world map) and eagerly inlined into every page load.
+Session scope narrowed (user decision) to just the plumbing + Italy
+migration; the other 13 countries are follow-up work — see SP-13.4.
+**Acceptance criteria:**
+- [x] A country's subdivision SVG is fetched on first drill-down (not
+      inlined in the initial page) and cached client-side (DOM) so repeat
+      drill-downs don't re-fetch
+- [x] Italy's subdivision SVG resimplified (GDAL/OGR simplify, 0.03deg
+      tolerance) and migrated onto the new fetch mechanism
+- [x] `maps/regions.py` exposes a safe code→file lookup for the new
+      endpoint (no path traversal from request input)
+- [x] Regression pass: Italy drill-down, zoom/pan, toggle, keyboard,
+      reload persistence, and mobile no-overflow still work
+
+Implementation notes:
+- `GET /api/subdivisions/<code>/` (new, `maps/views.subdivision_svg`)
+  serves a country's subdivision SVG fragment; 401 anonymous, 404 unknown
+  code — same clean-JSON-error style as `get_visits`/`toggle_visit`.
+  `maps/regions.py`'s new `subdivision_svg_path()` looks up an exact key in
+  a cached code→`Path` dict (built once from the same directory
+  `valid_region_ids()` already globs), never concatenates request input
+  into a filesystem path.
+- `map.js`'s `enterDrilldown()` is now async: fetches + injects a
+  `<g class="subdivision-group">` via `createElementNS`/`innerHTML` on
+  first drill-down, then re-runs `applyVisited()` so the new paths get
+  correct visited state before being shown. The DOM itself is the cache —
+  a `loadingSubdivisions` Set just guards against a duplicate fetch while
+  one's in flight. `map.html` no longer hardcodes any per-country markup.
+- Italy resimplified from the same 1:10m source (SP-13.2), same 20 ISO
+  3166-2:IT codes — verified via bbox diff against the old file (identical
+  extents, vertex counts down 80-95%) rather than just trusting the
+  pipeline. 156KB → 18KB.
+- Verified end-to-end with a real headless-Chrome session (puppeteer-core,
+  dev-only): initial page load fires zero subdivision requests; drilling
+  into Italy fires exactly one; re-entering after exit fires zero more;
+  Toscana toggle posts `IT:52` and Italy's derived state follows it
+  through a reload; full SP-4.1–SP-13.2 regression list (keyboard toggle,
+  wheel zoom, drag pan, double-click reset, mobile no-overflow) still
+  passes. 43 Django tests (6 new), all green.
+
+### SP-13.4: Subdivision drill-down data for 13 more countries
+**Status:** To Do
+**Description:** Using SP-13.3's lazy-fetch infra, add real subdivision data
+for: US, Canada, Australia, UK, Germany, France, Spain, Japan, China, India,
+Brazil, Mexico, Russia. Split out (2026-09-18, user decision) so this much
+larger data-generation effort ships in reviewable batches rather than one
+pass, same pattern as SP-4.x/SP-9.x/SP-13.1+13.2.
+**Acceptance criteria:**
+- [ ] Subdivision SVGs generated at ~1:50m-equivalent weight per country
+      (source from Natural Earth's 50m admin-1 set where it exists — it
+      only covers Russia/US/India/Indonesia/China/Brazil/Canada/Australia/
+      South Africa — otherwise dissolve+simplify the 10m set, same
+      approach as Italy in SP-13.3), real ISO 3166-2 codes, same
+      projection formula as `world.svg`
+- [ ] UK modeled as its 4 constituent countries (England/Scotland/Wales/
+      Northern Ireland), not county-level
+- [ ] Disputed-boundary countries (Russia, China, India) use Natural
+      Earth's standard admin boundaries, not a separate variant
+- [ ] Per-country decision on the drill-down zoom bbox for countries with
+      far-flung territory (Russia's ~170° longitude extent, France's
+      overseas regions if included) — the zoom-to-bbox mechanism assumes a
+      compact country like Italy; open question, not yet resolved
+- [ ] `maps/regions.py`'s allowlist and `has_subdivisions()` cover each new
+      country without a hardcoded per-country list (already generic as of
+      SP-13.3 — should need zero changes)
+- [ ] Regression pass per batch: existing drill-downs, zoom/pan, toggle,
+      and mobile no-overflow still work
+
 ### SP-14: PostgreSQL production database switch *(Later)*
 **Status:** To Do
 **Description:** Wire `config/settings.py`'s `DATABASES` to switch from

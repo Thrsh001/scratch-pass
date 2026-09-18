@@ -4,11 +4,11 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.views import LoginView as BaseLoginView
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_POST
 
-from .regions import has_subdivisions, valid_region_ids
+from .regions import has_subdivisions, subdivision_svg_path, valid_region_ids
 
 
 @login_required
@@ -45,6 +45,18 @@ def toggle_visit(request):
 
     visited = request.user.profile.toggle_region(region)
     return JsonResponse({"visited": visited})
+
+
+@require_GET
+def subdivision_svg(request, code):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "authentication required"}, status=401)
+
+    path = subdivision_svg_path(code)
+    if not path:
+        return JsonResponse({"error": "no subdivisions for this region"}, status=404)
+
+    return HttpResponse(path.read_text(), content_type="image/svg+xml")
 
 
 def register_view(request):

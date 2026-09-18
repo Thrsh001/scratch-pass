@@ -5,7 +5,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from .models import UserProfile
-from .regions import has_subdivisions, valid_region_ids
+from .regions import has_subdivisions, subdivision_svg_path, valid_region_ids
 
 
 class UserProfileTests(TestCase):
@@ -187,6 +187,42 @@ class ValidRegionIdsTests(TestCase):
         self.assertNotIn("ZZ", ids)
         self.assertNotIn("usa", ids)
         self.assertNotIn("", ids)
+
+
+class SubdivisionSvgViewTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="oskar", password="pw12345")
+        self.client.login(username="oskar", password="pw12345")
+
+    def test_returns_svg_content_when_country_has_subdivisions(self):
+        response = self.client.get(reverse("subdivision_svg", args=["IT"]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "image/svg+xml")
+        self.assertIn(b'data-region="IT:52"', response.content)
+
+    def test_returns_404_when_country_has_no_subdivisions(self):
+        response = self.client.get(reverse("subdivision_svg", args=["ZZ"]))
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_rejects_anonymous_request(self):
+        self.client.logout()
+
+        response = self.client.get(reverse("subdivision_svg", args=["IT"]))
+
+        self.assertEqual(response.status_code, 401)
+
+    def test_rejects_post_request(self):
+        response = self.client.post(reverse("subdivision_svg", args=["IT"]))
+
+        self.assertEqual(response.status_code, 405)
+
+    def test_subdivision_svg_path_returns_none_for_unknown_code(self):
+        self.assertIsNone(subdivision_svg_path("ZZ"))
+
+    def test_subdivision_svg_path_returns_path_for_known_code(self):
+        self.assertIsNotNone(subdivision_svg_path("IT"))
 
 
 class ToggleVisitViewTests(TestCase):

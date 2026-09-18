@@ -30,3 +30,18 @@ def has_subdivisions(code):
     its own — used to reject that at the API boundary too."""
     prefix = f"{code}:"
     return any(region_id.startswith(prefix) for region_id in valid_region_ids())
+
+
+@lru_cache(maxsize=1)
+def _subdivision_svg_paths():
+    """Country code -> subdivision SVG file path, built once from the same
+    directory valid_region_ids() globs. The view that serves this content
+    (SP-13.3) only ever looks up an exact key here — never concatenates
+    request input into a filesystem path."""
+    if not _SUBDIVISIONS_DIR.is_dir():
+        return {}
+    return {p.stem.upper(): p for p in _SUBDIVISIONS_DIR.glob("*.svg")}
+
+
+def subdivision_svg_path(code):
+    return _subdivision_svg_paths().get(code)

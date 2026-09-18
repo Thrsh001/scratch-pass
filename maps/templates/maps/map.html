@@ -25,16 +25,14 @@
     </header>
     <svg class="world-map" viewBox="0 0 1000 500" role="img" aria-label="World map">
       {% include "maps/partials/world.svg" %}
-      <!-- Subdivision drill-down (redefined): rendered in the SAME
+      <!-- Subdivision drill-down: a country's regions render in the SAME
            coordinate space as world.svg (same projection formula), so
-           clicking a country zooms in on it in place rather than swapping
-           to a separate view — neighbors stay visible. One <g> per
-           drillable country, hidden until map.js swaps it in. Only Italy
-           exists so far; this'll need to become a loop once a second
-           country gets subdivisions. -->
-      <g class="subdivision-group" data-country="IT" hidden>
-        {% include "maps/partials/subdivisions/it.svg" %}
-      </g>
+           clicking it zooms in on it in place rather than swapping to a
+           separate view — neighbors stay visible. Each country's
+           <g class="subdivision-group" data-country="XX"> is created and
+           populated by map.js on first drill-down (fetched from
+           /api/subdivisions/<code>/, not inlined here) rather than shipping
+           every subdivided country's geometry on every page load (SP-13.3). -->
     </svg>
     <!-- Plain text hint for now — may become a real clickable button
          (an explicit tap-to-exit affordance) instead of a pure gesture
