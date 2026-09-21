@@ -155,8 +155,9 @@ class ValidRegionIdsTests(TestCase):
 
         self.assertIn("US", ids)
         self.assertIn("IT", ids)
-        # 237 top-level (world.svg) + 20 Italy subdivisions (SP-13.2)
-        self.assertEqual(len(ids), 257)
+        # 237 top-level (world.svg) + 20 Italy (SP-13.2) + 16 Germany +
+        # 32 Mexico + 19 Spain + 4 UK subdivisions (SP-13.4)
+        self.assertEqual(len(ids), 328)
         self.assertEqual(sum(1 for i in ids if ":" not in i), 237)
 
     def test_contains_sp13_missing_entities(self):
@@ -172,8 +173,37 @@ class ValidRegionIdsTests(TestCase):
         self.assertIn("IT:52", ids)  # Toscana
         self.assertEqual(sum(1 for i in ids if i.startswith("IT:")), 20)
 
+    def test_contains_germany_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("DE:BY", ids)  # Bavaria
+        self.assertEqual(sum(1 for i in ids if i.startswith("DE:")), 16)
+
+    def test_contains_mexico_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("MX:CMX", ids)  # Mexico City (current code, not stale MX-DIF)
+        self.assertNotIn("MX:DIF", ids)
+        self.assertEqual(sum(1 for i in ids if i.startswith("MX:")), 32)
+
+    def test_contains_spain_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("ES:CT", ids)  # Catalonia
+        self.assertEqual(sum(1 for i in ids if i.startswith("ES:")), 19)
+
+    def test_contains_uk_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("GB:SCT", ids)  # Scotland
+        self.assertEqual(sum(1 for i in ids if i.startswith("GB:")), 4)
+
     def test_has_subdivisions_true_for_country_with_regions(self):
         self.assertTrue(has_subdivisions("IT"))
+        self.assertTrue(has_subdivisions("DE"))
+        self.assertTrue(has_subdivisions("MX"))
+        self.assertTrue(has_subdivisions("ES"))
+        self.assertTrue(has_subdivisions("GB"))
 
     def test_has_subdivisions_false_for_plain_country(self):
         self.assertFalse(has_subdivisions("US"))
@@ -205,6 +235,12 @@ class SubdivisionSvgViewTests(TestCase):
         response = self.client.get(reverse("subdivision_svg", args=["ZZ"]))
 
         self.assertEqual(response.status_code, 404)
+
+    def test_returns_svg_content_for_a_second_country(self):
+        response = self.client.get(reverse("subdivision_svg", args=["DE"]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'data-region="DE:BY"', response.content)
 
     def test_rejects_anonymous_request(self):
         self.client.logout()

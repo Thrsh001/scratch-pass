@@ -57,6 +57,17 @@
   // one of its regions being visited marks the whole country visited.
   const SUBDIVISIONS = {
     IT: { bbox: { lonMin: 4.6, lonMax: 20.52, latMin: 33.49, latMax: 49.09 } },
+    DE: { bbox: { lonMin: 5.0, lonMax: 16.0, latMin: 46.5, latMax: 56.0 } },
+    MX: { bbox: { lonMin: -119.5, lonMax: -85.5, latMin: 13.5, latMax: 33.5 } },
+    // Includes the Canary Islands (~13-18°W) — still a meaningful zoom-in
+    // (22° of longitude vs. the map's full 360°), unlike Russia's ~170°
+    // extent, so no need to crop them out of the frame.
+    ES: { bbox: { lonMin: -19.5, lonMax: 5.5, latMin: 26.5, latMax: 44.5 } },
+    // Deliberately excludes Rockall (~13.7°W, a single uninhabited islet
+    // folded into Scotland's polygon) — it'd be off-screen while drilled
+    // in, but Scotland is one clickable path either way, so nothing
+    // becomes unreachable the way a whole federal-subject would for Russia.
+    GB: { bbox: { lonMin: -9.5, lonMax: 2.5, latMin: 49.5, latMax: 61.0 } },
   };
   let drilldownCountry = null; // e.g. "IT" while its regions are shown
   let preDrilldownView = null; // view rect saved the moment drill-down started

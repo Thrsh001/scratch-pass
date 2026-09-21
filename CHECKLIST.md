@@ -709,12 +709,15 @@ Implementation notes:
   now the only way out of one.
 
 ### SP-13.4: Subdivision drill-down data for 13 more countries
-**Status:** To Do
+**Status:** In Progress — batch 1 of 3+ done (SP-13.4.1)
 **Description:** Using SP-13.3's lazy-fetch infra, add real subdivision data
 for: US, Canada, Australia, UK, Germany, France, Spain, Japan, China, India,
 Brazil, Mexico, Russia. Split out (2026-09-18, user decision) so this much
 larger data-generation effort ships in reviewable batches rather than one
-pass, same pattern as SP-4.x/SP-9.x/SP-13.1+13.2.
+pass, same pattern as SP-4.x/SP-9.x/SP-13.1+13.2. Two open items resolved
+before batch 1 (2026-09-21, user decisions): Russia will use its full real
+extent as the drill-down zoom bbox (not a cropped one) when it's picked up;
+batch order starts with geographically compact/simple countries first.
 **Acceptance criteria:**
 - [ ] Subdivision SVGs generated at ~1:50m-equivalent weight per country
       (source from Natural Earth's 50m admin-1 set where it exists — it
@@ -722,19 +725,80 @@ pass, same pattern as SP-4.x/SP-9.x/SP-13.1+13.2.
       South Africa — otherwise dissolve+simplify the 10m set, same
       approach as Italy in SP-13.3), real ISO 3166-2 codes, same
       projection formula as `world.svg`
-- [ ] UK modeled as its 4 constituent countries (England/Scotland/Wales/
-      Northern Ireland), not county-level
+- [x] UK modeled as its 4 constituent countries (England/Scotland/Wales/
+      Northern Ireland), not county-level — done in SP-13.4.1
 - [ ] Disputed-boundary countries (Russia, China, India) use Natural
       Earth's standard admin boundaries, not a separate variant
-- [ ] Per-country decision on the drill-down zoom bbox for countries with
-      far-flung territory (Russia's ~170° longitude extent, France's
-      overseas regions if included) — the zoom-to-bbox mechanism assumes a
-      compact country like Italy; open question, not yet resolved
+- [x] Russia's drill-down zoom bbox: use its full real extent, not a
+      cropped one — resolved 2026-09-21, not yet implemented (Russia isn't
+      in batch 1)
 - [ ] `maps/regions.py`'s allowlist and `has_subdivisions()` cover each new
       country without a hardcoded per-country list (already generic as of
-      SP-13.3 — should need zero changes)
+      SP-13.3 — confirmed needs zero changes in SP-13.4.1)
 - [ ] Regression pass per batch: existing drill-downs, zoom/pan, toggle,
       and mobile no-overflow still work
+
+### SP-13.4.1: Batch 1 — Germany, Mexico, Spain, UK
+**Status:** Done
+**Description:** First SP-13.4 batch — the four geographically compact
+countries with no antimeridian/overseas-territory complications, to prove
+the multi-country pattern before the harder cases (US, Russia, Japan's
+archipelago, China/India's disputed borders, France's overseas question).
+**Acceptance criteria:**
+- [x] Germany (16 Bundesländer), Mexico (32 states), Spain (19: 17
+      autonomous communities + Ceuta + Melilla), UK (4 constituent
+      countries) added as subdivisions, real verified ISO 3166-2 codes
+- [x] Same 0.03deg GDAL/OGR simplify tolerance as Italy's SP-13.3
+      resimplification, same projection formula
+- [x] `map.js`'s `SUBDIVISIONS` registry extended with a bbox per country
+      (already-generic fetch/toggle/derived-visited logic needed zero
+      changes beyond that)
+- [x] Full Django test suite green
+
+Implementation notes:
+- Source data per country from `ne_10m_admin_1_states_provinces.geojson`
+  (nvkelso/natural-earth-vector) — none of these four are in Natural
+  Earth's reduced 50m admin-1 set (confirmed during SP-13.3 planning that
+  set only covers 9 large countries), so all four use the same 10m+simplify
+  approach as Italy, not a genuine 50m source.
+- Germany and Mexico were already at the right granularity in the source
+  (16 and 33 features respectively) — no dissolve needed, just filtered
+  and simplified directly. Mexico's 33rd feature was a null-name junk row
+  (excluded); its "Distrito Federal"/`MX-DIF` entry is stale in Natural
+  Earth's data — Mexico renamed it to Ciudad de México in 2016, current
+  code is `MX-CMX` (verified via Wikipedia, used instead of the source's
+  code).
+- Spain's 52 provinces dissolved into 19 real first-level entities (17
+  autonomous communities + Ceuta + Melilla) via the same
+  `ogr2ogr -dialect sqlite -sql "SELECT region, ST_Union(geometry) ...
+  GROUP BY region"` pattern as Italy's SP-13.2/13.3. Codes verified against
+  Wikipedia's ISO_3166-2:ES article (a couple are non-obvious: Navarra is
+  `ES-NC` not `ES-NA`, Murcia is `ES-MC` not `ES-MU`).
+- UK's 232 local authorities have no direct country-level field in Natural
+  Earth's data — dissolved via a SQL `CASE` expression classifying each
+  feature's NUTS-ish `region` value into England (9 standard regions) /
+  Scotland (4 NUTS2 sub-regions: Eastern, North Eastern, South Western,
+  Highlands and Islands — Scotland has no single `region` value in this
+  dataset) / Wales (East Wales, West Wales and the Valleys) / Northern
+  Ireland (one region value); all 232 features classified, verified no
+  leftover "UNKNOWN" group. Codes verified against Wikipedia's
+  ISO_3166-2:GB article (GB-ENG/GB-SCT/GB-WLS/GB-NIR).
+- All four countries' projected bounding boxes were cross-checked against
+  known real-world lon/lat extents before wiring in (e.g. Germany
+  5.86–15.02°E/47.27–55.07°N — matches) — same verification discipline as
+  SP-13.2/13.3, not just trusting the pipeline.
+- Spain's bbox includes the Canary Islands (~13-18°W of the mainland) —
+  unlike Russia, this only makes the zoom box 22° of longitude wide
+  instead of ~14°, still a meaningful zoom vs. the map's full 360° width,
+  so no crop-vs-full-extent tradeoff was needed there. UK's bbox
+  deliberately excludes Rockall (~13.7°W, an uninhabited islet folded into
+  Scotland's polygon) — since Scotland is one clickable path regardless,
+  nothing becomes unreachable the way a whole federal subject would for
+  Russia, unlike the concern that drove the Russia bbox decision above.
+- 5 new Django tests (per-country id-count + `has_subdivisions` checks,
+  the Mexico stale-code check, one more country through
+  `SubdivisionSvgViewTests`) — 48 total, all green. Manual browser
+  verification (not automated this round, per user request).
 
 ### SP-14: PostgreSQL production database switch *(Later)*
 **Status:** To Do
