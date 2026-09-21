@@ -155,11 +155,12 @@ class ValidRegionIdsTests(TestCase):
 
         self.assertIn("US", ids)
         self.assertIn("IT", ids)
-        # 237 top-level (world.svg) + 20 Italy (SP-13.2) + 16 Germany +
-        # 32 Mexico + 19 Spain + 4 UK + 51 US + 8 Australia + 27 Brazil +
-        # 13 Canada + 31 China subdivisions (SP-13.4)
-        self.assertEqual(len(ids), 458)
-        self.assertEqual(sum(1 for i in ids if ":" not in i), 237)
+        # 242 top-level (237 + 5 France overseas departments, SP-13.4) +
+        # 20 Italy (SP-13.2) + 16 Germany + 32 Mexico + 19 Spain + 4 UK +
+        # 51 US + 8 Australia + 27 Brazil + 13 Canada + 31 China + 13
+        # France (metro) + 47 Japan + 36 India subdivisions (SP-13.4)
+        self.assertEqual(len(ids), 559)
+        self.assertEqual(sum(1 for i in ids if ":" not in i), 242)
 
     def test_contains_sp13_missing_entities(self):
         ids = valid_region_ids()
@@ -238,6 +239,42 @@ class ValidRegionIdsTests(TestCase):
         self.assertNotIn("CN:MO", ids)
         self.assertEqual(sum(1 for i in ids if i.startswith("CN:")), 31)
 
+    def test_contains_france_metro_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("FR:IDF", ids)  # Île-de-France
+        self.assertIn("FR:20R", ids)  # Corsica (non-obvious real ISO code)
+        self.assertEqual(sum(1 for i in ids if i.startswith("FR:")), 13)
+
+    def test_contains_france_overseas_departments_as_top_level(self):
+        ids = valid_region_ids()
+
+        for code in ("GP", "MQ", "GF", "RE", "YT"):
+            self.assertIn(code, ids)
+            self.assertNotIn(f"FR:{code}", ids)
+
+    def test_contains_japan_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("JP:13", ids)  # Tokyo
+        self.assertEqual(sum(1 for i in ids if i.startswith("JP:")), 47)
+
+    def test_contains_india_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("IN:DL", ids)  # Delhi
+        # ISO changed these 4 codes 2023-11-23; Natural Earth's source data
+        # still had the old ones -- verified against Wikipedia and fixed.
+        self.assertIn("IN:CG", ids)  # Chhattisgarh
+        self.assertIn("IN:OD", ids)  # Odisha
+        self.assertIn("IN:TS", ids)  # Telangana
+        self.assertIn("IN:UK", ids)  # Uttarakhand
+        self.assertNotIn("IN:CT", ids)
+        self.assertNotIn("IN:OR", ids)
+        self.assertNotIn("IN:TG", ids)
+        self.assertNotIn("IN:UT", ids)
+        self.assertEqual(sum(1 for i in ids if i.startswith("IN:")), 36)
+
     def test_has_subdivisions_true_for_country_with_regions(self):
         self.assertTrue(has_subdivisions("IT"))
         self.assertTrue(has_subdivisions("DE"))
@@ -249,6 +286,9 @@ class ValidRegionIdsTests(TestCase):
         self.assertTrue(has_subdivisions("BR"))
         self.assertTrue(has_subdivisions("CA"))
         self.assertTrue(has_subdivisions("CN"))
+        self.assertTrue(has_subdivisions("FR"))
+        self.assertTrue(has_subdivisions("JP"))
+        self.assertTrue(has_subdivisions("IN"))
 
     def test_has_subdivisions_false_for_plain_country(self):
         self.assertFalse(has_subdivisions("PT"))
@@ -260,6 +300,12 @@ class ValidRegionIdsTests(TestCase):
         self.assertFalse(has_subdivisions("TW"))
         self.assertFalse(has_subdivisions("HK"))
         self.assertFalse(has_subdivisions("MO"))
+        # Same story for France's overseas departments (SP-13.4).
+        self.assertFalse(has_subdivisions("GP"))
+        self.assertFalse(has_subdivisions("MQ"))
+        self.assertFalse(has_subdivisions("GF"))
+        self.assertFalse(has_subdivisions("RE"))
+        self.assertFalse(has_subdivisions("YT"))
 
     def test_has_subdivisions_false_for_subdivision_itself(self):
         self.assertFalse(has_subdivisions("IT:52"))
@@ -308,6 +354,20 @@ class SubdivisionSvgViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'data-region="CN:BJ"', response.content)
         self.assertNotIn(b'data-region="CN:TW"', response.content)
+
+    def test_returns_404_for_france_since_overseas_split_left_it_generic(self):
+        # FR still has subdivisions (13 metro regions) -- this just checks
+        # a plain unrelated code has no file, using one of the new
+        # top-level codes to confirm it's NOT treated as subdividable.
+        response = self.client.get(reverse("subdivision_svg", args=["GP"]))
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_returns_svg_content_for_france_metro_only(self):
+        response = self.client.get(reverse("subdivision_svg", args=["FR"]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'data-region="FR:IDF"', response.content)
 
     def test_rejects_anonymous_request(self):
         self.client.logout()

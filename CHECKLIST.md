@@ -709,7 +709,8 @@ Implementation notes:
   now the only way out of one.
 
 ### SP-13.4: Subdivision drill-down data for 13 more countries
-**Status:** In Progress — batches 1-3 of 4 done (SP-13.4.1, SP-13.4.2, SP-13.4.3)
+**Status:** In Progress — batches 1-4 done (SP-13.4.1–13.4.4); Russia remains
+as its own final batch
 **Description:** Using SP-13.3's lazy-fetch infra, add real subdivision data
 for: US, Canada, Australia, UK, Germany, France, Spain, Japan, China, India,
 Brazil, Mexico, Russia. Split out (2026-09-18, user decision) so this much
@@ -719,26 +720,28 @@ before batch 1 (2026-09-21, user decisions): Russia will use its full real
 extent as the drill-down zoom bbox (not a cropped one) when it's picked up;
 batch order starts with geographically compact/simple countries first.
 **Acceptance criteria:**
-- [ ] Subdivision SVGs generated at ~1:50m-equivalent weight per country
+- [x] Subdivision SVGs generated at ~1:50m-equivalent weight per country
       (source from Natural Earth's 50m admin-1 set where it exists — it
       only covers Russia/US/India/Indonesia/China/Brazil/Canada/Australia/
       South Africa — otherwise dissolve+simplify the 10m set, same
       approach as Italy in SP-13.3), real ISO 3166-2 codes, same
       projection formula as `world.svg` — done for DE/MX/ES/GB/US/AU/BR/
-      CA/CN so far; France/Japan/India/Russia remain
+      CA/CN/FR/JP/IN; only Russia remains
 - [x] UK modeled as its 4 constituent countries (England/Scotland/Wales/
       Northern Ireland), not county-level — done in SP-13.4.1
 - [x] Disputed-boundary countries: China done in SP-13.4.3 (31 provinces,
-      deliberately excludes Taiwan/Hong Kong/Macau — see that ticket's
-      notes); Russia and India still to do
+      deliberately excludes Taiwan/Hong Kong/Macau); India done in
+      SP-13.4.4 (Natural Earth's standard boundaries, incl. Jammu and
+      Kashmir/Ladakh as separate UTs) — only Russia left
 - [x] Russia's drill-down zoom bbox: use its full real extent, not a
-      cropped one — resolved 2026-09-21, not yet implemented (Russia isn't
-      in batch 1-3)
-- [ ] `maps/regions.py`'s allowlist and `has_subdivisions()` cover each new
-      country without a hardcoded per-country list (already generic as of
-      SP-13.3 — confirmed needs zero changes in SP-13.4.1)
-- [ ] Regression pass per batch: existing drill-downs, zoom/pan, toggle,
-      and mobile no-overflow still work
+      cropped one — resolved 2026-09-21, not yet implemented (Russia is
+      the one remaining batch)
+- [x] `maps/regions.py`'s allowlist and `has_subdivisions()` cover each new
+      country without a hardcoded per-country list (confirmed generic
+      across all 4 batches, zero changes needed since SP-13.3)
+- [x] Regression pass per batch: existing drill-downs, zoom/pan, toggle,
+      and mobile no-overflow still work — manual verification each batch,
+      per user request
 
 ### SP-13.4.1: Batch 1 — Germany, Mexico, Spain, UK
 **Status:** Done
@@ -893,6 +896,88 @@ Implementation notes:
   a dedicated test confirming TW/HK/MO stay non-subdivided, one more
   country through `SubdivisionSvgViewTests`) — 56 total, all green.
   Manual browser verification (per user request, same as prior batches).
+
+### SP-13.4.4: Batch 4 — France, Japan, India
+**Status:** Done
+**Description:** Fourth SP-13.4 batch (2026-09-21) — Russia deliberately
+excluded per prior agreement, kept as its own final batch given its
+unresolved-until-picked-up extent/bbox complexity.
+**Acceptance criteria:**
+- [x] Japan (47 prefectures), India (36 states/UTs) added as normal
+      `JP:`/`IN:` subdivisions, real verified ISO 3166-2 codes
+- [x] France split per user decision: 13 metropolitan regions as `FR:`
+      subdivisions (compact bbox, no reachability issue) + 5 overseas
+      departments (Guadeloupe, Martinique, French Guiana, Réunion,
+      Mayotte) added as independent **top-level** countries instead,
+      since they each have a real ISO 3166-1 alpha-2 code and would
+      otherwise force FR's drill-down bbox to nearly full-world width to
+      stay reachable — the same category of problem as Russia's extent,
+      resolved here by not nesting them under FR at all
+- [x] Full Django test suite green
+
+Implementation notes:
+- India sourced from Natural Earth's genuine 50m admin-1 set (one of the
+  countries it covers); France and Japan needed the 10m+0.03deg-simplify
+  approach (neither is in the reduced 50m set) — Japan already at the
+  right granularity (47 features, no dissolve), France's 101 department
+  features dissolved into 13 metro regions + 5 overseas by the `region`
+  field, mirroring Spain/UK's SP-13.4.1 dissolves.
+- **Two real code errors caught by verifying against Wikipedia rather
+  than trusting source data (same discipline as Mexico's stale MX-DIF in
+  SP-13.4.1):**
+  - Corsica's real ISO 3166-2:FR code is `FR-20R`, not the `FR-COR` first
+    guessed from memory — the region-id regex in `maps/regions.py`
+    already allowed digits in the subdivision part (`[A-Z0-9]{1,3}`), so
+    no code change was needed once the actual code was used.
+  - Four Indian codes changed 2023-11-23 and Natural Earth's source data
+    still had the pre-change ones: Chhattisgarh `IN-CT`→`IN-CG`, Odisha
+    `IN-OR`→`IN-OD`, Telangana `IN-TG`→`IN-TS`, Uttarakhand `IN-UT`→
+    `IN-UK`. Caught by cross-checking Wikipedia's exact table text after
+    a first summarized answer looked inconsistent with prior knowledge —
+    worth re-querying for verbatim text when a fetched answer feels off,
+    not just accepting the first summary.
+- France's 5 new top-level entities have no separate Natural Earth
+  admin-0 polygon (unlike Hong Kong/Macau/French Polynesia, which SP-13.1
+  could source directly) since they're legally full French departments,
+  not separate countries in that dataset — reused their existing
+  admin-1-level geometry (each overseas department is exactly one
+  region/one feature already) and appended them to `world.svg` as new
+  top-level `<path>`s, same style/attributes as every other country path,
+  simplified 0.03deg for consistency. `maps/regions.py` needed zero
+  changes — `valid_region_ids()` already parses `world.svg` directly.
+- Corsica stays inside France's 13-region drill-down (not split out like
+  the overseas departments) since it has no independent ISO 3166-1
+  country code to give it a top-level id, and geographically it's well
+  within metro France's compact bbox — no reachability problem the way
+  the scattered overseas departments had.
+- Japan's `name` field uses proper macron romanization (Hokkaidō, Kyōto,
+  Ōsaka, Hyōgo, Kōchi, Ōita) — cross-checked all 47 codes against
+  Wikipedia's plain-ASCII table by number, not name, to avoid a false
+  mismatch from the diacritic difference alone; all 47 matched correctly.
+- 12 new Django tests (per-country id-count checks, the France
+  overseas-as-top-level check, the India stale-code check, two more
+  `SubdivisionSvgViewTests` cases) — 62 total, all green. Manual browser
+  verification (per user request, same as prior batches).
+- **Bug found + fixed after initial manual testing:** the original
+  top-level `FR` path (from SP-3's 1:110m dataset) turned out to be a
+  MultiPolygon with 3 sub-shapes, not 1 — mainland France, Corsica, *and*
+  a coarse French Guiana blob. Guadeloupe/Martinique/Réunion/Mayotte were
+  too small to survive at 1:110m and were correctly absent, but French
+  Guiana's larger landmass made it into that old dataset too. Once the
+  new, more precise `GF` top-level path was added, the two
+  differently-shaped French-Guiana representations overlapped, and
+  wherever they didn't align, the old low-res shape's fill color showed
+  through as a jagged fringe around the new shape's edges — same root
+  category as SP-13.2's Italy coastline-mismatch bug (two
+  independently-digitized outlines for the same place, at different
+  resolutions), but here caused by genuine duplication rather than a
+  missing `[hidden]` CSS rule. Fixed by stripping the French Guiana
+  sub-shape out of `FR`'s `d` attribute, leaving just mainland + Corsica
+  (verified by bbox: the removed sub-shape was exactly French Guiana's
+  location, the remaining two are mainland France and Corsica). No other
+  country in this batch has the same issue — French Guiana was the only
+  overseas department large enough to have snuck into the original
+  110m-resolution country set.
 
 ### SP-14: PostgreSQL production database switch *(Later)*
 **Status:** To Do

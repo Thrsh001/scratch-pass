@@ -80,6 +80,13 @@
     // principle as US/Russia (each territory is its own clickable path).
     CA: { bbox: { lonMin: -143, lonMax: -50.5, latMin: 40, latMax: 84.5 } },
     CN: { bbox: { lonMin: 71.5, lonMax: 136.5, latMin: 16.5, latMax: 55 } },
+    // Metropolitan France only — the 5 overseas departments (Guadeloupe,
+    // Martinique, French Guiana, Réunion, Mayotte) are independent
+    // top-level countries instead (GP/MQ/GF/RE/YT), not FR: subdivisions,
+    // so this bbox doesn't need to reach them.
+    FR: { bbox: { lonMin: -6.5, lonMax: 10.5, latMin: 40.5, latMax: 52 } },
+    JP: { bbox: { lonMin: 122, lonMax: 155, latMin: 23, latMax: 46.5 } },
+    IN: { bbox: { lonMin: 67, lonMax: 98.5, latMin: 5.5, latMax: 36.5 } },
   };
   let drilldownCountry = null; // e.g. "IT" while its regions are shown
   let preDrilldownView = null; // view rect saved the moment drill-down started
