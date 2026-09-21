@@ -68,6 +68,12 @@
     // in, but Scotland is one clickable path either way, so nothing
     // becomes unreachable the way a whole federal-subject would for Russia.
     GB: { bbox: { lonMin: -9.5, lonMax: 2.5, latMin: 49.5, latMax: 61.0 } },
+    // Full real extent (mainland + Alaska + Hawaii), same principle as the
+    // Russia decision: Alaska and Hawaii are each their own clickable
+    // state, so a tighter bbox would make them genuinely unreachable while
+    // drilled in, not just off-screen scenery like GB's Rockall. Still a
+    // real zoom (~111° of longitude vs. the map's 360°).
+    US: { bbox: { lonMin: -180, lonMax: -64, latMin: 17, latMax: 72 } },
   };
   let drilldownCountry = null; // e.g. "IT" while its regions are shown
   let preDrilldownView = null; // view rect saved the moment drill-down started

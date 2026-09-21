@@ -156,8 +156,8 @@ class ValidRegionIdsTests(TestCase):
         self.assertIn("US", ids)
         self.assertIn("IT", ids)
         # 237 top-level (world.svg) + 20 Italy (SP-13.2) + 16 Germany +
-        # 32 Mexico + 19 Spain + 4 UK subdivisions (SP-13.4)
-        self.assertEqual(len(ids), 328)
+        # 32 Mexico + 19 Spain + 4 UK + 51 US subdivisions (SP-13.4)
+        self.assertEqual(len(ids), 379)
         self.assertEqual(sum(1 for i in ids if ":" not in i), 237)
 
     def test_contains_sp13_missing_entities(self):
@@ -198,15 +198,25 @@ class ValidRegionIdsTests(TestCase):
         self.assertIn("GB:SCT", ids)  # Scotland
         self.assertEqual(sum(1 for i in ids if i.startswith("GB:")), 4)
 
+    def test_contains_us_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("US:CA", ids)  # California
+        self.assertIn("US:AK", ids)  # Alaska
+        self.assertIn("US:HI", ids)  # Hawaii
+        self.assertIn("US:DC", ids)  # District of Columbia
+        self.assertEqual(sum(1 for i in ids if i.startswith("US:")), 51)
+
     def test_has_subdivisions_true_for_country_with_regions(self):
         self.assertTrue(has_subdivisions("IT"))
         self.assertTrue(has_subdivisions("DE"))
         self.assertTrue(has_subdivisions("MX"))
         self.assertTrue(has_subdivisions("ES"))
         self.assertTrue(has_subdivisions("GB"))
+        self.assertTrue(has_subdivisions("US"))
 
     def test_has_subdivisions_false_for_plain_country(self):
-        self.assertFalse(has_subdivisions("US"))
+        self.assertFalse(has_subdivisions("PT"))
 
     def test_has_subdivisions_false_for_subdivision_itself(self):
         self.assertFalse(has_subdivisions("IT:52"))
@@ -242,6 +252,13 @@ class SubdivisionSvgViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'data-region="DE:BY"', response.content)
 
+    def test_returns_svg_content_including_alaska_and_hawaii(self):
+        response = self.client.get(reverse("subdivision_svg", args=["US"]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'data-region="US:AK"', response.content)
+        self.assertIn(b'data-region="US:HI"', response.content)
+
     def test_rejects_anonymous_request(self):
         self.client.logout()
 
@@ -274,18 +291,18 @@ class ToggleVisitViewTests(TestCase):
         )
 
     def test_adds_region_when_valid_and_absent(self):
-        response = self._post("US")
+        response = self._post("PT")
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {"visited": ["US"]})
+        self.assertEqual(response.json(), {"visited": ["PT"]})
         self.assertEqual(
-            UserProfile.objects.get(user=self.user).visited_regions, ["US"]
+            UserProfile.objects.get(user=self.user).visited_regions, ["PT"]
         )
 
     def test_removes_region_when_valid_and_present(self):
-        self._post("US")
+        self._post("PT")
 
-        response = self._post("US")
+        response = self._post("PT")
 
         self.assertEqual(response.json(), {"visited": []})
 
@@ -334,7 +351,7 @@ class ToggleVisitViewTests(TestCase):
     def test_rejects_anonymous_request(self):
         self.client.logout()
 
-        response = self._post("US")
+        response = self._post("PT")
 
         self.assertEqual(response.status_code, 401)
 
@@ -344,7 +361,7 @@ class ToggleVisitViewTests(TestCase):
 
         response = strict_client.post(
             reverse("toggle_visit"),
-            data=json.dumps({"region": "US"}),
+            data=json.dumps({"region": "PT"}),
             content_type="application/json",
         )
 

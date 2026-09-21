@@ -709,7 +709,7 @@ Implementation notes:
   now the only way out of one.
 
 ### SP-13.4: Subdivision drill-down data for 13 more countries
-**Status:** In Progress — batch 1 of 3+ done (SP-13.4.1)
+**Status:** In Progress — batches 1-2 of 3+ done (SP-13.4.1, SP-13.4.2)
 **Description:** Using SP-13.3's lazy-fetch infra, add real subdivision data
 for: US, Canada, Australia, UK, Germany, France, Spain, Japan, China, India,
 Brazil, Mexico, Russia. Split out (2026-09-18, user decision) so this much
@@ -724,7 +724,7 @@ batch order starts with geographically compact/simple countries first.
       only covers Russia/US/India/Indonesia/China/Brazil/Canada/Australia/
       South Africa — otherwise dissolve+simplify the 10m set, same
       approach as Italy in SP-13.3), real ISO 3166-2 codes, same
-      projection formula as `world.svg`
+      projection formula as `world.svg` — done for DE/MX/ES/GB/US so far
 - [x] UK modeled as its 4 constituent countries (England/Scotland/Wales/
       Northern Ireland), not county-level — done in SP-13.4.1
 - [ ] Disputed-boundary countries (Russia, China, India) use Natural
@@ -799,6 +799,50 @@ Implementation notes:
   the Mexico stale-code check, one more country through
   `SubdivisionSvgViewTests`) — 48 total, all green. Manual browser
   verification (not automated this round, per user request).
+
+### SP-13.4.2: Batch 2 — United States
+**Status:** Done
+**Description:** US states, picked up right after batch 1 (user request,
+2026-09-21) rather than waiting for the next planned batch.
+**Acceptance criteria:**
+- [x] 51 subdivisions (50 states + DC) added, real ISO 3166-2:US codes
+- [x] Drill-down zoom bbox uses the full real extent (mainland + Alaska +
+      Hawaii), per the Russia-decision precedent — every state stays
+      individually reachable while drilled in
+- [x] Full Django test suite green
+
+Implementation notes:
+- Unlike DE/MX/ES/GB, the US **is** one of the 9 countries Natural Earth's
+  reduced 50m admin-1 set actually covers (confirmed during SP-13.3
+  planning) — sourced from that genuine 50m data instead of 10m+dissolve.
+  Still ran the same 0.03deg simplify pass on top for consistent file
+  weight with every other batch (native 50m alone was ~219 verts/state
+  average, notably heavier than the simplified batches; 0.03deg brought
+  the total from 11,191 to 3,729 verts). Confirmed simplification behaves
+  correctly on rectangular states (Colorado simplifies to 5 vertices — a
+  near-perfect rectangle, not a bug).
+- Alaska's geometry in this source stops at -178.19° lon — no
+  antimeridian crossing at 50m resolution (the far-western Aleutian tip is
+  generalized away, same small-entity-omission pattern as SP-3's original
+  gap), so no `-wrapdateline` preprocessing was needed, unlike SP-13.1's
+  Pacific-crossing entities.
+- Bbox uses the full mainland+Alaska+Hawaii extent (lon -180 to -64, lat
+  17 to 72) rather than a cropped one — same principle as the Russia
+  decision under SP-13.4: Alaska and Hawaii are each their own clickable
+  state (unlike UK's Rockall, which is folded into one Scotland polygon),
+  so a tighter bbox would make them genuinely unreachable while drilled
+  in. Still a real zoom (~111° of longitude vs. the map's 360°).
+- US state codes (postal abbreviations) are unambiguous — skipped the
+  Wikipedia cross-check used for Spain/Mexico/UK's less obvious codes.
+- Adding US subdivisions meant "US" itself could no longer be used as the
+  test suite's stock "plain country with no subdivisions" fixture —
+  `maps/tests.py`'s `ToggleVisitViewTests` view-level tests (which go
+  through `has_subdivisions()`) switched to "PT" (Portugal, not on the
+  13-country list, safe long-term); model-level tests calling
+  `UserProfile.toggle_region()` directly were unaffected since that
+  validation lives in the view, not the model.
+- 2 new Django tests — 50 total, all green. Manual browser verification
+  (per user request, same as batch 1).
 
 ### SP-14: PostgreSQL production database switch *(Later)*
 **Status:** To Do
