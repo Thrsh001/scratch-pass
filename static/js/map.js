@@ -74,6 +74,12 @@
     // drilled in, not just off-screen scenery like GB's Rockall. Still a
     // real zoom (~111° of longitude vs. the map's 360°).
     US: { bbox: { lonMin: -180, lonMax: -64, latMin: 17, latMax: 72 } },
+    AU: { bbox: { lonMin: 111.5, lonMax: 155, latMin: -45, latMax: -8.5 } },
+    BR: { bbox: { lonMin: -76, lonMax: -32.5, latMin: -35.5, latMax: 7 } },
+    // Nunavut/Yukon reach up to ~83°N — full real extent, same reachability
+    // principle as US/Russia (each territory is its own clickable path).
+    CA: { bbox: { lonMin: -143, lonMax: -50.5, latMin: 40, latMax: 84.5 } },
+    CN: { bbox: { lonMin: 71.5, lonMax: 136.5, latMin: 16.5, latMax: 55 } },
   };
   let drilldownCountry = null; // e.g. "IT" while its regions are shown
   let preDrilldownView = null; // view rect saved the moment drill-down started

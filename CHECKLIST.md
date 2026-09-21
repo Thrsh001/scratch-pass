@@ -709,7 +709,7 @@ Implementation notes:
   now the only way out of one.
 
 ### SP-13.4: Subdivision drill-down data for 13 more countries
-**Status:** In Progress — batches 1-2 of 3+ done (SP-13.4.1, SP-13.4.2)
+**Status:** In Progress — batches 1-3 of 4 done (SP-13.4.1, SP-13.4.2, SP-13.4.3)
 **Description:** Using SP-13.3's lazy-fetch infra, add real subdivision data
 for: US, Canada, Australia, UK, Germany, France, Spain, Japan, China, India,
 Brazil, Mexico, Russia. Split out (2026-09-18, user decision) so this much
@@ -724,14 +724,16 @@ batch order starts with geographically compact/simple countries first.
       only covers Russia/US/India/Indonesia/China/Brazil/Canada/Australia/
       South Africa — otherwise dissolve+simplify the 10m set, same
       approach as Italy in SP-13.3), real ISO 3166-2 codes, same
-      projection formula as `world.svg` — done for DE/MX/ES/GB/US so far
+      projection formula as `world.svg` — done for DE/MX/ES/GB/US/AU/BR/
+      CA/CN so far; France/Japan/India/Russia remain
 - [x] UK modeled as its 4 constituent countries (England/Scotland/Wales/
       Northern Ireland), not county-level — done in SP-13.4.1
-- [ ] Disputed-boundary countries (Russia, China, India) use Natural
-      Earth's standard admin boundaries, not a separate variant
+- [x] Disputed-boundary countries: China done in SP-13.4.3 (31 provinces,
+      deliberately excludes Taiwan/Hong Kong/Macau — see that ticket's
+      notes); Russia and India still to do
 - [x] Russia's drill-down zoom bbox: use its full real extent, not a
       cropped one — resolved 2026-09-21, not yet implemented (Russia isn't
-      in batch 1)
+      in batch 1-3)
 - [ ] `maps/regions.py`'s allowlist and `has_subdivisions()` cover each new
       country without a hardcoded per-country list (already generic as of
       SP-13.3 — confirmed needs zero changes in SP-13.4.1)
@@ -843,6 +845,54 @@ Implementation notes:
   validation lives in the view, not the model.
 - 2 new Django tests — 50 total, all green. Manual browser verification
   (per user request, same as batch 1).
+
+### SP-13.4.3: Batch 3 — Australia, Brazil, Canada, China
+**Status:** Done
+**Description:** Third SP-13.4 batch, requested together (2026-09-21).
+**Acceptance criteria:**
+- [x] Australia (8: 6 states + ACT + Northern Territory), Brazil (27: 26
+      states + federal district), Canada (13: 10 provinces + 3
+      territories), China (31 provincial-level divisions) added, real
+      verified ISO 3166-2 codes
+- [x] Same 0.03deg simplify tolerance and projection formula as every
+      other batch
+- [x] Full Django test suite green
+
+Implementation notes:
+- All four are among the 9 countries Natural Earth's *reduced* 50m
+  admin-1 set actually covers directly (confirmed during SP-13.3
+  planning) — sourced from that genuine 50m data like the US, then the
+  same 0.03deg simplify pass on top for consistent weight with every
+  other batch (13,845 total verts across 79 regions).
+- **Australia:** the source's 9th feature, "Jervis Bay Territory", has a
+  placeholder code (`AU-X02~`) — verified against Wikipedia that the real
+  ISO 3166-2:AU list has exactly 8 entries (6 states + ACT + Northern
+  Territory); excluded, same precedent as Mexico's junk row in SP-13.4.1.
+  User's initial ask mentioned "10 territories" — the real count is 2
+  (ACT + NT); flagged and corrected rather than built as asked.
+- **China:** user's initial ask expected 34 ("if you include Taiwan").
+  Verified against Wikipedia: the formal ISO 3166-2:CN list does include
+  Taiwan (CN-TW), Hong Kong (CN-HK), and Macau (CN-MO) — 34 total — but
+  this app already represents all three as independent top-level
+  countries (TW/HK/MO, added in SP-13.1, since each has its own ISO
+  3166-1 code and Natural Earth's admin-0 layer treats them as separate
+  countries). Natural Earth's admin-1 set filtered to `admin='China'`
+  already excludes all three on its own (31 features, confirmed) — no
+  manual filtering needed, and using it keeps one real place from ever
+  having two independent visited-states under two different ids, which
+  the flat region-id scheme (CLAUDE.md) doesn't support. Corrected the
+  province-level `name` field for two entries where it didn't match
+  common English usage: `CN-XZ` ("Xizang" in the source) → "Tibet",
+  `CN-NM` ("Inner Mongol", a truncation) → "Inner Mongolia".
+- **Brazil, Canada:** matched the user's expected counts and Natural
+  Earth's own `iso_3166_2` field exactly, no corrections needed. Canada's
+  bbox uses the full real extent (up to ~83°N for Nunavut/Ellesmere
+  Island) rather than a cropped one, same reachability principle as
+  US/Russia — each territory is its own clickable path.
+- 8 new Django tests (per-country id-count + `has_subdivisions` checks,
+  a dedicated test confirming TW/HK/MO stay non-subdivided, one more
+  country through `SubdivisionSvgViewTests`) — 56 total, all green.
+  Manual browser verification (per user request, same as prior batches).
 
 ### SP-14: PostgreSQL production database switch *(Later)*
 **Status:** To Do

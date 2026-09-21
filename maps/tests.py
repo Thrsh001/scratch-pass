@@ -156,8 +156,9 @@ class ValidRegionIdsTests(TestCase):
         self.assertIn("US", ids)
         self.assertIn("IT", ids)
         # 237 top-level (world.svg) + 20 Italy (SP-13.2) + 16 Germany +
-        # 32 Mexico + 19 Spain + 4 UK + 51 US subdivisions (SP-13.4)
-        self.assertEqual(len(ids), 379)
+        # 32 Mexico + 19 Spain + 4 UK + 51 US + 8 Australia + 27 Brazil +
+        # 13 Canada + 31 China subdivisions (SP-13.4)
+        self.assertEqual(len(ids), 458)
         self.assertEqual(sum(1 for i in ids if ":" not in i), 237)
 
     def test_contains_sp13_missing_entities(self):
@@ -207,6 +208,36 @@ class ValidRegionIdsTests(TestCase):
         self.assertIn("US:DC", ids)  # District of Columbia
         self.assertEqual(sum(1 for i in ids if i.startswith("US:")), 51)
 
+    def test_contains_australia_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("AU:NSW", ids)  # New South Wales
+        self.assertNotIn("AU:X02", ids)  # Jervis Bay Territory, no real ISO code
+        self.assertEqual(sum(1 for i in ids if i.startswith("AU:")), 8)
+
+    def test_contains_brazil_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("BR:SP", ids)  # São Paulo
+        self.assertEqual(sum(1 for i in ids if i.startswith("BR:")), 27)
+
+    def test_contains_canada_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("CA:NU", ids)  # Nunavut
+        self.assertEqual(sum(1 for i in ids if i.startswith("CA:")), 13)
+
+    def test_contains_china_subdivisions(self):
+        ids = valid_region_ids()
+
+        self.assertIn("CN:BJ", ids)  # Beijing
+        # Deliberately 31, not 34 -- Taiwan/Hong Kong/Macau are already
+        # independent top-level countries (TW/HK/MO, added in SP-13.1).
+        self.assertNotIn("CN:TW", ids)
+        self.assertNotIn("CN:HK", ids)
+        self.assertNotIn("CN:MO", ids)
+        self.assertEqual(sum(1 for i in ids if i.startswith("CN:")), 31)
+
     def test_has_subdivisions_true_for_country_with_regions(self):
         self.assertTrue(has_subdivisions("IT"))
         self.assertTrue(has_subdivisions("DE"))
@@ -214,9 +245,21 @@ class ValidRegionIdsTests(TestCase):
         self.assertTrue(has_subdivisions("ES"))
         self.assertTrue(has_subdivisions("GB"))
         self.assertTrue(has_subdivisions("US"))
+        self.assertTrue(has_subdivisions("AU"))
+        self.assertTrue(has_subdivisions("BR"))
+        self.assertTrue(has_subdivisions("CA"))
+        self.assertTrue(has_subdivisions("CN"))
 
     def test_has_subdivisions_false_for_plain_country(self):
         self.assertFalse(has_subdivisions("PT"))
+
+    def test_has_subdivisions_false_for_countries_treated_as_top_level(self):
+        # Taiwan/Hong Kong/Macau are independent top-level countries
+        # (SP-13.1), not China subdivisions, despite ISO 3166-2:CN formally
+        # listing them -- see China's implementation note under SP-13.4.
+        self.assertFalse(has_subdivisions("TW"))
+        self.assertFalse(has_subdivisions("HK"))
+        self.assertFalse(has_subdivisions("MO"))
 
     def test_has_subdivisions_false_for_subdivision_itself(self):
         self.assertFalse(has_subdivisions("IT:52"))
@@ -258,6 +301,13 @@ class SubdivisionSvgViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'data-region="US:AK"', response.content)
         self.assertIn(b'data-region="US:HI"', response.content)
+
+    def test_returns_svg_content_excluding_taiwan_hongkong_macau(self):
+        response = self.client.get(reverse("subdivision_svg", args=["CN"]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'data-region="CN:BJ"', response.content)
+        self.assertNotIn(b'data-region="CN:TW"', response.content)
 
     def test_rejects_anonymous_request(self):
         self.client.logout()
