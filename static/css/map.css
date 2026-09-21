@@ -502,7 +502,8 @@ body {
 /* Drill-down (redefined): every region outside the country being explored
    dims and goes inert — map.js also drops tabindex to -1 alongside this,
    so a dimmed region is unreachable by mouse, touch, and keyboard alike.
-   The only way back is double-click/tap (locked out of pan/zoom too). */
+   The only way back is the "Return to world view" button (pan/zoom are
+   locked out too). */
 .region.dimmed {
   opacity: 0.35;
   pointer-events: none;
@@ -516,11 +517,18 @@ body {
   background: rgb(61 105 84 / 70%);
   color: #fff;
   padding: 1.5rem 1.9rem;
+  border: none;
   border-radius: 15px;
+  font: inherit;
   font-size: 1.2rem;
   font-weight: 550;
   box-shadow: var(--shadow-card);
-  pointer-events: none;
+  cursor: pointer;
+}
+
+.drilldown-hint:hover,
+.drilldown-hint:focus-visible {
+  background: rgb(61 105 84 / 85%);
 }
 
 @media (prefers-reduced-motion: reduce) {

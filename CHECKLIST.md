@@ -614,7 +614,10 @@ Implementation notes:
   misfire as a toggle). A `.drilldown-hint` element ("Double click/tap to
   return") shows/hides alongside enter/exit — plain text for now, noted
   in `map.html` as a candidate to become a real clickable button later if
-  the gesture-only exit doesn't prove discoverable enough.
+  the gesture-only exit doesn't prove discoverable enough. **Followed up
+  2026-09-18:** converted to a real `<button>` ("Return to world view"),
+  double-click/tap no longer exits a drill-down — see the note under
+  SP-13.3.
 - **Bug found + fixed during verification (redefinition):** SVG has **no
   `[hidden] { display: none }` rule in its default stylesheet at all**
   (unlike HTML) — this is a different manifestation of the same
@@ -698,6 +701,12 @@ Implementation notes:
   through a reload; full SP-4.1–SP-13.2 regression list (keyboard toggle,
   wheel zoom, drag pan, double-click reset, mobile no-overflow) still
   passes. 43 Django tests (6 new), all green.
+- **Follow-up (2026-09-18, user request):** `.drilldown-hint` changed from
+  a plain `<div>` to a real `<button>` ("Return to world view"), wired to
+  `exitDrilldown()` on click — the exit affordance SP-13.2 flagged as a
+  candidate. Double-click/tap no longer exits a drill-down (still resets
+  zoom/pan to the full world view when *not* drilled in); the button is
+  now the only way out of one.
 
 ### SP-13.4: Subdivision drill-down data for 13 more countries
 **Status:** To Do

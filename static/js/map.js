@@ -9,8 +9,9 @@
 // Subdivision drill-down: clicking a country with subdivisions (currently
 // just Italy) zooms in on it in place — same <svg>, same coordinate space,
 // neighbors stay visible — rather than swapping to a separate view.
-// Double-click/tap while drilled in zooms back out to wherever the view was
-// before drilling in, instead of resetting to the whole world. A country's
+// Clicking the "Return to world view" button zooms back out to wherever
+// the view was before drilling in, instead of resetting to the whole
+// world. A country's
 // subdivision geometry is fetched from the server on first drill-down (not
 // shipped in the initial page) and the resulting <g> stays in the DOM as
 // its own cache, so re-entering the same country later doesn't re-fetch
@@ -319,7 +320,7 @@
     "wheel",
     (e) => {
       e.preventDefault();
-      if (drilldownCountry) return; // locked — double-click/tap is the only way back
+      if (drilldownCountry) return; // locked — the "Return to world view" button is the only way back
       const factor = e.deltaY > 0 ? 1.15 : 1 / 1.15;
       zoomAt(e.clientX, e.clientY, factor);
     },
@@ -368,7 +369,7 @@
         tap = null; // moved past the tap threshold — this is a pan now
       }
       if (!drilldownCountry) {
-        // Locked while drilled in — double-click/tap is the only way back.
+        // Locked while drilled in — the "Return to world view" button is the only way back.
         const rect = svg.getBoundingClientRect();
         view.x -= ((e.clientX - dragLast.x) / rect.width) * view.width;
         view.y -= ((e.clientY - dragLast.y) / rect.height) * view.height;
@@ -401,12 +402,11 @@
 
   svg.addEventListener("dblclick", (e) => {
     e.preventDefault();
-    if (drilldownCountry) {
-      exitDrilldown();
-    } else {
-      resetView();
-    }
+    if (drilldownCountry) return; // exit is via the "Return to world view" button now
+    resetView();
   });
+
+  if (drilldownHintEl) drilldownHintEl.addEventListener("click", exitDrilldown);
 
   setViewBox();
 })();

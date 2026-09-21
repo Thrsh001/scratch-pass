@@ -34,10 +34,7 @@
            /api/subdivisions/<code>/, not inlined here) rather than shipping
            every subdivided country's geometry on every page load (SP-13.3). -->
     </svg>
-    <!-- Plain text hint for now — may become a real clickable button
-         (an explicit tap-to-exit affordance) instead of a pure gesture
-         hint, if double-click/tap alone doesn't prove discoverable enough. -->
-    <div class="drilldown-hint" data-drilldown-hint hidden>Double click/tap to return</div>
+    <button type="button" class="drilldown-hint" data-drilldown-hint hidden>Return to world view</button>
   </div>
   <script src="{% static 'js/map.js' %}"></script>
 </body>
