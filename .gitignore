@@ -5,5 +5,8 @@ db.sqlite3
 *.log
 .DS_Store
 .env
+.env.local
 staticfiles/
 HANDOFF.md
+# Google OAuth client downloads (credentials go in .env instead)
+client_secret*.json

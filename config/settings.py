@@ -40,6 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'maps',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -136,3 +142,36 @@ LOGIN_REDIRECT_URL = 'map'
 # it after logout would just trigger a second redirect to 'login' anyway —
 # send them there directly instead.
 LOGOUT_REDIRECT_URL = 'login'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Social login (django-allauth). A provider is only enabled when its
+# credentials are set in .env, so the buttons stay disabled on a checkout
+# without them instead of erroring on click.
+_SOCIAL_CREDENTIALS = {
+    'google': (config('GOOGLE_CLIENT_ID', default=''), config('GOOGLE_CLIENT_SECRET', default='')),
+    'facebook': (config('FACEBOOK_APP_ID', default=''), config('FACEBOOK_APP_SECRET', default='')),
+}
+_SOCIAL_SCOPES = {
+    'google': ['profile', 'email'],
+    'facebook': ['email', 'public_profile'],
+}
+SOCIALACCOUNT_PROVIDERS = {
+    provider: {
+        'APPS': [{'client_id': client_id, 'secret': secret}],
+        'SCOPE': _SOCIAL_SCOPES[provider],
+    }
+    for provider, (client_id, secret) in _SOCIAL_CREDENTIALS.items()
+    if client_id and secret
+}
+SOCIALACCOUNT_ADAPTER = 'maps.adapters.SocialAccountAdapter'
+# Password accounts never collected an email, so there's nothing to verify
+# or match against; every social identity simply gets its own account.
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+# Google and Facebook can report the same email for two different social
+# accounts; without this, the second would land on allauth's manual signup
+# form instead of auto-signing up.
+ACCOUNT_UNIQUE_EMAIL = False

@@ -302,9 +302,21 @@ body {
   border: 1px solid var(--color-region);
   border-radius: 8px;
   background: var(--color-surface);
-  color: var(--color-muted);
+  color: var(--color-ink);
   font: inherit;
   font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 150ms ease;
+}
+
+.social-btn:hover:not(:disabled),
+.social-btn:focus-visible {
+  background: var(--color-bg);
+}
+
+.social-btn:disabled {
+  color: var(--color-muted);
   cursor: not-allowed;
 }
 
@@ -412,6 +424,13 @@ body {
 
 .auth-error {
   color: #b3261e;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0 0 0.75rem;
+}
+
+.auth-notice {
+  color: var(--color-muted);
   font-size: 1rem;
   font-weight: 500;
   margin: 0 0 0.75rem;

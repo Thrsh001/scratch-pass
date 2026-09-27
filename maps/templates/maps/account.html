@@ -45,6 +45,10 @@
           <label for="tab-register">Sign up</label>
         </div>
 
+        {% for message in messages %}
+          <p class="auth-{% if message.level_tag == 'error' %}error{% else %}notice{% endif %}">{{ message }}</p>
+        {% endfor %}
+
         <section class="auth-panel auth-panel-login">
           {% if login_form.errors %}
             <p class="auth-error">Your username and password didn't match. Please try again.</p>
@@ -56,16 +60,7 @@
             <button type="submit" class="auth-submit">Log in</button>
           </form>
           <div class="auth-divider"><span>or</span></div>
-          <div class="social-buttons">
-            <button type="button" class="social-btn" disabled title="Coming soon">
-              <span class="social-badge social-badge-google" aria-hidden="true">G</span>
-              Continue with Google
-            </button>
-            <button type="button" class="social-btn" disabled title="Coming soon">
-              <span class="social-badge social-badge-facebook" aria-hidden="true">f</span>
-              Continue with Facebook
-            </button>
-          </div>
+          {% include "maps/partials/social_buttons.html" %}
         </section>
 
         <section class="auth-panel auth-panel-register">
@@ -78,16 +73,7 @@
             <button type="submit" class="auth-submit">Sign up</button>
           </form>
           <div class="auth-divider"><span>or</span></div>
-          <div class="social-buttons">
-            <button type="button" class="social-btn" disabled title="Coming soon">
-              <span class="social-badge social-badge-google" aria-hidden="true">G</span>
-              Continue with Google
-            </button>
-            <button type="button" class="social-btn" disabled title="Coming soon">
-              <span class="social-badge social-badge-facebook" aria-hidden="true">f</span>
-              Continue with Facebook
-            </button>
-          </div>
+          {% include "maps/partials/social_buttons.html" %}
         </section>
       </div>
     </main>

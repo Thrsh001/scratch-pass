@@ -16,8 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('maps.urls')),
+    # Only the slice of django-allauth that social login needs; its own
+    # login/signup/password pages would duplicate maps/account.html.
+    path('accounts/', include('allauth.socialaccount.providers.google.urls')),
+    path('accounts/', include('allauth.socialaccount.providers.facebook.urls')),
+    path('accounts/3rdparty/', include('allauth.socialaccount.urls')),
+    # allauth reverses these names internally (e.g. after a failed or
+    # cancelled social login); point them at the app's own pages.
+    path('accounts/login/', RedirectView.as_view(pattern_name='login', query_string=True), name='account_login'),
+    path('accounts/signup/', RedirectView.as_view(pattern_name='register', query_string=True), name='account_signup'),
 ]

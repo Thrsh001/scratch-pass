@@ -1,0 +1,20 @@
+{% load socialaccount %}
+<div class="social-buttons">
+  {% for provider in social_buttons %}
+    {% if provider.enabled %}
+      <form method="post" action="{% provider_login_url provider.id %}">
+        {% csrf_token %}
+        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+        <button type="submit" class="social-btn">
+          <span class="social-badge social-badge-{{ provider.id }}" aria-hidden="true">{{ provider.badge }}</span>
+          Continue with {{ provider.name }}
+        </button>
+      </form>
+    {% else %}
+      <button type="button" class="social-btn" disabled title="Not configured">
+        <span class="social-badge social-badge-{{ provider.id }}" aria-hidden="true">{{ provider.badge }}</span>
+        Continue with {{ provider.name }}
+      </button>
+    {% endif %}
+  {% endfor %}
+</div>

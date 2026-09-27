@@ -18,6 +18,30 @@ python manage.py runserver
 
 Visit http://127.0.0.1:8000/.
 
+## Social login (optional)
+
+"Continue with Google" / "Continue with Facebook" use
+[django-allauth](https://docs.allauth.org/). Each button stays disabled
+until its credentials are set in `.env`; restart the server after editing.
+
+**Google:** in [Google Cloud Console](https://console.cloud.google.com/apis/credentials),
+create an OAuth client ID of type "Web application" and add the authorized
+redirect URI `http://127.0.0.1:8000/accounts/google/login/callback/`
+(match the host/port you run on). Put the values in `GOOGLE_CLIENT_ID` /
+`GOOGLE_CLIENT_SECRET`.
+
+**Facebook:** in [Meta for Developers](https://developers.facebook.com/apps/),
+create an app with the "Authenticate and request data from users with
+Facebook Login" use case, add the valid OAuth redirect URI
+`http://127.0.0.1:8000/accounts/facebook/login/callback/`, and put the App
+ID / App Secret in `FACEBOOK_APP_ID` / `FACEBOOK_APP_SECRET`. While the app
+is in development mode, only its admins/testers can log in; public use
+needs Meta's app review and an HTTPS domain.
+
+A first social login creates a new account automatically. It isn't linked
+to any existing username/password account (those have no email to match
+on), and Google and Facebook logins are separate accounts too.
+
 ## Stack
 
 - Backend: Django, SQLite (dev).

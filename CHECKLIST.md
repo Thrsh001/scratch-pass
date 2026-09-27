@@ -1049,3 +1049,80 @@ happening implicitly, so it's tracked and doesn't get skipped.
 - [ ] Verified against a real (e.g. Dockerized) Postgres instance, not
       just SQLite: migrations apply cleanly, `UserProfile` CRUD and the
       existing test suite pass with `DATABASES` pointed at it
+
+### SP-15: Social login (Google, Facebook)
+**Status:** In Progress — SP-15.1 (Google) done; SP-15.2 (Facebook)
+deferred
+**Description:** Make SP-9.1's placeholder "Continue with Google" /
+"Continue with Facebook" buttons work (user request, 2026-09-27). Adds
+`django-allauth[socialaccount]` (user-approved dependency; hand-rolled
+OAuth rejected as security-sensitive code not worth owning). Split into a
+sub-ticket per provider (user decision, 2026-09-27): Google first,
+Facebook later. The shared allauth wiring below ships with SP-15.1 and
+already covers both providers, so each button is enabled only once that
+provider's credentials are in `.env`.
+**Acceptance criteria (shared wiring):**
+- [x] Buttons POST (CSRF-protected) to allauth's provider login URLs; each
+      is enabled only when its credentials are in `.env`, disabled with a
+      "Not configured" title otherwise
+- [x] First social login auto-creates a user (and `UserProfile` via the
+      existing signal) and lands on the map; a repeat login reuses it
+- [x] Cancelled/failed provider logins return to the app's own login page
+      with a message, not allauth's unstyled pages
+- [x] Credentials read from `.env` via `python-decouple`, never committed
+      (`.env`, `.env.local`, and Google's downloaded `client_secret*.json`
+      are all gitignored); `.env.example` + README document setup
+- [x] Tests: button state, Google redirect, full callback flow via
+      Facebook with the Graph API mocked (creation, reuse, cancel, forged
+      state) — exercises the provider-agnostic path both share
+
+Implementation notes:
+- Only the slice of allauth's URLs that social login needs is mounted
+  (provider login/callback + `accounts/3rdparty/`), not `allauth.urls`,
+  which would add duplicate unstyled login/signup/password pages.
+  `account_login`/`account_signup`, which allauth reverses internally,
+  are redirect aliases to the app's own `login`/`register`.
+- Providers are configured in settings (`SOCIALACCOUNT_PROVIDERS` →
+  `APPS`) from env vars, not as `SocialApp` DB rows; no `django.contrib.
+  sites` needed.
+- No account linking: password accounts have no email, and allauth's
+  email-matching login is left off (it's opt-in and wipes the matched
+  account's password). `ACCOUNT_UNIQUE_EMAIL = False` so a Google and
+  a Facebook identity sharing an email both auto-sign-up instead of
+  falling back to allauth's manual signup form.
+- Adding allauth's backend made `AUTHENTICATION_BACKENDS` plural, which
+  broke `register_view`'s `login()` (Django then requires an explicit
+  backend) — caught by the existing register test, fixed by passing
+  `ModelBackend`.
+- `social-btn` got real enabled/hover/disabled states (was permanently
+  `cursor: not-allowed`); login page now renders Django messages
+  (`.auth-notice` for info, existing `.auth-error` for errors).
+- Migrations: allauth's own (account/socialaccount tables), additive only.
+
+### SP-15.1: Google login
+**Status:** Done
+**Description:** First provider. Google Cloud OAuth client ("Web
+application") created by the user, credentials in `.env`.
+**Acceptance criteria:**
+- [x] OAuth client created; redirect URI
+      `http://127.0.0.1:8001/accounts/google/login/callback/` (the dev
+      server's port; 8000 is taken by something else on this machine)
+- [x] `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` in `.env`
+- [x] Verified in a browser (user, 2026-09-27): button enabled → Google
+      consent → lands on the map as a new user; logout + second Google
+      login reuses the same account; cancelling on Google's screen
+      returns to the login page with the "cancelled" notice
+
+### SP-15.2: Facebook login *(Later)*
+**Status:** To Do
+**Description:** Second provider, deferred by user decision (2026-09-27).
+No code needed; SP-15's shared wiring already supports it, and the button
+stays disabled until credentials exist.
+**Acceptance criteria:**
+- [ ] Meta for Developers app created ("Facebook Login" use case),
+      redirect URI `http://127.0.0.1:8001/accounts/facebook/login/callback/`
+- [ ] `FACEBOOK_APP_ID` / `FACEBOOK_APP_SECRET` in `.env`
+- [ ] Verified in a browser (as an app admin/tester — the app stays in
+      development mode until Meta's review)
+- [ ] Before public use: Meta app review + HTTPS domain (deploy-time,
+      alongside SP-14)

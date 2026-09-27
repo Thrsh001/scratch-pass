@@ -1,5 +1,6 @@
 import json
 
+from allauth.socialaccount.adapter import get_adapter as get_social_adapter
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -59,19 +60,35 @@ def subdivision_svg(request, code):
     return HttpResponse(path.read_text(), content_type="image/svg+xml")
 
 
+_SOCIAL_PROVIDERS = [
+    {"id": "google", "name": "Google", "badge": "G"},
+    {"id": "facebook", "name": "Facebook", "badge": "f"},
+]
+
+
+def social_buttons(request):
+    configured = {p.id for p in get_social_adapter().list_providers(request)}
+    return [{**p, "enabled": p["id"] in configured} for p in _SOCIAL_PROVIDERS]
+
+
 def register_view(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            login(request, user, backend="django.contrib.auth.backends.ModelBackend")
             return redirect("map")
     else:
         form = UserCreationForm()
     return render(
         request,
         "maps/account.html",
-        {"active_tab": "register", "register_form": form, "login_form": AuthenticationForm()},
+        {
+            "active_tab": "register",
+            "register_form": form,
+            "login_form": AuthenticationForm(),
+            "social_buttons": social_buttons(request),
+        },
     )
 
 
@@ -83,4 +100,5 @@ class LoginView(BaseLoginView):
         context["active_tab"] = "login"
         context["login_form"] = context.pop("form")
         context["register_form"] = UserCreationForm()
+        context["social_buttons"] = social_buttons(self.request)
         return context

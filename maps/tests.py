@@ -1,7 +1,11 @@
 import json
+from unittest.mock import patch
+from urllib.parse import parse_qs, urlparse
 
+import requests
+from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.models import User
-from django.test import Client, TestCase
+from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
 from .models import UserProfile
@@ -533,3 +537,117 @@ class GetVisitsViewTests(TestCase):
         response = self.client.post(reverse("get_visits"))
 
         self.assertEqual(response.status_code, 405)
+
+
+FACEBOOK_CONFIGURED = {
+    "facebook": {
+        "APPS": [{"client_id": "test-app-id", "secret": "test-app-secret"}],
+        "SCOPE": ["email", "public_profile"],
+    }
+}
+GOOGLE_CONFIGURED = {
+    "google": {
+        "APPS": [{"client_id": "test-client-id", "secret": "test-client-secret"}],
+        "SCOPE": ["profile", "email"],
+    }
+}
+
+
+def _json_response(payload):
+    response = requests.Response()
+    response.status_code = 200
+    response.headers["Content-Type"] = "application/json"
+    response._content = json.dumps(payload).encode()
+    return response
+
+
+def _fake_facebook_api(method, url, **kwargs):
+    """Stands in for Facebook's Graph API (the true external system): the
+    code-for-token exchange, then the /me profile lookup."""
+    if url.endswith("/oauth/access_token"):
+        return _json_response({"access_token": "test-token", "expires_in": 3600})
+    if url.endswith("/me"):
+        return _json_response(
+            {"id": "fb-123", "email": "hana@example.com", "name": "Hana Test",
+             "first_name": "Hana", "last_name": "Test"}
+        )
+    raise AssertionError(f"unexpected outbound request: {method} {url}")
+
+
+class SocialButtonsTests(TestCase):
+    @override_settings(SOCIALACCOUNT_PROVIDERS={})
+    def test_buttons_disabled_when_no_provider_configured(self):
+        response = self.client.get(reverse("login"))
+
+        self.assertContains(response, 'disabled title="Not configured"', count=4)
+        self.assertNotContains(response, reverse("google_login"))
+
+    @override_settings(SOCIALACCOUNT_PROVIDERS={**GOOGLE_CONFIGURED, **FACEBOOK_CONFIGURED})
+    def test_buttons_post_to_provider_login_when_configured(self):
+        response = self.client.get(reverse("login"))
+
+        self.assertNotContains(response, "Not configured")
+        self.assertContains(response, f'<form method="post" action="{reverse("google_login")}">', count=2)
+        self.assertContains(response, f'<form method="post" action="{reverse("facebook_login")}">', count=2)
+
+    @override_settings(SOCIALACCOUNT_PROVIDERS=GOOGLE_CONFIGURED)
+    def test_google_login_redirects_to_google_when_posted(self):
+        response = self.client.post(reverse("google_login"))
+
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response["Location"].startswith("https://accounts.google.com/"))
+
+
+@override_settings(SOCIALACCOUNT_PROVIDERS=FACEBOOK_CONFIGURED)
+class FacebookLoginFlowTests(TestCase):
+    def _start_login(self):
+        response = self.client.post(reverse("facebook_login"))
+        return parse_qs(urlparse(response["Location"]).query)["state"][0]
+
+    def _complete_login(self):
+        state = self._start_login()
+        with patch.object(requests.Session, "request", side_effect=_fake_facebook_api):
+            return self.client.get(
+                reverse("facebook_callback"), {"code": "test-code", "state": state}
+            )
+
+    def test_creates_user_with_profile_and_logs_in_when_first_login(self):
+        response = self._complete_login()
+
+        self.assertRedirects(response, reverse("map"))
+        account = SocialAccount.objects.get(provider="facebook", uid="fb-123")
+        self.assertEqual(account.user.profile.visited_regions, [])
+        self.assertEqual(self.client.session["_auth_user_id"], str(account.user.pk))
+
+    def test_reuses_same_user_when_logging_in_again(self):
+        self._complete_login()
+        self.client.logout()
+
+        self._complete_login()
+
+        self.assertEqual(SocialAccount.objects.filter(uid="fb-123").count(), 1)
+        self.assertEqual(User.objects.count(), 1)
+
+    def test_redirects_to_login_with_notice_when_user_cancels(self):
+        state = self._start_login()
+
+        response = self.client.get(
+            reverse("facebook_callback"), {"error": "access_denied", "state": state},
+            follow=True,
+        )
+
+        self.assertRedirects(response, reverse("login"))
+        self.assertContains(response, "Facebook login was cancelled.")
+        self.assertFalse(User.objects.exists())
+
+    def test_redirects_to_login_with_error_when_state_invalid(self):
+        self._start_login()
+
+        response = self.client.get(
+            reverse("facebook_callback"), {"code": "test-code", "state": "forged"},
+            follow=True,
+        )
+
+        self.assertRedirects(response, reverse("login"))
+        self.assertContains(response, "Facebook login failed.")
+        self.assertFalse(User.objects.exists())
