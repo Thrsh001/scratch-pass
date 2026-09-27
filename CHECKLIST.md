@@ -709,8 +709,7 @@ Implementation notes:
   now the only way out of one.
 
 ### SP-13.4: Subdivision drill-down data for 13 more countries
-**Status:** In Progress — batches 1-4 done (SP-13.4.1–13.4.4); Russia remains
-as its own final batch
+**Status:** Done — batches 1-5 (SP-13.4.1–13.4.5)
 **Description:** Using SP-13.3's lazy-fetch infra, add real subdivision data
 for: US, Canada, Australia, UK, Germany, France, Spain, Japan, China, India,
 Brazil, Mexico, Russia. Split out (2026-09-18, user decision) so this much
@@ -726,16 +725,16 @@ batch order starts with geographically compact/simple countries first.
       South Africa — otherwise dissolve+simplify the 10m set, same
       approach as Italy in SP-13.3), real ISO 3166-2 codes, same
       projection formula as `world.svg` — done for DE/MX/ES/GB/US/AU/BR/
-      CA/CN/FR/JP/IN; only Russia remains
+      CA/CN/FR/JP/IN/RU
 - [x] UK modeled as its 4 constituent countries (England/Scotland/Wales/
       Northern Ireland), not county-level — done in SP-13.4.1
 - [x] Disputed-boundary countries: China done in SP-13.4.3 (31 provinces,
       deliberately excludes Taiwan/Hong Kong/Macau); India done in
       SP-13.4.4 (Natural Earth's standard boundaries, incl. Jammu and
-      Kashmir/Ladakh as separate UTs) — only Russia left
+      Kashmir/Ladakh as separate UTs); Russia done in SP-13.4.5 (incl.
+      Crimea/Sevastopol per Natural Earth's grouping, non-ISO ids)
 - [x] Russia's drill-down zoom bbox: use its full real extent, not a
-      cropped one — resolved 2026-09-21, not yet implemented (Russia is
-      the one remaining batch)
+      cropped one — resolved 2026-09-21, implemented in SP-13.4.5
 - [x] `maps/regions.py`'s allowlist and `has_subdivisions()` cover each new
       country without a hardcoded per-country list (confirmed generic
       across all 4 batches, zero changes needed since SP-13.3)
@@ -978,6 +977,54 @@ Implementation notes:
   country in this batch has the same issue — French Guiana was the only
   overseas department large enough to have snuck into the original
   110m-resolution country set.
+
+### SP-13.4.5: Batch 5 — Russia
+**Status:** Done
+**Description:** Final SP-13.4 batch (2026-09-27), kept separate from the
+others because of Russia's extent/antimeridian complexity and, as it
+turned out, Crimea.
+**Acceptance criteria:**
+- [x] 85 subdivisions: the 83 federal subjects in ISO 3166-2:RU (all
+      verified against Wikipedia) plus Crimea (`RU:CR`) and Sevastopol
+      (`RU:SEV`)
+- [x] Drill-down zoom bbox uses the full real extent (Kaliningrad to the
+      antimeridian), per the SP-13.4 decision
+- [x] Full Django test suite green
+
+Implementation notes:
+- Sourced from Natural Earth's genuine 50m admin-1 set (one of the 9
+  countries it covers), 0.03deg simplify on top, same projection formula
+  as every other batch. 11,241 verts / ~159KB, the heaviest subdivision
+  file (dense Arctic coastline). Acceptable because it's lazy-fetched once
+  on first drill-down (SP-13.3); kept the shared tolerance rather than
+  special-casing Russia.
+- **Code error caught via Wikipedia (the 4th of 5 batches with one):**
+  Natural Earth has `RU-MOW` and `RU-MOS` swapped. Its "Moskva" (Federal
+  City) row carries `RU-MOS`, but ISO has `RU-MOW` = Moscow city and
+  `RU-MOS` = Moscow Oblast. Mapped by the feature's `type_en` rather than
+  its code, and confirmed geometrically (`MOW` is the small polygon inside
+  `MOS`). Also fixed a few `name_en` values: `RU-ALT` was mislabeled
+  "Altai Republic" (it's Altai Krai), plus "Jewish" → "Jewish Autonomous
+  Oblast"; `Region`-type entries get an " Oblast" suffix.
+- **Crimea/Sevastopol (user decision, 2026-09-27): included as RU
+  subdivisions with non-ISO ids.** Natural Earth's standard dataset puts
+  them under `admin='Russia'` (with Ukrainian codes `UA-43`/`UA-40`), and
+  `world.svg`'s top-level `RU` polygon already contains Crimea as its own
+  ring (`UA`'s doesn't). ISO 3166-2:RU has no codes for either, so they
+  use Russia's own `CR`/`SEV`. This is the one exception to "real ISO
+  3166-2 codes", and the architecture plan's id-scheme rules already allow
+  "a fixed internal code". The alternatives were to leave a hole in the
+  drill-down (the parent path is hidden while drilled in) or to move
+  Crimea to `UA` in `world.svg`; the user chose this one.
+- Antimeridian: Chukotka's eastern tip (lon -180 to -169) projects to the
+  map's far-left edge, outside the bbox. It's part of the same `RU:CHU`
+  path as the rest of Chukotka, so nothing becomes unreachable (same
+  reasoning as GB's Rockall). No top-level overlap issue like France/
+  Guiana, because `world.svg`'s `RU` path is hidden while drilled in and
+  holds only Russian territory.
+- 2 new Django tests (Russia id-count + Moscow-swap + Crimea-id checks;
+  one more `SubdivisionSvgViewTests` case) plus the updated total-count
+  assertion. 64 total, all green.
 
 ### SP-14: PostgreSQL production database switch *(Later)*
 **Status:** To Do

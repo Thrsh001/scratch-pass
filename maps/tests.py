@@ -158,8 +158,9 @@ class ValidRegionIdsTests(TestCase):
         # 242 top-level (237 + 5 France overseas departments, SP-13.4) +
         # 20 Italy (SP-13.2) + 16 Germany + 32 Mexico + 19 Spain + 4 UK +
         # 51 US + 8 Australia + 27 Brazil + 13 Canada + 31 China + 13
-        # France (metro) + 47 Japan + 36 India subdivisions (SP-13.4)
-        self.assertEqual(len(ids), 559)
+        # France (metro) + 47 Japan + 36 India + 85 Russia subdivisions
+        # (SP-13.4)
+        self.assertEqual(len(ids), 644)
         self.assertEqual(sum(1 for i in ids if ":" not in i), 242)
 
     def test_contains_sp13_missing_entities(self):
@@ -275,6 +276,20 @@ class ValidRegionIdsTests(TestCase):
         self.assertNotIn("IN:UT", ids)
         self.assertEqual(sum(1 for i in ids if i.startswith("IN:")), 36)
 
+    def test_contains_russia_subdivisions(self):
+        ids = valid_region_ids()
+
+        # Natural Earth has these two swapped -- verified against Wikipedia.
+        self.assertIn("RU:MOW", ids)  # Moscow (city)
+        self.assertIn("RU:MOS", ids)  # Moscow Oblast
+        # Not ISO codes (ISO 3166-2:RU has none for these); deliberate
+        # exception so the drill-down matches world.svg's RU polygon.
+        self.assertIn("RU:CR", ids)  # Crimea
+        self.assertIn("RU:SEV", ids)  # Sevastopol
+        self.assertNotIn("RU:43", ids)
+        self.assertNotIn("RU:40", ids)
+        self.assertEqual(sum(1 for i in ids if i.startswith("RU:")), 85)
+
     def test_has_subdivisions_true_for_country_with_regions(self):
         self.assertTrue(has_subdivisions("IT"))
         self.assertTrue(has_subdivisions("DE"))
@@ -289,6 +304,7 @@ class ValidRegionIdsTests(TestCase):
         self.assertTrue(has_subdivisions("FR"))
         self.assertTrue(has_subdivisions("JP"))
         self.assertTrue(has_subdivisions("IN"))
+        self.assertTrue(has_subdivisions("RU"))
 
     def test_has_subdivisions_false_for_plain_country(self):
         self.assertFalse(has_subdivisions("PT"))
@@ -368,6 +384,12 @@ class SubdivisionSvgViewTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'data-region="FR:IDF"', response.content)
+
+    def test_returns_svg_content_for_russia(self):
+        response = self.client.get(reverse("subdivision_svg", args=["RU"]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'data-region="RU:MOW"', response.content)
 
     def test_rejects_anonymous_request(self):
         self.client.logout()

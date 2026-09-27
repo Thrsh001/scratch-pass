@@ -130,6 +130,7 @@ Anonymous users open `/`, click **countries**, see smooth fill fade + light scal
 
 - Always use a **single string** in the visited array (same shape forever).
 - Separator is **`:`** — country code, then local subdivision code (ISO 3166-2 suffix or a fixed internal code).
+  - Fixed internal codes in use: `RU:CR` (Crimea) and `RU:SEV` (Sevastopol). ISO 3166-2:RU has no codes for them, but Natural Earth groups them under Russia and the top-level `RU` polygon includes Crimea (SP-13.4.5). Every other subdivision id is a real ISO 3166-2 suffix.
 - MVP SVG paths use country ids only (`data-region="IT"`).
 - When you add Italy/Germany drill-down maps later, those paths use `data-region="IT:TO"`; country-level `"IT"` can remain a separate “whole country” mark or be derived (product decision later).
 - Version `localStorage` key when migrating (`v1` → `v2`) if you ever rewrite old country-only entries.

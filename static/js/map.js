@@ -87,6 +87,12 @@
     FR: { bbox: { lonMin: -6.5, lonMax: 10.5, latMin: 40.5, latMax: 52 } },
     JP: { bbox: { lonMin: 122, lonMax: 155, latMin: 23, latMax: 46.5 } },
     IN: { bbox: { lonMin: 67, lonMax: 98.5, latMin: 5.5, latMax: 36.5 } },
+    // Full real extent, Kaliningrad to the antimeridian (~163° of
+    // longitude), so every federal subject stays reachable: a subtle zoom,
+    // an accepted tradeoff. Chukotka's sliver east of 180° lands at the
+    // map's far-left edge, out of frame, but it's the same path as the rest
+    // of Chukotka, so nothing becomes unreachable.
+    RU: { bbox: { lonMin: 17, lonMax: 180, latMin: 39.5, latMax: 83 } },
   };
   let drilldownCountry = null; // e.g. "IT" while its regions are shown
   let preDrilldownView = null; // view rect saved the moment drill-down started
