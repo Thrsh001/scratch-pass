@@ -1136,3 +1136,81 @@ stays disabled until credentials exist.
       development mode until Meta's review)
 - [ ] Before public use: Meta app review + HTTPS domain (deploy-time,
       alongside SP-14)
+
+### SP-16: Upgrade Django 4.2 → 5.2 LTS
+**Status:** To Do
+**Description:** Django 4.2 LTS reached end of support in April 2026 (no
+more security fixes) and only supports Python up to 3.12. That already
+broke the local venv once: a system upgrade moved `/usr/bin/python3`
+to 3.14 and the venv had to be rebuilt on the leftover `python3.12`.
+5.2 is the current LTS (supported until April 2028) and supports
+Python 3.10–3.14 (3.14 from 5.2.8). This must land before SP-17 so
+production never runs an unsupported Django. No feature changes.
+Pre-check (2026-10-20): the test suite emits no Django deprecation
+warnings under 4.2, logout already uses POST (GET logout was removed in
+5.0), and no removed APIs (`index_together`, `DEFAULT_FILE_STORAGE` /
+`STATICFILES_STORAGE`, `USE_L10N`) are in use, so breakage is expected
+to be minimal.
+**Acceptance criteria:**
+- [ ] `requirements.txt` pins `Django>=5.2.8,<5.3`; `django-allauth`,
+      `python-decouple` and `psycopg` confirmed compatible (bump their
+      pins only if needed)
+- [ ] Venv rebuilt on the system's Python 3.14, verifying the original
+      breakage is gone; README setup note updated if the Python
+      requirement changes
+- [ ] `python -W error::DeprecationWarning manage.py test` passes, so
+      no new 5.2-era deprecations slip in unnoticed
+- [ ] `python manage.py makemigrations --check` reports no changes
+      (5.x must not generate unexpected migrations for existing models)
+- [ ] Full test suite green on both SQLite and Postgres (same throwaway
+      Docker Postgres approach as SP-14)
+- [ ] Django-version-specific doc links in `config/settings.py`
+      (`docs.djangoproject.com/en/4.2/...`) updated to 5.2
+- [ ] Verified in a browser: username/password signup + login +
+      logout, Google login, scratching countries and a subdivision
+      drill-down, visits persist across reload and logout/login
+**Risks:**
+- The admin and allauth templates may look slightly different after
+  5.x template changes; covered by the browser check.
+
+### SP-17: Production deploy
+**Status:** To Do
+**Blocked by:** SP-16 (don't deploy on an end-of-life Django)
+**Description:** Get the app running on a public HTTPS URL so it's usable
+by people other than the developer. SP-14 made the database configurable
+via environment variables; this ticket does the same for the remaining
+deploy-time concerns (debug, hosts, static files, security headers) and
+then actually deploys. No feature changes. `config/wsgi.py` stays the
+Django default and is used as-is by the app server. Social login
+production setup is out of scope; that's separate follow-up work.
+**Open decisions (resolve before starting):**
+- Hosting provider (managed PaaS with a Postgres add-on vs. a VPS)
+- Domain name
+**Acceptance criteria:**
+- [ ] `DEBUG` defaults to `False`; local dev sets `DEBUG=True` in `.env`
+      explicitly (`.env.example` updated to match)
+- [ ] `ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS` set from env for the
+      production domain
+- [ ] Static files served in production: `STATIC_ROOT` set,
+      `collectstatic` runs as part of deploy, served via WhiteNoise or
+      the host's static serving (pick one; WhiteNoise is the only new
+      dependency if chosen)
+- [ ] HTTPS-only settings enabled when `DEBUG` is off:
+      `SECURE_SSL_REDIRECT`, `SESSION_COOKIE_SECURE`,
+      `CSRF_COOKIE_SECURE`, HSTS, and `SECURE_PROXY_SSL_HEADER` if
+      behind the host's proxy
+- [ ] `python manage.py check --deploy` passes with no warnings (or
+      each remaining one is documented as intentionally accepted)
+- [ ] Gunicorn added to `requirements.txt` and used as the app server
+- [ ] Production Postgres provisioned, `POSTGRES_*` vars set on the
+      host, migrations applied
+- [ ] Fresh production `SECRET_KEY` generated and stored only in the
+      host's env config, never in the repo
+- [ ] Host runs a Python version supported by the Django pinned in
+      SP-16
+- [ ] `README.md` documents the deploy steps and the full list of
+      required production env vars
+- [ ] Verified in a browser on the live URL, on desktop and on a phone:
+      username/password signup + login, scratching a country and a
+      subdivision, the visits persist across logout/login and across
+      two devices
