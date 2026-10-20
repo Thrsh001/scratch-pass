@@ -42,9 +42,36 @@ A first social login creates a new account automatically. It isn't linked
 to any existing username/password account (those have no email to match
 on), and Google and Facebook logins are separate accounts too.
 
+## PostgreSQL (optional)
+
+By default the app uses a local SQLite file (`db.sqlite3`) and needs no
+database setup. Setting `POSTGRES_DB` in `.env` switches it to PostgreSQL;
+production should always run this way.
+
+| Variable | Default | |
+|---|---|---|
+| `POSTGRES_DB` | *(blank → SQLite)* | Database name; setting it enables Postgres |
+| `POSTGRES_USER` | *(blank)* | |
+| `POSTGRES_PASSWORD` | *(blank)* | |
+| `POSTGRES_HOST` | `localhost` | |
+| `POSTGRES_PORT` | `5432` | |
+| `POSTGRES_CONN_MAX_AGE` | `60` | Seconds to reuse a connection; `0` closes after each request |
+
+To try it locally with Docker:
+
+```bash
+docker run -d --name scratchpass-pg -p 127.0.0.1:5432:5432 \
+  -e POSTGRES_DB=scratchpass -e POSTGRES_USER=scratchpass \
+  -e POSTGRES_PASSWORD=scratchpass postgres:16
+```
+
+then set the matching `POSTGRES_*` values in `.env` and run
+`python manage.py migrate`. A production host just provides the same
+variables. Data is not copied between SQLite and Postgres automatically.
+
 ## Stack
 
-- Backend: Django, SQLite (dev).
+- Backend: Django, SQLite (dev) / PostgreSQL (prod).
 - Frontend: vanilla HTML/CSS/JS via Django templates — no React/Vue,
   no TypeScript, no bundler.
 - Phase 1: visited regions persist in the browser via `localStorage`.

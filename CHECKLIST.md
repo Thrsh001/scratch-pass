@@ -1026,8 +1026,8 @@ Implementation notes:
   one more `SubdivisionSvgViewTests` case) plus the updated total-count
   assertion. 64 total, all green.
 
-### SP-14: PostgreSQL production database switch *(Later)*
-**Status:** To Do
+### SP-14: PostgreSQL production database switch
+**Status:** Done
 **Description:** Wire `config/settings.py`'s `DATABASES` to switch from
 SQLite (dev default) to PostgreSQL via environment variables, per the
 plan doc's locked "SQLite (dev) → PostgreSQL (prod)" decision (`CLAUDE.md`
@@ -1038,17 +1038,27 @@ engines under Django's ORM. Deploy-config work, not blocking SP-10–13
 ticket (2026-08-07, user request) rather than folding into deployment
 happening implicitly, so it's tracked and doesn't get skipped.
 **Acceptance criteria:**
-- [ ] `DATABASES` reads Postgres connection settings from environment
+- [x] `DATABASES` reads Postgres connection settings from environment
       variables (consistent with the existing `python-decouple` pattern
       used for `SECRET_KEY`/`DEBUG`), falling back to the current SQLite
       config when those vars are unset — local `runserver`/tests keep
       working with zero setup
-- [ ] Postgres driver added to `requirements.txt`
-- [ ] `README.md` documents the required env vars and how to point at a
+- [x] Postgres driver added to `requirements.txt`
+- [x] `README.md` documents the required env vars and how to point at a
       local or production Postgres instance
-- [ ] Verified against a real (e.g. Dockerized) Postgres instance, not
+- [x] Verified against a real (e.g. Dockerized) Postgres instance, not
       just SQLite: migrations apply cleanly, `UserProfile` CRUD and the
       existing test suite pass with `DATABASES` pointed at it
+**Notes (2026-10-20):** Opt-in via `POSTGRES_DB` (+ `POSTGRES_USER` /
+`_PASSWORD` / `_HOST` / `_PORT` / `_CONN_MAX_AGE`), read through decouple
+like the other settings — separate vars rather than a `DATABASE_URL`, so
+no URL-parsing dependency. Driver: `psycopg[binary]` 3 (supported by
+Django 4.2). Verified against a throwaway `postgres:16` Docker container:
+all migrations applied, 71/71 tests green (this includes the toggle
+endpoint's `select_for_update`, which is a real row lock on Postgres),
+`visited_regions` round-trips `["IT", "IT:TO", "US:CA"]` and
+`__contains` lookups work, and `runserver` serves the login page and
+static files. SQLite fallback re-verified with the vars unset.
 
 ### SP-15: Social login (Google, Facebook)
 **Status:** In Progress — SP-15.1 (Google) done; SP-15.2 (Facebook)
