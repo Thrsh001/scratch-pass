@@ -1124,7 +1124,8 @@ application") created by the user, credentials in `.env`.
       returns to the login page with the "cancelled" notice
 
 ### SP-15.2: Facebook login *(Later)*
-**Status:** To Do
+**Status:** Blocked — Meta developer site issues on the user's side
+(2026-11-03); revisit once the Meta app can be created
 **Description:** Second provider, deferred by user decision (2026-09-27).
 No code needed; SP-15's shared wiring already supports it, and the button
 stays disabled until credentials exist.
