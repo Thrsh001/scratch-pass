@@ -4,6 +4,8 @@ Ticket-style breakdown of the build, grouped by epic. Statuses: `To Do` /
 `In Progress` / `Done`. Update this file as work lands — it's the
 authoritative task list; `HANDOFF.md` (session-to-session notes) and the
 plan doc's `todos:` frontmatter should stay consistent with it, not diverge.
+Epic 3 (engagement features, SP-18+) is tracked separately in
+[`CHECKLIST-engagement.md`](./CHECKLIST-engagement.md).
 
 ---
 

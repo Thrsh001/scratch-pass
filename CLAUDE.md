@@ -3,6 +3,8 @@
 Scratch Pass is a Django + vanilla HTML/CSS/JS app: click a map region, it stays
 "scratched" (visited). Phase 1 is localStorage-only; Phase 2 adds accounts and
 server persistence. Full architecture: `scratch_map_architecture_94d01ac0.plan.md`.
+Post-MVP engagement features (Epic 3): `engagement_features.plan.md`,
+tracked in `CHECKLIST-engagement.md`.
 
 ## Stack (locked — do not deviate without asking)
 
@@ -94,6 +96,8 @@ Follow the plan's phase order; don't build Phase 2 (auth, API endpoints,
 3. Full world SVG + CSS polish + JS localStorage (country ids only).
 4. Mobile pass (viewport, touch targets, reduced motion).
 5. *(Later)* Auth + `UserProfile` + toggle API, then subdivision maps.
+6. Epic 3 engagement features (popup → badges → sights/quests), per
+   `engagement_features.plan.md`.
 
 ## General engineering standards
 
