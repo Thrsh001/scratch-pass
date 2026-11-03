@@ -7,6 +7,8 @@ Architecture and phased plan: `scratch_map_architecture_94d01ac0.plan.md`.
 
 ## Setup
 
+Requires Python 3.10–3.14 (Django 5.2 LTS).
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate

@@ -1138,7 +1138,7 @@ stays disabled until credentials exist.
       alongside SP-14)
 
 ### SP-16: Upgrade Django 4.2 → 5.2 LTS
-**Status:** To Do
+**Status:** Done
 **Description:** Django 4.2 LTS reached end of support in April 2026 (no
 more security fixes) and only supports Python up to 3.12. That already
 broke the local venv once: a system upgrade moved `/usr/bin/python3`
@@ -1152,21 +1152,21 @@ warnings under 4.2, logout already uses POST (GET logout was removed in
 `STATICFILES_STORAGE`, `USE_L10N`) are in use, so breakage is expected
 to be minimal.
 **Acceptance criteria:**
-- [ ] `requirements.txt` pins `Django>=5.2.8,<5.3`; `django-allauth`,
+- [x] `requirements.txt` pins `Django>=5.2.8,<5.3`; `django-allauth`,
       `python-decouple` and `psycopg` confirmed compatible (bump their
       pins only if needed)
-- [ ] Venv rebuilt on the system's Python 3.14, verifying the original
+- [x] Venv rebuilt on the system's Python 3.14, verifying the original
       breakage is gone; README setup note updated if the Python
       requirement changes
-- [ ] `python -W error::DeprecationWarning manage.py test` passes, so
+- [x] `python -W error::DeprecationWarning manage.py test` passes, so
       no new 5.2-era deprecations slip in unnoticed
-- [ ] `python manage.py makemigrations --check` reports no changes
+- [x] `python manage.py makemigrations --check` reports no changes
       (5.x must not generate unexpected migrations for existing models)
-- [ ] Full test suite green on both SQLite and Postgres (same throwaway
+- [x] Full test suite green on both SQLite and Postgres (same throwaway
       Docker Postgres approach as SP-14)
-- [ ] Django-version-specific doc links in `config/settings.py`
+- [x] Django-version-specific doc links in `config/settings.py`
       (`docs.djangoproject.com/en/4.2/...`) updated to 5.2
-- [ ] Verified in a browser: username/password signup + login +
+- [x] Verified in a browser: username/password signup + login +
       logout, Google login, scratching countries and a subdivision
       drill-down, visits persist across reload and logout/login
 **Risks:**
