@@ -173,9 +173,9 @@ sight's region is scratched (user decision, 2026-11-03); curated quests
 - [ ] Popup shows a "Sights here" list with "I've been here" checkboxes,
       disabled with a "Scratch this region first" hint until the region
       is scratched
-- [ ] Un-scratching a region with checked sights behaves as decided in
-      plan open question 2 (recommended: check-ins kept but not counted
-      while the region is un-scratched)
+- [ ] Un-scratching a region keeps its check-ins stored but uncounted
+      (quest progress, popup) until it's scratched again (user decision,
+      2026-11-03)
 - [ ] Persistence logic in model methods/services, view stays thin
 - [ ] Tests for the toggle, the scratched-region rule and validation
 - [ ] Verified in a browser
@@ -195,7 +195,7 @@ sight's region is scratched (user decision, 2026-11-03); curated quests
 
 ### SP-20.4: Sight markers on the map *(Optional)*
 **Status:** To Do — only if the popup list proves insufficient (plan open
-question 3)
+question 2)
 **Acceptance criteria:**
 - [ ] Markers shown only above a zoom level, so ~1,200 points never
       render at once

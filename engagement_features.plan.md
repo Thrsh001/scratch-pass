@@ -46,6 +46,11 @@ is easier to land on top of a known-good production setup.
   here", nothing is verified.
 - **A sight can only be checked once its region is scratched.** Checking
   a sight never scratches the region for you.
+- **Un-scratching a region keeps its checked sights stored, but they
+  don't count while the region is un-scratched.** Like badges, nothing
+  is lost, and re-scratching brings them back. (Blocking the un-scratch
+  or deleting the check-ins were rejected: one gets in the user's way,
+  the other loses data.)
 - **Photos are parked** — design notes kept below, no tickets.
 
 ## Open questions
@@ -59,13 +64,7 @@ is easier to land on top of a known-good production setup.
    - Long-press as a quick-scratch shortcut (SP-18.3), if tapping opens
      the popup. Recommendation: yes, so filling in many regions doesn't
      take two taps each.
-2. **What happens to checked sights when their region is un-scratched?**
-   Recommendation: keep the stored check-ins but count them only while
-   the region is scratched — like badges, nothing is lost and
-   re-scratching brings them back. The alternatives (block the
-   un-scratch, or delete the check-ins) either get in the user's way or
-   lose data.
-3. **Sight markers on the map, or sights listed only in the popup?**
+2. **Sight markers on the map, or sights listed only in the popup?**
    Recommendation: popup list first (SP-20.2); markers are an optional
    follow-up (SP-20.4) because ~1,200 points need zoom-dependent
    rendering to stay readable and fast.
@@ -211,7 +210,9 @@ completing one earns a badge.
   region isn't scratched (the server enforces the rule, not just the
   disabled checkbox). It returns the full list of the user's visited
   sight slugs.
-- Un-scratching a region with checked sights: pending open question 2.
+- Un-scratching a region keeps its check-ins stored; quest progress and
+  the "Sights here" list ignore them until the region is scratched
+  again.
 - No verification beyond the scratched-region rule. Trust-based by
   design — this is a personal tracker, with no leaderboard that would
   make cheating matter.
