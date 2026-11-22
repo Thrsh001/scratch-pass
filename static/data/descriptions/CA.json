@@ -1,0 +1,72 @@
+{
+ "CA": {
+  "extract": "Canada is a country in North America. Its ten provinces and three territories extend from the Atlantic Ocean to the Pacific Ocean and northward into the Arctic Ocean, making it the second-largest country by total area, with the longest coastline of any country. Its border with the United States is the longest international land border. The country is characterized by a wide range of both meteorologic and geological regions. With a population of over 41 million, it has widely varying population densities, with the majority residing in its urban areas and large areas being sparsely populated. Its capital is Ottawa and its three largest metropolitan areas are Toronto, Montreal, and Vancouver.",
+  "name": "Canada",
+  "source_url": "https://en.wikipedia.org/wiki/Canada"
+ },
+ "CA:AB": {
+  "extract": "Alberta is a province in Western Canada and is one of the three prairie provinces. Alberta is bordered by British Columbia to its west, Saskatchewan to its east, the Northwest Territories to its north, and the U.S. state of Montana to its south. Alberta and Saskatchewan are the only two landlocked provinces. The eastern part of the province is occupied by the Great Plains, while the western part borders the Rocky Mountains. The province has a predominantly continental climate, but seasonal temperatures tend to swing rapidly due to its aridity. Those swings are less pronounced in western Alberta because of its occasional Chinook winds.\n\nAlberta is Canada's fourth-largest province by area, at 661,848 square kilometres (255,541 sq mi), and the fourth-most populous, with 4,262,635 residents. Alberta's capital is Edmonton; its largest city is Calgary. The two cities are Alberta's largest census metropolitan areas. More than half of Albertans live in Edmonton or Calgary, which encourages a continuing rivalry between the two cities. English is the province's official language. In 2016, 76.0% of Albertans were anglophone, 1.8% were francophone, and 22.2% were allophone.",
+  "name": "Alberta",
+  "source_url": "https://en.wikipedia.org/wiki/Alberta"
+ },
+ "CA:BC": {
+  "extract": "British Columbia is the westernmost province of Canada. Situated in the Pacific Northwest between the Pacific Ocean and the Rocky Mountains, the province has a diverse geography, with rugged landscapes that include rocky coastlines, sandy beaches, forests, lakes, mountains, inland deserts, and grassy plains. British Columbia borders the province of Alberta to the east; the territories of Yukon and Northwest Territories to the north; the US states of Washington, Idaho, and Montana to the south; and Alaska to the northwest. With an estimated population of 5.68 million in 2025, it is Canada's third-most populous province. The capital of British Columbia is Victoria, while the province's largest city is Vancouver. Vancouver and its suburbs together make up the third-largest metropolitan area in Canada, with the 2021 census recording 2.6 million people in Metro Vancouver. British Columbia is Canada's third-largest province by total area, after Quebec and Ontario.",
+  "name": "British Columbia",
+  "source_url": "https://en.wikipedia.org/wiki/British_Columbia"
+ },
+ "CA:MB": {
+  "extract": "Manitoba is a province of Canada at the longitudinal centre of the country. It is Canada's fifth-most populous province, with an estimated population of 1,517,379 as of 2026. Manitoba is bordered by Nunavut and the Northwest Territories to the north, Hudson Bay to the northeast, Ontario to the east, the US states of North Dakota and Minnesota to the south, and Saskatchewan to the west. The province has a widely varied landscape, from arctic tundra and the Hudson Bay coastline in the north to dense boreal forest, large freshwater lakes, and prairie grassland in the central and southern regions. Its capital and largest city is Winnipeg.",
+  "name": "Manitoba",
+  "source_url": "https://en.wikipedia.org/wiki/Manitoba"
+ },
+ "CA:NB": {
+  "extract": "New Brunswick is a province of Canada. It borders Quebec to the northwest, the Gulf of Saint Lawrence to the northeast, Nova Scotia to the east, the Bay of Fundy to the southeast, and the U.S. state of Maine to the southwest. It is part of Eastern Canada and is one of the three Maritime provinces and one of the four Atlantic provinces. The province is about 83% forested and its northern half is occupied by the Appalachians. The province's climate is continental with snowy winters and temperate summers. The province has a surface area of 72,908 square kilometres (28,150 sq mi) and 775,610 inhabitants.",
+  "name": "New Brunswick",
+  "source_url": "https://en.wikipedia.org/wiki/New_Brunswick"
+ },
+ "CA:NL": {
+  "extract": "Newfoundland and Labrador is the easternmost province of Canada, in the country's Atlantic region. It comprises the island of Newfoundland and the continental region of Labrador, with an area of 405,212 km2 (156,453 sq mi) and a population of 552,462 in 2026. Newfoundland with its neighbouring islands has 94% of the province's population, with more than half in the Avalon Peninsula. Labrador has a land border with the province of Quebec and a short border with Nunavut on Killiniq Island. The French overseas collectivity of Saint Pierre and Miquelon lies about 20 km (12 mi) west of the Burin Peninsula.",
+  "name": "Newfoundland and Labrador",
+  "source_url": "https://en.wikipedia.org/wiki/Newfoundland_and_Labrador"
+ },
+ "CA:NS": {
+  "extract": "Nova Scotia is a province in The Maritimes region of Canada, located on the nation's east coast. With an estimated population of over 1 million as of 2026, Nova Scotia is the most populous province in Atlantic Canada. Nova Scotia is also the second-most densely populated province in Canada, and the second-smallest province by area. The province comprises the Nova Scotia peninsula and Cape Breton Island, as well as 3,800 other coastal islands. The province is connected to the rest of Canada by the Isthmus of Chignecto, on which the province's sole land border, with New Brunswick, is located.",
+  "name": "Nova Scotia",
+  "source_url": "https://en.wikipedia.org/wiki/Nova_Scotia"
+ },
+ "CA:NT": {
+  "extract": "The Northwest Territories is a territory of Canada. At a land area of approximately 1,127,711.92 square kilometres (435,412.01 sq mi) and a 2026 estimated population of 45,904, it is the second-largest and second-most populous of the three territories in Northern Canada. Under its modern borders, the Northwest Territories consists of a large part of Denendeh—traditional land of the Dene—and most of the Inuvialuit Settlement Region —traditional land of the Western Canadian Inuit. The territory also contains some land traditionally used by Cree and Métis peoples. Its capital and most populous community is Yellowknife, the only city in the territory; its population was 20,340 as of the 2021 census. It became the territorial capital in 1967, following recommendations by the Carrothers Commission.",
+  "name": "Northwest Territories",
+  "source_url": "https://en.wikipedia.org/wiki/Northwest_Territories"
+ },
+ "CA:NU": {
+  "extract": "Nunavut is the largest and northernmost territory of Canada. It was separated from the Northwest Territories in 1999, via the Nunavut Act and the Nunavut Land Claims Agreement Act, which provided this territory to the Inuit for self-government. The boundaries were drawn in 1993. The creation of Nunavut resulted in the first major change to Canada's political map in half a century since the province of Newfoundland, known as Newfoundland and Labrador since 2001, was admitted in 1949.",
+  "name": "Nunavut",
+  "source_url": "https://en.wikipedia.org/wiki/Nunavut"
+ },
+ "CA:ON": {
+  "extract": "Ontario is the southernmost province of Canada. Located in Central Canada, Ontario is the country's most populous province. As of the 2021 Canadian census, it is home to over 14 million people, which is approximately 38.5% of the country's population. Ontario is the second-largest province by total area, after Quebec, and the fourth-largest jurisdiction of all the Canadian provinces and territories. Ontario's capital is Canada’s most populous city, Toronto. The province is additionally home to the country’s national capital, Ottawa.",
+  "name": "Ontario",
+  "source_url": "https://en.wikipedia.org/wiki/Ontario"
+ },
+ "CA:PE": {
+  "extract": "Prince Edward Island is an island province of Canada. It is the smallest province by both land area and population, but has the highest population density in Canada. The island has several nicknames: \"Garden of the Gulf\", \"Birthplace of Confederation\" and \"Cradle of Confederation\". Its capital and largest city is Charlottetown. It is one of the three Maritime provinces and one of the four Atlantic provinces.",
+  "name": "Prince Edward Island",
+  "source_url": "https://en.wikipedia.org/wiki/Prince_Edward_Island"
+ },
+ "CA:QC": {
+  "extract": "Quebec is Canada's largest province by area. Located in Central Canada, it is the country's only Francophone-majority province. It is home to speakers of Québécois French. It shares borders with Ontario to the west, Newfoundland and Labrador to the northeast, New Brunswick to the southeast and a coastal border with the territory of Nunavut. To the south, it borders the United States. Quebec has a population of around eight million, making it Canada's second-most populous province, behind Ontario.",
+  "name": "Québec",
+  "source_url": "https://en.wikipedia.org/wiki/Quebec"
+ },
+ "CA:SK": {
+  "extract": "Saskatchewan is a province in Western Canada. It is bordered to the west by Alberta, to the north by the Northwest Territories, to the east by Manitoba, to the northeast by Nunavut, and to the south by the United States. Saskatchewan and neighbouring Alberta are the only landlocked provinces in Canada. In 2026, Saskatchewan's population was estimated at 1,278,402. Nearly 10% of Saskatchewan's total area of 651,900 square kilometres (251,700 sq mi) is fresh water, mostly rivers, reservoirs, and lakes.",
+  "name": "Saskatchewan",
+  "source_url": "https://en.wikipedia.org/wiki/Saskatchewan"
+ },
+ "CA:YT": {
+  "extract": "Yukon is a territory of Canada, bordering British Columbia to the south, the Northwest Territories to the east, the Beaufort Sea to the north, and the U.S. state of Alaska to the west. It is Canada's westernmost and smallest territory by land area. As of the 2026 third quarter estimates Yukon had a population of 50,356, the most of the territories. Whitehorse, the territorial capital, is the largest city in northern Canada.",
+  "name": "Yukon",
+  "source_url": "https://en.wikipedia.org/wiki/Yukon"
+ }
+}

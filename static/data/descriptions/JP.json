@@ -1,0 +1,242 @@
+{
+ "JP": {
+  "extract": "Japan is an island country in East Asia. Located in the Pacific Ocean off the northeast coast of the Asian mainland, it is bordered to the west by the Sea of Japan, the Sea of Okhotsk in the north, and the East China Sea in the south. The Japanese archipelago consists of four major islands alongside over 14,000 smaller islands. Japan is divided into 47 administrative prefectures and eight traditional regions. Around 75% of its terrain is mountainous and heavily forested, concentrating its agriculture and highly urbanized population along its eastern coastal plains. With a population of almost 123 million as of 2026, it is the world's 11th most populous country. Tokyo is the country's capital and largest city.",
+  "name": "Japan",
+  "source_url": "https://en.wikipedia.org/wiki/Japan"
+ },
+ "JP:01": {
+  "extract": "Hokkaido is the second-largest and northernmost of Japan's four main islands. Together with its surrounding islands, it comprises the largest and northernmost prefecture, making up its own region. The Tsugaru Strait separates Hokkaido from Honshu. The two islands are connected by railway via the Seikan Tunnel.",
+  "name": "Hokkaidō",
+  "source_url": "https://en.wikipedia.org/wiki/Hokkaido"
+ },
+ "JP:02": {
+  "extract": "Aomori Prefecture  is a prefecture of Japan in the Tōhoku region. The prefecture's capital, largest city, and namesake is the city of Aomori. Aomori is the northernmost prefecture on Japan's main island, Honshu, and is bordered by the Pacific Ocean to the east, Iwate Prefecture to the southeast, Akita Prefecture to the southwest, the Sea of Japan to the west, and Hokkaido across the Tsugaru Strait to the north. Aomori Prefecture is the eighth-largest prefecture, with an area of 9,645.64 km2 (3,724.20 sq mi), and the 31st-most populous prefecture, with more than 1.18 million people. Mount Iwaki, an active stratovolcano, is the prefecture's highest point, at 1,624.7 m (5,330 ft).",
+  "name": "Aomori",
+  "source_url": "https://en.wikipedia.org/wiki/Aomori_Prefecture"
+ },
+ "JP:03": {
+  "extract": "Iwate Prefecture  is a prefecture of Japan located in the Tōhoku region of Honshu. It is the second-largest Japanese prefecture at 15,275 square kilometres (5,898 sq mi), with a population of 1,165,886. Iwate Prefecture borders Aomori Prefecture to the north, Akita Prefecture to the west, and Miyagi Prefecture to the south.",
+  "name": "Iwate",
+  "source_url": "https://en.wikipedia.org/wiki/Iwate_Prefecture"
+ },
+ "JP:04": {
+  "extract": "Miyagi Prefecture  is a prefecture of Japan located in the Tōhoku region of Honshu. Miyagi Prefecture has a population of 2,265,724 and has a geographic area of 7,282 km2 (2,812 sq mi). Miyagi Prefecture borders Iwate Prefecture to the north, Akita Prefecture to the northwest, Yamagata Prefecture to the west, and Fukushima Prefecture to the south.",
+  "name": "Miyagi",
+  "source_url": "https://en.wikipedia.org/wiki/Miyagi_Prefecture"
+ },
+ "JP:05": {
+  "extract": "Akita Prefecture  is a prefecture of Japan located in the Tōhoku region of Honshu. Its population is estimated 864,221 as of 1 October 2026 and its geographic area is 11,637 square kilometres (4,493 sq mi). Akita Prefecture is bordered by Aomori Prefecture to the north, Iwate Prefecture to the east, Miyagi Prefecture to the southeast, and Yamagata Prefecture to the south.",
+  "name": "Akita",
+  "source_url": "https://en.wikipedia.org/wiki/Akita_Prefecture"
+ },
+ "JP:06": {
+  "extract": "Yamagata Prefecture  is a prefecture of Japan located in the Tōhoku region of Honshu. It has a population of 978,846 and an area of 9,325 km2. Its neighbours are Akita Prefecture to the north, Miyagi Prefecture to the east, Fukushima Prefecture to the south, and Niigata Prefecture to the southwest.",
+  "name": "Yamagata",
+  "source_url": "https://en.wikipedia.org/wiki/Yamagata_Prefecture"
+ },
+ "JP:07": {
+  "extract": "Fukushima Prefecture  is a prefecture of Japan located in the Tōhoku region of Honshu. Fukushima Prefecture has a population of 1,771,100 and has a geographic area of 13,783.90 square kilometres (5,321.99 sq mi). Fukushima Prefecture borders Miyagi Prefecture and Yamagata Prefecture to the north, Niigata Prefecture to the west, Gunma Prefecture to the southwest, and Tochigi Prefecture and Ibaraki Prefecture to the south.",
+  "name": "Fukushima",
+  "source_url": "https://en.wikipedia.org/wiki/Fukushima_Prefecture"
+ },
+ "JP:08": {
+  "extract": "Ibaraki Prefecture  is a prefecture of Japan located in the Kantō region of Honshu. Ibaraki Prefecture has a population of 2,828,086 and has a geographic area of 6,097.19 square kilometres. Ibaraki Prefecture borders Fukushima Prefecture to the north, Tochigi Prefecture to the northwest, Saitama Prefecture to the southwest, Chiba Prefecture to the south, and the Pacific Ocean to the east.",
+  "name": "Ibaraki",
+  "source_url": "https://en.wikipedia.org/wiki/Ibaraki_Prefecture"
+ },
+ "JP:09": {
+  "extract": "Tochigi Prefecture  is an inland prefecture of Japan located in the Kantō region of Honshu. Tochigi Prefecture has a population of 1,897,649 and has a geographic area of 6,408 km2. Tochigi Prefecture borders Fukushima Prefecture to the north, Gunma Prefecture to the west, Saitama Prefecture to the south, and Ibaraki Prefecture to the southeast.",
+  "name": "Tochigi",
+  "source_url": "https://en.wikipedia.org/wiki/Tochigi_Prefecture"
+ },
+ "JP:10": {
+  "extract": "Gunma Prefecture  is an inland prefecture of Japan located in the Kantō region of Honshu. Gunma Prefecture has a population of 1,937,626 and has a geographic area of 6,362 square kilometres (2,456 sq mi). Gunma Prefecture borders Niigata Prefecture and Fukushima Prefecture to the north, Nagano Prefecture to the southwest, Saitama Prefecture to the south, and Tochigi Prefecture to the east.",
+  "name": "Gunma",
+  "source_url": "https://en.wikipedia.org/wiki/Gunma_Prefecture"
+ },
+ "JP:11": {
+  "extract": "Saitama Prefecture  is an inland prefecture of Japan located in the Kantō region of Honshu. Saitama Prefecture has a population of 7,287,447 and has a geographic area of 3,797 km2. Saitama Prefecture borders Tochigi Prefecture and Gunma Prefecture to the north, Nagano Prefecture to the west, Yamanashi Prefecture to the southwest, Tokyo to the south, Chiba Prefecture to the southeast, and Ibaraki Prefecture to the northeast.",
+  "name": "Saitama",
+  "source_url": "https://en.wikipedia.org/wiki/Saitama_Prefecture"
+ },
+ "JP:12": {
+  "extract": "Chiba Prefecture  is a prefecture of Japan located in the Kantō region of Honshu. Chiba Prefecture has a population of 6,278,060 and has a geographic area of 5,157 km2 (1,991 sq mi). Chiba Prefecture borders Ibaraki Prefecture to the north, Saitama Prefecture to the northwest, and Tokyo to the west.",
+  "name": "Chiba",
+  "source_url": "https://en.wikipedia.org/wiki/Chiba_Prefecture"
+ },
+ "JP:13": {
+  "extract": "Tokyo, officially the Tokyo Metropolis, is the capital and most populous city of Japan. The population of the city proper was over 14 million as of 2023. The Greater Tokyo Area, which includes Tokyo and parts of six neighboring prefectures, is the third-most populous metropolitan area in the world, with 33 million residents as of 2025.",
+  "name": "Tokyo",
+  "source_url": "https://en.wikipedia.org/wiki/Tokyo"
+ },
+ "JP:14": {
+  "extract": "Kanagawa Prefecture  is a prefecture of Japan located in the Kantō region of Honshu. Kanagawa Prefecture is the second-most populous prefecture of Japan at 9,221,129 and third-densest at 3,800 inhabitants per square kilometre (9,800/sq mi). Its geographic area of 2,415 km2 (932 sq mi) makes it fifth-smallest. Kanagawa Prefecture borders Tokyo to the north, Yamanashi Prefecture to the northwest and Shizuoka Prefecture to the west.",
+  "name": "Kanagawa",
+  "source_url": "https://en.wikipedia.org/wiki/Kanagawa_Prefecture"
+ },
+ "JP:15": {
+  "extract": "Niigata Prefecture  is a prefecture in the Chūbu region of Honshu of Japan. Niigata Prefecture has a population of 2,071,066 and is the fifth-largest prefecture of Japan by geographic area at 12,584.18 km2 (4,858.78 sq mi). Niigata Prefecture borders Toyama Prefecture and Nagano Prefecture to the southwest, Gunma Prefecture to the south, Fukushima Prefecture to the east, and Yamagata Prefecture to the northeast.",
+  "name": "Niigata",
+  "source_url": "https://en.wikipedia.org/wiki/Niigata_Prefecture"
+ },
+ "JP:16": {
+  "extract": "Toyama Prefecture  is a prefecture of Japan located in the Chūbu region of Honshu. Toyama Prefecture has a population of 993,848 and has a geographic area of 4,247.61 km2. Toyama Prefecture borders Ishikawa Prefecture to the west, Gifu Prefecture to the south, Nagano Prefecture to the east, and Niigata Prefecture to the northeast.",
+  "name": "Toyama",
+  "source_url": "https://en.wikipedia.org/wiki/Toyama_Prefecture"
+ },
+ "JP:17": {
+  "extract": "Ishikawa Prefecture  is a prefecture of Japan located in the Chūbu region of Honshu island. Ishikawa Prefecture has a population of 1,096,721 and has a geographic area of 4,191 km2. Ishikawa Prefecture borders Toyama Prefecture to the east, Gifu Prefecture to the southeast, and Fukui Prefecture to the south.",
+  "name": "Ishikawa",
+  "source_url": "https://en.wikipedia.org/wiki/Ishikawa_Prefecture"
+ },
+ "JP:18": {
+  "extract": "Fukui Prefecture  is a prefecture of Japan located in the Chūbu region of Honshū. Fukui Prefecture has a population of 737,229 and has a geographic area of 4,190 km2. Fukui Prefecture borders Ishikawa Prefecture to the north, Gifu Prefecture to the east, Shiga Prefecture to the south, and Kyoto Prefecture to the southwest.",
+  "name": "Fukui",
+  "source_url": "https://en.wikipedia.org/wiki/Fukui_Prefecture"
+ },
+ "JP:19": {
+  "extract": "Yamanashi Prefecture  is a prefecture of Japan located in the Chūbu region of Honshu. Yamanashi Prefecture has a population of 787,592 and has a geographic area of 4,465 km2. Yamanashi Prefecture borders Saitama Prefecture to the northeast, Nagano Prefecture to the northwest, Shizuoka Prefecture to the southwest, Kanagawa Prefecture to the southeast, and Tokyo to the east.",
+  "name": "Yamanashi",
+  "source_url": "https://en.wikipedia.org/wiki/Yamanashi_Prefecture"
+ },
+ "JP:20": {
+  "extract": "Nagano Prefecture  is a landlocked prefecture of Japan located in the Chūbu region of Honshu. It has a population of 2,007,682 as of 1 July 2023 and a geographic area of 13,561.56 square kilometres (5,236.15 sq mi). It borders Niigata Prefecture to the north, Gunma Prefecture to the northeast, Saitama Prefecture to the east, Yamanashi Prefecture to the southeast, Shizuoka Prefecture and Aichi Prefecture to the south, and Gifu Prefecture and Toyama Prefecture to the west.",
+  "name": "Nagano",
+  "source_url": "https://en.wikipedia.org/wiki/Nagano_Prefecture"
+ },
+ "JP:21": {
+  "extract": "Gifu Prefecture  is a prefecture of Japan located in the Chūbu region of Honshu. Gifu Prefecture has a population of 2,040,000 and has a geographic area of 10,621 square kilometres (4,101 sq mi). Gifu Prefecture borders Toyama Prefecture to the north; Ishikawa Prefecture to the northwest, Fukui Prefecture and Shiga Prefecture to the west, Mie Prefecture to the southwest, Aichi Prefecture to the south, and Nagano Prefecture to the east.",
+  "name": "Gifu",
+  "source_url": "https://en.wikipedia.org/wiki/Gifu_Prefecture"
+ },
+ "JP:22": {
+  "extract": "Shizuoka Prefecture  is a prefecture of Japan located in the Chūbu region of Honshu. As of October 2026, Shizuoka Prefecture has a population of 3,435,185 and has a geographic area of 7,777.42 km2 (3,002.88 sq mi). Shizuoka Prefecture borders Kanagawa Prefecture to the east, Yamanashi Prefecture to the northeast, Nagano Prefecture to the north, and Aichi Prefecture to the west.",
+  "name": "Shizuoka",
+  "source_url": "https://en.wikipedia.org/wiki/Shizuoka_Prefecture"
+ },
+ "JP:23": {
+  "extract": "Aichi Prefecture  is a prefecture of Japan located in the Chūbu region of Honshū. Aichi Prefecture has a population of 7,461,111 and a geographic area of 5,172.92 square kilometres (1,997.28 sq mi) with a population density of 1,442 inhabitants per square kilometre (3,730/sq mi). Aichi Prefecture borders Mie Prefecture to the west, Gifu Prefecture and Nagano Prefecture to the north, and Shizuoka Prefecture to the east. Nagoya is the capital and largest city of the prefecture.",
+  "name": "Aichi",
+  "source_url": "https://en.wikipedia.org/wiki/Aichi_Prefecture"
+ },
+ "JP:24": {
+  "extract": "Mie Prefecture  is a prefecture of Japan located in the Kansai region of Honshu. Mie Prefecture has a population of 1,781,948 and has a geographic area of 5,774 square kilometers (2,229 sq mi). Mie Prefecture is bordered by Gifu Prefecture to the north, Shiga Prefecture and Kyoto Prefecture to the northwest, Nara Prefecture to the west, Wakayama Prefecture to the southwest, and Aichi Prefecture to the east.",
+  "name": "Mie",
+  "source_url": "https://en.wikipedia.org/wiki/Mie_Prefecture"
+ },
+ "JP:25": {
+  "extract": "Shiga Prefecture  is an inland prefecture of Japan in the Kansai region of Honshu. Shiga Prefecture has a population of 1,398,972 as of 1 February 2025 and has a geographic area of 4,017 km2 (1,551 sq mi). Shiga Prefecture borders Fukui Prefecture to the north, Gifu Prefecture to the northeast, Mie Prefecture to the southeast, and Kyoto Prefecture to the west.",
+  "name": "Shiga",
+  "source_url": "https://en.wikipedia.org/wiki/Shiga_Prefecture"
+ },
+ "JP:26": {
+  "extract": "Kyoto Prefecture  is a prefecture of Japan located in the Kansai region of Honshu. It has a population of 2.48 million and has a geographic area of 4,612 square kilometres (1,781 sq mi). It borders Fukui Prefecture to the northeast, Shiga Prefecture to the east, Mie Prefecture to the southeast, Nara Prefecture and Osaka Prefecture to the south, and Hyōgo Prefecture to the west.",
+  "name": "Kyōto",
+  "source_url": "https://en.wikipedia.org/wiki/Kyoto_Prefecture"
+ },
+ "JP:27": {
+  "extract": "Osaka Prefecture  is a prefecture of Japan located in the Kansai region of Honshu. Osaka Prefecture has a population of 8,778,035 and has a geographic area of 1,905 square kilometres (736 sq mi). Osaka Prefecture borders Hyōgo Prefecture to the northwest, Kyoto Prefecture to the northeast, Nara Prefecture to the southeast, and Wakayama Prefecture to the south.",
+  "name": "Ōsaka",
+  "source_url": "https://en.wikipedia.org/wiki/Osaka_Prefecture"
+ },
+ "JP:28": {
+  "extract": "Hyōgo Prefecture  is a prefecture of Japan located in the Kansai region of Honshu. Hyōgo Prefecture has a population of 5,292,593 and a geographic area of 8,400 square kilometres. Hyōgo Prefecture borders Kyoto Prefecture to the east, Osaka Prefecture to the southeast, and Okayama and Tottori prefectures to the west.",
+  "name": "Hyōgo",
+  "source_url": "https://en.wikipedia.org/wiki/Hy%C5%8Dgo_Prefecture"
+ },
+ "JP:29": {
+  "extract": "Nara Prefecture  is an inland prefecture of Japan located in the Kansai region of Honshu. As of 2020, Nara Prefecture has a population of 1,321,805 and has a geographic area of 3,691 square kilometres (1,425 sq mi). Nara Prefecture borders Kyoto Prefecture to the north, Osaka Prefecture to the northwest, Wakayama Prefecture to the southwest, and Mie Prefecture to the east.",
+  "name": "Nara",
+  "source_url": "https://en.wikipedia.org/wiki/Nara_Prefecture"
+ },
+ "JP:30": {
+  "extract": "Wakayama Prefecture  is a prefecture of Japan located in the Kansai region of Honshu. Wakayama Prefecture has a population of 876,030 and a geographic area of 4,724 square kilometres (1,824 sq mi). Wakayama Prefecture borders Osaka Prefecture to the north, and Mie Prefecture and Nara Prefecture to the northeast.",
+  "name": "Wakayama",
+  "source_url": "https://en.wikipedia.org/wiki/Wakayama_Prefecture"
+ },
+ "JP:31": {
+  "extract": "Tottori Prefecture  is a prefecture of Japan located in the Chūgoku region of Honshu. Tottori Prefecture is the least populous prefecture of Japan at 516,273 (2026) and has a geographic area of 3,507.13 square kilometres (1,354.11 mi2). Tottori Prefecture borders Shimane Prefecture to the west, Hiroshima Prefecture to the southwest, Okayama Prefecture to the south, and Hyōgo Prefecture to the east.",
+  "name": "Tottori",
+  "source_url": "https://en.wikipedia.org/wiki/Tottori_Prefecture"
+ },
+ "JP:32": {
+  "extract": "Shimane Prefecture  is a prefecture of Japan located in the Chūgoku region of Honshu. Shimane Prefecture is the second-least populous prefecture of Japan at 621,974 and has a geographic area of 6,708.26 km2. Shimane Prefecture borders Yamaguchi Prefecture to the southwest, Hiroshima Prefecture to the south, and Tottori Prefecture to the east.",
+  "name": "Shimane",
+  "source_url": "https://en.wikipedia.org/wiki/Shimane_Prefecture"
+ },
+ "JP:33": {
+  "extract": "Okayama Prefecture  is a prefecture of Japan located in the Chūgoku region of Honshu. Okayama Prefecture has a population of 1,815,165 and has a geographic area of 7,114 km2. Okayama Prefecture borders Tottori Prefecture to the north, Hyōgo Prefecture to the east, and Hiroshima Prefecture to the west.",
+  "name": "Okayama",
+  "source_url": "https://en.wikipedia.org/wiki/Okayama_Prefecture"
+ },
+ "JP:34": {
+  "extract": "Hiroshima Prefecture  is a prefecture of Japan located in the Chūgoku region of Honshu. Hiroshima Prefecture has a population of 2,811,410 and has a geographic area of 8,479 km2. Hiroshima Prefecture borders Okayama Prefecture to the east, Tottori Prefecture to the northeast, Shimane Prefecture to the north, and Yamaguchi Prefecture to the southwest. Hiroshima Prefecture also borders Ehime Prefecture for 74 metres (243 ft) on Hyōtanjima.",
+  "name": "Hiroshima",
+  "source_url": "https://en.wikipedia.org/wiki/Hiroshima_Prefecture"
+ },
+ "JP:35": {
+  "extract": "Yamaguchi Prefecture  is a prefecture of Japan located in the Chūgoku region of Honshu. Yamaguchi Prefecture has a population of 1,377,631 and has a geographic area of 6,112 km2. Yamaguchi Prefecture borders Shimane Prefecture to the north and Hiroshima Prefecture to the northeast.",
+  "name": "Yamaguchi",
+  "source_url": "https://en.wikipedia.org/wiki/Yamaguchi_Prefecture"
+ },
+ "JP:36": {
+  "extract": "Tokushima Prefecture  is a prefecture of Japan located on the island of Shikoku. Tokushima Prefecture has a population of 682,439 and has a geographic area of 4,146 km2. Tokushima Prefecture borders Kagawa Prefecture to the north, Ehime Prefecture to the west, and Kōchi Prefecture to the southwest.",
+  "name": "Tokushima",
+  "source_url": "https://en.wikipedia.org/wiki/Tokushima_Prefecture"
+ },
+ "JP:37": {
+  "extract": "Kagawa Prefecture  is a prefecture of Japan located on the island of Shikoku. Kagawa Prefecture has a population of 949,358 and is the smallest prefecture by geographic area at 1,877 square kilometres (725 sq mi). Kagawa Prefecture borders Ehime Prefecture to the southwest and Tokushima Prefecture to the south.",
+  "name": "Kagawa",
+  "source_url": "https://en.wikipedia.org/wiki/Kagawa_Prefecture"
+ },
+ "JP:38": {
+  "extract": "Ehime Prefecture  is a prefecture of Japan located on the island of Shikoku. Ehime Prefecture has a population of 1,334,841 and a geographic area of 5,676 km2. Ehime Prefecture borders Kagawa Prefecture to the northeast, Tokushima Prefecture to the east, and Kōchi Prefecture to the southeast. Ehime Prefecture also borders Hiroshima Prefecture for 74 metres (243 ft) on Hyōtanjima.",
+  "name": "Ehime",
+  "source_url": "https://en.wikipedia.org/wiki/Ehime_Prefecture"
+ },
+ "JP:39": {
+  "extract": "Kōchi Prefecture  is a prefecture of Japan located on the island of Shikoku. Kōchi Prefecture has a population of 634,974 and has a geographic area of 7,103 km2. Kōchi Prefecture borders Ehime Prefecture to the northwest and Tokushima Prefecture to the northeast.",
+  "name": "Kōchi",
+  "source_url": "https://en.wikipedia.org/wiki/K%C5%8Dchi_Prefecture"
+ },
+ "JP:40": {
+  "extract": "Fukuoka Prefecture  is a prefecture of Japan located on the island of Kyūshū. Fukuoka Prefecture has a population of 5,081,879 and has a geographic area of 4,986 square kilometres (1,925 sq mi). Fukuoka Prefecture borders Saga Prefecture to the southwest, Kumamoto Prefecture to the south, and Ōita Prefecture to the southeast.",
+  "name": "Fukuoka",
+  "source_url": "https://en.wikipedia.org/wiki/Fukuoka_Prefecture"
+ },
+ "JP:41": {
+  "extract": "Saga Prefecture  is a prefecture of Japan located on the island of Kyushu. Saga Prefecture has a population of roughly 780,000 and has a geographic area of 2,439 square kilometres (942 sq mi). Saga Prefecture borders Fukuoka Prefecture to the northeast and Nagasaki Prefecture to the southwest.",
+  "name": "Saga",
+  "source_url": "https://en.wikipedia.org/wiki/Saga_Prefecture"
+ },
+ "JP:42": {
+  "extract": "Nagasaki Prefecture  is a prefecture of Japan, mainly located on the island of Kyūshū, although it also includes a number of islands off Kyūshū's northwest coast - including Tsushima and Iki. Nagasaki Prefecture has a population of 1,246,481 and has a geographic area of 4,130 km2. Nagasaki Prefecture borders Saga Prefecture to the northeast.",
+  "name": "Nagasaki",
+  "source_url": "https://en.wikipedia.org/wiki/Nagasaki_Prefecture"
+ },
+ "JP:43": {
+  "extract": "Kumamoto Prefecture  is a prefecture of Japan located on the island of Kyūshū. Kumamoto Prefecture has a population of 1,683,115 and has a geographic area of 7,409 square kilometres (2,861 sq mi). Kumamoto Prefecture borders Fukuoka Prefecture to the north, Ōita Prefecture to the northeast, Miyazaki Prefecture to the southeast, and Kagoshima Prefecture to the south.",
+  "name": "Kumamoto",
+  "source_url": "https://en.wikipedia.org/wiki/Kumamoto_Prefecture"
+ },
+ "JP:44": {
+  "extract": "Ōita Prefecture  is a prefecture of Japan located on the island of Kyūshū. Ōita Prefecture has a population of 1,081,646 and has a geographic area of 6,340 km2 (2,450 sq mi). Ōita Prefecture borders Fukuoka Prefecture to the northwest, Kumamoto Prefecture to the southwest, and Miyazaki Prefecture to the south.",
+  "name": "Ōita",
+  "source_url": "https://en.wikipedia.org/wiki/%C5%8Cita_Prefecture"
+ },
+ "JP:45": {
+  "extract": "Miyazaki Prefecture  is a prefecture of Japan located on the island of Kyūshū. Miyazaki Prefecture has a population of 1,028,215 as of 1 January 2025 and has a geographic area of 7,735 km2. Miyazaki Prefecture borders Ōita Prefecture to the north, Kumamoto Prefecture to the northwest, and Kagoshima Prefecture to the southwest.",
+  "name": "Miyazaki",
+  "source_url": "https://en.wikipedia.org/wiki/Miyazaki_Prefecture"
+ },
+ "JP:46": {
+  "extract": "Kagoshima Prefecture  is a prefecture of Japan located on the island of Kyushu and the Ryukyu Islands. Kagoshima Prefecture has a population of 1,527,019 and has a geographic area of 9,187 km2. Kagoshima Prefecture borders Kumamoto Prefecture to the north and Miyazaki Prefecture to the northeast.",
+  "name": "Kagoshima",
+  "source_url": "https://en.wikipedia.org/wiki/Kagoshima_Prefecture"
+ },
+ "JP:47": {
+  "extract": "Okinawa Prefecture  is the southernmost and westernmost prefecture of Japan. It consists of three main island groups—the Okinawa Islands, the Sakishima Islands, and the Daitō Islands—spread across a maritime zone approximately 1,000 kilometers east to west and 400 kilometers north to south. Despite a modest land area of 2,281 km2, Okinawa's territorial extent over surrounding seas makes its total area nearly half the combined size of Honshu, Shikoku, and Kyushu. Of its 160 islands, 49 are inhabited. The largest and most populous island is Okinawa Island, which hosts the capital city, Naha, as well as major urban centers such as Okinawa, Uruma, and Urasoe. The prefecture has a subtropical climate, characterized by warm temperatures and high rainfall throughout the year. People from the Nansei Islands, including Okinawa, the Sakishima Islands, and parts of Kagoshima Prefecture, are often collectively referred to as Ryukyuans. However, there are significant cultural and customary differences between individual islands and even between local communities.",
+  "name": "Okinawa",
+  "source_url": "https://en.wikipedia.org/wiki/Okinawa_Prefecture"
+ }
+}

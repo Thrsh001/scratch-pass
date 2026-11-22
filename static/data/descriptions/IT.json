@@ -1,0 +1,107 @@
+{
+ "IT": {
+  "extract": "Italy, officially the Italian Republic, is a country in Southern and Western Europe. It consists of a peninsula, which extends into the Mediterranean Sea, with the Alps on its northern land border, as well as nearly 800 islands, notably Sicily and Sardinia. Italy shares land borders with France to the west; Switzerland and Austria to the north; Slovenia to the east; and the two enclaves of Vatican City and San Marino. It is the tenth-largest country in Europe by area, covering 301,340 km2 (116,350 sq mi), and the third-most populous member state of the European Union, with nearly 59 million inhabitants. Rome is the capital of Italy; other major cities include Milan, Naples, Turin, Palermo, Bologna, Florence, Genoa, Bari, and Venice.",
+  "name": "Italy",
+  "source_url": "https://en.wikipedia.org/wiki/Italy"
+ },
+ "IT:21": {
+  "extract": "Piedmont is one of the 20 regions of Italy, located in the Northwest of the country. It borders the Liguria region to the south, the Lombardy and Emilia-Romagna regions to the east, and the Aosta Valley region to the northwest. Piedmont borders Switzerland to the north and France to the west.",
+  "name": "Piedmont",
+  "source_url": "https://en.wikipedia.org/wiki/Piedmont"
+ },
+ "IT:23": {
+  "extract": "The Aosta Valley, officially the Autonomous Region of Aosta Valley, is a mountainous autonomous region of northwestern Italy. It is bordered by Auvergne-Rhône-Alpes, France, to the west; by Valais, Switzerland, to the north; and by Piedmont, Italy, to the south and east. The regional capital is Aosta.",
+  "name": "Aosta Valley",
+  "source_url": "https://en.wikipedia.org/wiki/Aosta_Valley"
+ },
+ "IT:25": {
+  "extract": "Lombardy is an administrative region of Italy that covers 23,844 km2 (9,206 sq mi); it is located in northern Italy and with a population of about 10 million is the most populous region, constituting more than one-sixth of Italy's population. Lombardy is located between the Alps mountain range and tributaries of the river Po, and includes Milan, its capital and largest city, whose metropolitan area is the largest in the country and among the largest in the EU.",
+  "name": "Lombardy",
+  "source_url": "https://en.wikipedia.org/wiki/Lombardy"
+ },
+ "IT:32": {
+  "extract": "Trentino-Alto Adige/Südtirol, often known in English as Trentino-South Tyrol or by its Italian name Trentino-Alto Adige, is an autonomous region of Italy, located in the northern part of the country. The region has a population of nearly 1.1 million, of whom 62% speak Italian as their mother tongue, 30% speak German, and the remaining are minority speakers of Ladin, Mòcheno or Cimbrian and immigrant communities speaking several foreign languages. Since the 1970s, most legislative and administrative powers have been transferred to the two self-governing provinces that make up the region: the province of Trento, commonly known as Trentino, and the province of Bolzano, commonly known as South Tyrol. In South Tyrol, German remains the sizeable majority language.",
+  "name": "Trentino-South Tyrol",
+  "source_url": "https://en.wikipedia.org/wiki/Trentino-Alto_Adige%2FS%C3%BCdtirol"
+ },
+ "IT:34": {
+  "extract": "Veneto, officially the Region of Veneto, is one of the 20 regions of Italy, located in the north-east of the country. It is the 4th most populous region in Italy, with a population of 4,857,460 as of 2026. Venice is the region's capital while Verona is the largest city.",
+  "name": "Veneto",
+  "source_url": "https://en.wikipedia.org/wiki/Veneto"
+ },
+ "IT:36": {
+  "extract": "Friuli-Venezia Giulia is one of the 20 regions of Italy and one of five autonomous regions with special statute. The regional capital is Trieste on the Gulf of Trieste, a bay of the Adriatic Sea.",
+  "name": "Friuli Venezia Giulia",
+  "source_url": "https://en.wikipedia.org/wiki/Friuli-Venezia_Giulia"
+ },
+ "IT:42": {
+  "extract": "Liguria is a region of north-western Italy; its capital is Genoa. Its territory is crossed by the Alps and the Apennines mountain range and is roughly coextensive with the former territory of the Republic of Genoa. Liguria is bordered by France to the west, Piedmont to the north, and Emilia-Romagna and Tuscany to the east. It rests on the Ligurian Sea, and has a population of 1,511,988 as of 2026. The region is part of the Alps–Mediterranean Euroregion.",
+  "name": "Liguria",
+  "source_url": "https://en.wikipedia.org/wiki/Liguria"
+ },
+ "IT:45": {
+  "extract": "Emilia-Romagna is an administrative region of northern Italy, comprising the historical regions of Emilia and Romagna. Its capital is Bologna. It has a population of over 4.4 million in an area of 22,509.67 km2 (8,691 sq mi).",
+  "name": "Emilia-Romagna",
+  "source_url": "https://en.wikipedia.org/wiki/Emilia-Romagna"
+ },
+ "IT:52": {
+  "extract": "Tuscany is a region of central Italy. With a population of 3,659,222 in an area of 22,987.04 square kilometres, it is the 9th most populous and 5th-largest region of Italy. The capital and largest city is Florence.",
+  "name": "Tuscany",
+  "source_url": "https://en.wikipedia.org/wiki/Tuscany"
+ },
+ "IT:55": {
+  "extract": "Umbria is a region of central Italy. It includes Lake Trasimeno and Marmore Falls, and is crossed by the Tiber. It is the only landlocked region on the Apennine Peninsula. The capital is Perugia. With a population of 850,627, Umbria is the 4th least populous region of Italy.",
+  "name": "Umbria",
+  "source_url": "https://en.wikipedia.org/wiki/Umbria"
+ },
+ "IT:57": {
+  "extract": "Marche, in English sometimes referred to as the Marches, is one of the twenty regions of Italy. The region is located in the central area of the country, and has a population of nearly 1.5 million people, being the thirteenth largest region in the country by number of inhabitants. The region's capital and largest city is Ancona.",
+  "name": "Marche",
+  "source_url": "https://en.wikipedia.org/wiki/Marche"
+ },
+ "IT:62": {
+  "extract": "Lazio or Latium is one of the 20 administrative regions of Italy. Situated in the central peninsular section of the country, it has 5,709,444 inhabitants and a GDP of more than €212 billion per year, making it the country's second most populated region and second largest regional economy after Lombardy. The capital of Lazio is Rome, which is also the capital city of Italy.",
+  "name": "Lazio",
+  "source_url": "https://en.wikipedia.org/wiki/Lazio"
+ },
+ "IT:65": {
+  "extract": "Abruzzo, historically also known as Abruzzi, is a region of Southern Italy. It has a population of nearly 1.3 million in an area of 10,831.84 square kilometres (4,182.20 sq mi). It is divided into four provinces: L'Aquila, Teramo, Pescara, and Chieti. Its western border, shared with Lazio, lies 80 km (50 mi) east of Rome. L'Aquila is both the capital city of the Abruzzo region and of the Province of L'Aquila, and is the second largest city. The other provincial capitals are Pescara, which is Abruzzo's largest city and major port, Teramo, and Chieti. Other large cities and towns in Abruzzo include the industrial and high tech center Avezzano, as well as three important industrial and touristic centers, Vasto, Lanciano, and Sulmona.",
+  "name": "Abruzzo",
+  "source_url": "https://en.wikipedia.org/wiki/Abruzzo"
+ },
+ "IT:67": {
+  "extract": "Molise is an administrative region of Italy that covers 4,460.65 km2 (1,722 sq mi), thus being the second smallest region in the country after Aosta Valley; it is located in southern Italy, and has a population of 285,940 as of 2026. Its regional capital and largest city is Campobasso, which is also the capital of the Province of Campobasso, one of the two provinces that make up Molise. The other one is the Province of Isernia.",
+  "name": "Molise",
+  "source_url": "https://en.wikipedia.org/wiki/Molise"
+ },
+ "IT:72": {
+  "extract": "Campania is an administrative region of Italy, located in the south of the country; most of it is in the southwestern portion of the Italian Peninsula, but it also includes the small Phlegraean Islands – Ischia, Procida, Vivara, and Nisida – and the island of Capri. The capital is Naples. Campania has a population of 5,568,703 as of 2026, making it Italy's 3rd-most populous region, and, with an area of 13,670.95 km2 (5,278 sq mi), its 2nd most densely populated. Based on its GDP, Campania is also the most economically productive region in Southern Italy and the 7th most productive in the whole country. Naples's urban area, which is in Campania, is the seventh most populous in the European Union.",
+  "name": "Campania",
+  "source_url": "https://en.wikipedia.org/wiki/Campania"
+ },
+ "IT:75": {
+  "extract": "Apulia, also known by its Italian name Puglia, is one of the 20 regions of Italy, located in the southern peninsular section of the country, bordering the Adriatic Sea to the east, the Strait of Otranto and Ionian Sea to the southeast and the Gulf of Taranto to the south. The region comprises 19,540.90 square kilometers (7,544.78 sq mi), and has 3,865,277 inhabitants as of 2026. It is bordered by the regions of Molise to the north, Campania to the west, and Basilicata to the southwest. The regional capital is Bari.",
+  "name": "Apulia",
+  "source_url": "https://en.wikipedia.org/wiki/Apulia"
+ },
+ "IT:77": {
+  "extract": "Basilicata, also known by its ancient name Lucania, is an administrative region in Southern Italy, bordering on Campania to the west, Apulia to the north and east, and Calabria to the south. It has two coastlines: a 30-kilometre stretch on the Gulf of Policastro between Campania and Calabria, and a longer coastline along the Gulf of Taranto between Calabria and Apulia. The region can be thought of as \"the arch\" of \"the boot\" of Italy, with Calabria functioning as \"the toe\" and Apulia \"the heel\".",
+  "name": "Basilicata",
+  "source_url": "https://en.wikipedia.org/wiki/Basilicata"
+ },
+ "IT:78": {
+  "extract": "Calabria is a region in Southern Italy. It is a peninsula bordered by the Basilicata region to the north, the Ionian Sea to the east, the Strait of Messina to the southwest, which separates it from Sicily, and the Tyrrhenian Sea to the west. It has a population of 1,827,571 across a total area of 15,221.90 km2 (5,877.21 sq mi). Catanzaro is the region's capital.",
+  "name": "Calabria",
+  "source_url": "https://en.wikipedia.org/wiki/Calabria"
+ },
+ "IT:82": {
+  "extract": "Sicily, officially the Sicilian Region, is an island in the central Mediterranean Sea and one of the twenty regions of Italy, situated south of the Italian Peninsula in continental Europe. With over 4.7 million inhabitants, including 1.2 million in and around the capital city of Palermo, it is both the largest and most populous island in the Mediterranean Sea.",
+  "name": "Sicily",
+  "source_url": "https://en.wikipedia.org/wiki/Sicily"
+ },
+ "IT:88": {
+  "extract": "Sardinia, officially the Autonomous Region of Sardinia, is the second largest island in the Mediterranean Sea after Sicily, and one of the twenty regions of Italy. It is located 200 kilometres west of the Italian Peninsula, 200 km (110 nmi) north of Tunisia, and 16.5 km (9 nmi) south of the French island of Corsica. Sardinia is one of five Italian regions with statutory domestic autonomy. It is divided into six provinces and two metropolitan cities. Cagliari is the capital and largest city, followed by Sassari. Sardinia has over 1.5 million inhabitants as of 2026.",
+  "name": "Sardinia",
+  "source_url": "https://en.wikipedia.org/wiki/Sardinia"
+ }
+}

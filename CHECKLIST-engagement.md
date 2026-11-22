@@ -22,25 +22,36 @@ popup (user decision, 2026-11-03). Docked card on wide screens; phone
 behaviour deferred (plan open question 1). Plan section 1.
 
 ### SP-18.1: Region description data from Wikipedia
-**Status:** To Do
+**Status:** Done
 **Description:** Offline, developer-run import that turns every region id
 in the SVGs into a short description, committed as static JSON. Never
 fetched at runtime.
 **Acceptance criteria:**
-- [ ] `python manage.py fetch_region_descriptions` maps ids → Wikidata
+- [x] `python manage.py fetch_region_descriptions` maps ids → Wikidata
       (P297 countries, P300 subdivisions) → English Wikipedia summary,
       standard library only (no new dependency)
-- [ ] Writes `static/data/descriptions/<CC>.json` per country (the
+- [x] Writes `static/data/descriptions/<CC>.json` per country (the
       country + its subdivisions), each entry with `name`, `extract`,
       `source_url`
-- [ ] Manual overrides file for ids Wikidata can't match or extracts that
+- [x] Manual overrides file for ids Wikidata can't match or extracts that
       read badly; overrides win over fetched data
-- [ ] Command reports unmatched ids instead of failing; coverage noted in
+- [x] Command reports unmatched ids instead of failing; coverage noted in
       the ticket when done (target: every country, subdivisions
       best-effort)
-- [ ] Tests for the id → Wikidata mapping and output shape, with the HTTP
+- [x] Tests for the id → Wikidata mapping and output shape, with the HTTP
       calls mocked (Wikipedia/Wikidata are external systems)
-- [ ] README documents how and when to re-run it
+- [x] README documents how and when to re-run it
+
+**Implementation note (2026-11-22):** coverage is 100%, 242/242 countries
+and 402/402 subdivisions (644 entries, ~410 KB across 242 files). Four ids
+need overrides in `maps/data/description_overrides.json`: `XK` (Kosovo has
+no ISO code on Wikidata), `RU:CR` and `RU:SEV` (non-ISO ids, see SP-13),
+and `ES:IB` (the Balearic Islands' Wikidata code differs from the map's).
+When several current items share a code, the one with the most sitelinks
+wins and the others are logged. Only `CY` hit this, and Cyprus beat the
+item for the island. `name` is the map's own `aria-label`, so it keeps
+the map's abbreviations (e.g. "Dem. Rep. Congo"). A full run takes about
+4 minutes.
 **Risks:**
 - Wikidata may hold several items with the same ISO code (historic
   entities); the command must prefer current ones and log the rest.

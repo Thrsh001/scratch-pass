@@ -1,0 +1,7 @@
+{
+ "_comment": "Manual overrides for fetch_region_descriptions (SP-18.1). Keys are region ids. 'wikipedia_title' skips the Wikidata lookup; 'name', 'extract' and 'source_url' replace the fetched values. Overrides always win. Keys starting with '_' are ignored.",
+ "ES:IB": {"wikipedia_title": "Balearic Islands"},
+ "XK": {"wikipedia_title": "Kosovo"},
+ "RU:CR": {"wikipedia_title": "Crimea"},
+ "RU:SEV": {"wikipedia_title": "Sevastopol"}
+}

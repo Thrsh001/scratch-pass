@@ -1,0 +1,72 @@
+{
+ "FR": {
+  "extract": "France, officially the French Republic, is a country primarily located in Western Europe. Its overseas regions and territories include French Guiana in South America, Saint Pierre and Miquelon in the North Atlantic, the French West Indies, and many islands in Oceania and the Indian Ocean. Metropolitan France shares borders with Belgium and Luxembourg to the north; Germany to the northeast; Switzerland to the east; Italy and Monaco to the southeast; Andorra and Spain to the south; and a maritime border with the United Kingdom to the northwest. Its metropolitan area extends from the Rhine to the Atlantic Ocean and from the Mediterranean Sea to the English Channel and the North Sea. Its 18 integral regions—five of which are overseas—span a combined area of 632,702 km2 (244,288 sq mi), with a total population estimated at over 69.1 million in 2026. Its capital, largest city and main cultural and economic centre is Paris, with a metropolitan population of over 13 million.",
+  "name": "France",
+  "source_url": "https://en.wikipedia.org/wiki/France"
+ },
+ "FR:20R": {
+  "extract": "Corsica is an island in the Mediterranean Sea and one of the 18 regions of France. It is the fourth-largest island in the Mediterranean and lies southeast of the French mainland, west of the Italian Peninsula and immediately north of the Italian island of Sardinia, the nearest land mass. A single chain of mountains makes up two-thirds of the island. As of January 2026, it had a population of 365,636.",
+  "name": "Corsica",
+  "source_url": "https://en.wikipedia.org/wiki/Corsica"
+ },
+ "FR:ARA": {
+  "extract": "Auvergne-Rhône-Alpes is a landlocked region in Southern France. It was created by the 2014 territorial reform of French regions; it resulted from the merger of Auvergne and Rhône-Alpes. The new region came into effect on 1 January 2016, after the regional elections in December 2015.",
+  "name": "Auvergne-Rhône-Alpes",
+  "source_url": "https://en.wikipedia.org/wiki/Auvergne-Rh%C3%B4ne-Alpes"
+ },
+ "FR:BFC": {
+  "extract": "Bourgogne-Franche-Comté is a region in France created by the 2014 territorial reform of French regions, from a merger of Burgundy and Franche-Comté. The new region came into existence on 1 January 2016, after the regional elections of December 2015, electing 100 members to the Regional Council of Bourgogne-Franche-Comté.",
+  "name": "Bourgogne-Franche-Comté",
+  "source_url": "https://en.wikipedia.org/wiki/Bourgogne-Franche-Comt%C3%A9"
+ },
+ "FR:BRE": {
+  "extract": "Brittany is an administrative region of Metropolitan France, comprising the departments of Côtes-d'Armor, Finistère, Ille-et-Vilaine, and Morbihan. Its capital and largest city is Rennes.",
+  "name": "Brittany",
+  "source_url": "https://en.wikipedia.org/wiki/Brittany_(administrative_region)"
+ },
+ "FR:CVL": {
+  "extract": "Centre-Val de Loire, or simply Centre as it was known until 2015, is one of the eighteen administrative regions of France and one of five without a coastline. It straddles the middle Loire Valley in the interior of the country, encompassing six departments, with a population of 2,572,853 as of 2018. Its prefecture is Orléans, and its largest city is Tours.",
+  "name": "Centre-Val de Loire",
+  "source_url": "https://en.wikipedia.org/wiki/Centre-Val_de_Loire"
+ },
+ "FR:GES": {
+  "extract": "Grand Est is one of France's landlocked administrative regions, this being in northeastern France. It superseded three former administrative regions, Alsace, Champagne-Ardenne, and Lorraine, on 1 January 2016 under the provisional name of Alsace-Champagne-Ardenne-Lorraine as a result of territorial reform which had been passed by the French Parliament in 2014.",
+  "name": "Grand Est",
+  "source_url": "https://en.wikipedia.org/wiki/Grand_Est"
+ },
+ "FR:HDF": {
+  "extract": "Hauts-de-France, also referred to in English as Upper France, is the northernmost region of France, created by the territorial reform of French regions in 2014, from a merger of Nord-Pas-de-Calais and Picardy. Its prefecture is Lille. The new region came into existence on 1 January 2016, after regional elections in December 2015. The Conseil d'État approved Hauts-de-France as the name of the region on 28 September 2016, effective the following 30 September.",
+  "name": "Hauts-de-France",
+  "source_url": "https://en.wikipedia.org/wiki/Hauts-de-France"
+ },
+ "FR:IDF": {
+  "extract": "The Île-de-France is the most populous of the eighteen regions of France, with an official estimated population of 12,271,794 residents on 1 January 2023. Containing the capital city of France, Paris, it is located in the north-central part of the country and often called the Paris Region. Île-de-France is densely populated and retains a prime economic position on the national stage. It covers 12,012 square kilometres, about 2% of metropolitan French territory. Its 2017 population was nearly one-fifth of the national total.",
+  "name": "Île-de-France",
+  "source_url": "https://en.wikipedia.org/wiki/%C3%8Ele-de-France"
+ },
+ "FR:NAQ": {
+  "extract": "Nouvelle-Aquitaine is the largest administrative region in France by area, located in the west and southwest of Metropolitan France. It was created in 2014 from the merger of Aquitaine, Limousin, and Poitou-Charentes in a territorial reform. The region covers 84,035.7 km2 (32,446.4 sq mi), representing more than 1⁄7 of Metropolitan France, and had a population of 6,033,952 in 2020. The new region was formally established on 1 January 2016, following the regional elections in December 2015.",
+  "name": "Nouvelle-Aquitaine",
+  "source_url": "https://en.wikipedia.org/wiki/Nouvelle-Aquitaine"
+ },
+ "FR:NOR": {
+  "extract": "Normandy is the northwesternmost of the eighteen regions of France, roughly coextensive with the historical Duchy of Normandy.",
+  "name": "Normandy",
+  "source_url": "https://en.wikipedia.org/wiki/Normandy_(administrative_region)"
+ },
+ "FR:OCC": {
+  "extract": "Occitania is the southernmost administrative region of metropolitan France excluding Corsica, located in the south of the country, created on 1 January 2016 from the former regions of Languedoc-Roussillon and Midi-Pyrénées. The Council of State approved Occitania as the new name of the region on 28 September 2016, coming into effect on 30 September 2016.",
+  "name": "Occitanie",
+  "source_url": "https://en.wikipedia.org/wiki/Occitania_(administrative_region)"
+ },
+ "FR:PAC": {
+  "extract": "Provence-Alpes-Côte d'Azur, sometimes known as Région Sud, is one of the eighteen administrative regions of France, located at the far southeastern point of the mainland. The main prefecture and largest city is Marseille, France's second largest city proper after Paris and the 2nd largest urban area when combined with Aix-en-Provence with over 1.9 million residents.",
+  "name": "Provence-Alpes-Côte d'Azur",
+  "source_url": "https://en.wikipedia.org/wiki/Provence-Alpes-C%C3%B4te_d'Azur"
+ },
+ "FR:PDL": {
+  "extract": "Pays de la Loire is one of the eighteen administrative regions of France, located on the country's Atlantic coast. It was created in the 1950s to serve as a zone of influence for its capital and most populated city, Nantes, one of a handful of French \"balancing metropolises\". In 2020, Pays de la Loire had a population of 3,832,120.",
+  "name": "Pays de la Loire",
+  "source_url": "https://en.wikipedia.org/wiki/Pays_de_la_Loire"
+ }
+}

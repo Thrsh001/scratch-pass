@@ -1,0 +1,432 @@
+{
+ "RU": {
+  "extract": "Russia, or the Russian Federation, is a country in Eastern Europe and North Asia. It is the largest country in the world, spanning eleven time zones and sharing land borders with fourteen countries. With a population of over 140 million, Russia is the most populous country in Europe and the ninth-most populous in the world. It is a highly urbanised country, with three-fourths of its population living in urban areas. Moscow, the most populous metropolitan area in Europe, is the capital and largest city of Russia, while Saint Petersburg is its second-largest city and a major cultural centre.",
+  "name": "Russia",
+  "source_url": "https://en.wikipedia.org/wiki/Russia"
+ },
+ "RU:AD": {
+  "extract": "Adygea, officially the Republic of Adygea or the Adygean Republic, is a republic of Russia. It is situated in the North Caucasus of Eastern Europe. The republic is a part of the Southern Federal District, and covers an area of 7,600 square kilometers (2,900 sq mi), with a population of roughly 500,731 residents as of 2025. It is an enclave within Krasnodar Krai and is the fifth-smallest Russian federal subject by area. Maykop is the capital and the largest city of Adygea, home to one-third of the republic's population.",
+  "name": "Republic of Adygea",
+  "source_url": "https://en.wikipedia.org/wiki/Adygea"
+ },
+ "RU:AL": {
+  "extract": "The Altai Republic, also known as the Gorno-Altai Republic, is a republic of Russia located in southern Siberia. The republic borders Kemerovo Oblast to the north, Khakassia to the northeast, Tuva to the east, Altai Krai to the west, as well as three countries: Mongolia (Bayan-Ölgii) to the southeast, China (Xinjiang) to the south and Kazakhstan to the southwest. It is a part of the Siberian Federal District, and covers an area of 92,903 square kilometers (35,870 sq mi), with a population of 210,924 residents. It is the least-populous republic of Russia and least-populous federal subject in the Siberian Federal District. Gorno-Altaysk is the capital and the largest town of the republic with 65,342 inhabitants and in urban areas, making it the least urbanized federal subject.",
+  "name": "Altai Republic",
+  "source_url": "https://en.wikipedia.org/wiki/Altai_Republic"
+ },
+ "RU:ALT": {
+  "extract": "Altai Krai is a federal subject of Russia. It borders, clockwise from the west, Kazakhstan, Novosibirsk and Kemerovo, and the Altai Republic. Its administrative centre is the city of Barnaul. As of the 2021 Census, the population of the krai was 2,163,693.",
+  "name": "Altai Krai",
+  "source_url": "https://en.wikipedia.org/wiki/Altai_Krai"
+ },
+ "RU:AMU": {
+  "extract": "Amur Oblast is a federal subject of Russia, located on the banks of the Amur and Zeya rivers in the Russian Far East. The oblast borders Heilongjiang province of the People's Republic of China (PRC) to the south.",
+  "name": "Amur Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Amur_Oblast"
+ },
+ "RU:ARK": {
+  "extract": "Arkhangelsk Oblast is a federal subject of Russia. It includes the Arctic archipelagos of Franz Josef Land and Novaya Zemlya, as well as the Solovetsky Islands in the White Sea. Arkhangelsk Oblast also has administrative jurisdiction over the Nenets Autonomous Okrug (NAO). Including the NAO, Arkhangelsk Oblast has an area of 587,400 square kilometres (226,800 sq mi), it is the largest of first-level administrative divisions in Europe. Its population was 1,227,626 as of the 2010 Census.",
+  "name": "Arkhangelsk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Arkhangelsk_Oblast"
+ },
+ "RU:AST": {
+  "extract": "Astrakhan Oblast is a federal subject of Russia located in southern Russia. Its administrative center is the city of Astrakhan. As of the 2010 census, its population was 1,010,073.",
+  "name": "Astrakhan Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Astrakhan_Oblast"
+ },
+ "RU:BA": {
+  "extract": "Bashkortostan, officially the Republic of Bashkortostan, sometimes also called Bashkiria, is a republic of Russia between the Volga river and the Ural Mountains in Eastern Europe. The republic borders Perm Krai to the north, Sverdlovsk Oblast to the northeast, Chelyabinsk Oblast to the east, Orenburg Oblast to the south, Tatarstan to the west and Udmurtia to the northwest. It covers 143,600 square kilometres. It is the seventh-most populous federal subject in Russia and the most populous republic. As of 2025, it has a population of 4,046,094. Its capital and largest city is Ufa. Other major cities include Sterlitamak, Salavat, Neftekamsk, and Oktyabrsky.",
+  "name": "Bashkortostan",
+  "source_url": "https://en.wikipedia.org/wiki/Bashkortostan"
+ },
+ "RU:BEL": {
+  "extract": "Belgorod Oblast is a federal subject of Russia. Its administrative center is the city of Belgorod. As of 2021, the population is 1,540,486.",
+  "name": "Belgorod Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Belgorod_Oblast"
+ },
+ "RU:BRY": {
+  "extract": "Bryansk Oblast, also known as Bryanshchina, is a federal subject of Russia. Its administrative center is the city of Bryansk. As of the 2021 Census, its population was 1,169,161.",
+  "name": "Bryansk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Bryansk_Oblast"
+ },
+ "RU:BU": {
+  "extract": "Buryatia, officially the Republic of Buryatia, is a republic of Russia located in the Russian Far East. Formerly part of the Siberian Federal District, it has been administered as part of the Far Eastern Federal District since 2018. To its north lie Irkutsk Oblast and Lake Baikal, the deepest lake in the world; Zabaykalsky Krai to the east; Tuva to the west and Mongolia to the south. Its capital is the city of Ulan-Ude. It has an area of 351,300 square kilometers (135,600 sq mi) with a population of 978,588. It is home to the indigenous Buryats.",
+  "name": "Republic of Buryatia",
+  "source_url": "https://en.wikipedia.org/wiki/Buryatia"
+ },
+ "RU:CE": {
+  "extract": "Chechnya, officially the Chechen Republic, is a republic of Russia. It is situated in the North Caucasus of Eastern Europe, between the Caspian Sea and Black Sea. The republic forms a part of the North Caucasian Federal District, and shares land borders with Georgia to its south; with the Russian republics of Dagestan, Ingushetia, and North Ossetia–Alania to its east, north, and west; and with Stavropol Krai to its northwest.",
+  "name": "Chechen Republic",
+  "source_url": "https://en.wikipedia.org/wiki/Chechnya"
+ },
+ "RU:CHE": {
+  "extract": "Chelyabinsk Oblast is a federal subject of Russia in the Ural Mountains region, on the border of Europe and Asia. Its administrative center is the city of Chelyabinsk.",
+  "name": "Chelyabinsk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Chelyabinsk_Oblast"
+ },
+ "RU:CHU": {
+  "extract": "Chukotka, officially the Chukotka Autonomous Okrug, is the easternmost federal subject of Russia. It is an autonomous okrug situated in the Russian Far East. It shares a border with the Sakha Republic to the west, Magadan Oblast to the south-west, and Kamchatka Krai to the south, as well as a maritime border on the Bering Strait with the U.S. state of Alaska to the east. Anadyr is the largest town and the capital, and the easternmost settlement to have town status in Russia. It is the closest point from Russia to the United States, measuring at 88.51 kilometres or 55 miles.",
+  "name": "Chukotka Autonomous Okrug",
+  "source_url": "https://en.wikipedia.org/wiki/Chukotka_Autonomous_Okrug"
+ },
+ "RU:CR": {
+  "extract": "Crimea is a peninsula in Eastern Europe, on the northern coast of the Black Sea, almost entirely surrounded by the Black Sea and the smaller Sea of Azov. The Isthmus of Perekop connects the peninsula to Kherson Oblast in mainland Ukraine. To the east, the Crimean Bridge, constructed in 2018, spans the Strait of Kerch, linking the peninsula with Krasnodar Krai in Russia. The Arabat Spit, located to the northeast, is a narrow strip of land that separates the Syvash lagoons from the Sea of Azov. Across the Black Sea to the west lies Romania and to the south is Turkey. The population is 2.4 million, and the largest city is Sevastopol. The region, internationally recognised as part of Ukraine, has been under Russian occupation since 2014.",
+  "name": "Crimea",
+  "source_url": "https://en.wikipedia.org/wiki/Crimea"
+ },
+ "RU:CU": {
+  "extract": "Chuvashia, officially known as Chuvash Republic — Chuvashia, is a republic of Russia located in Eastern Europe. It is the homeland of the Chuvash people. The republic's capital city is the city of Cheboksary. As of the 2010 Census, its population was 1,251,619.",
+  "name": "Chuvash Republic",
+  "source_url": "https://en.wikipedia.org/wiki/Chuvashia"
+ },
+ "RU:DA": {
+  "extract": "Dagestan, officially the Republic of Dagestan, is a republic of Russia situated in the North Caucasus of Eastern Europe, along the Caspian Sea. It is located north of the Greater Caucasus, and is a part of the North Caucasian Federal District. The republic is at the southernmost tip of Russia, sharing land borders with the countries of Azerbaijan (south) and Georgia (southwest), and the Russian federal subjects of Chechnya (west), Stavropol Krai (northwest), and Kalmykia (north). Makhachkala is the republic's capital and largest city; other major cities are Derbent, Kizlyar, Izberbash, Kaspiysk, and Buynaksk.",
+  "name": "Republic of Dagestan",
+  "source_url": "https://en.wikipedia.org/wiki/Dagestan"
+ },
+ "RU:IN": {
+  "extract": "Ingushetia or Ingushetiya, officially the Republic of Ingushetia, is a republic of Russia located in the North Caucasus of Eastern Europe. The republic is part of the North Caucasian Federal District, and shares land borders with the country of Georgia to its south; and borders the Russian republics of North Ossetia–Alania to its west and north and Chechnya to its east and northeast.",
+  "name": "Republic of Ingushetia",
+  "source_url": "https://en.wikipedia.org/wiki/Ingushetia"
+ },
+ "RU:IRK": {
+  "extract": "Irkutsk Oblast is a federal subject of Russia, located in southeastern Siberia in the basins of the Angara, Lena, and Nizhnyaya Tunguska Rivers. The administrative center is the city of Irkutsk. It had a population of 2,370,102 at the 2021 Census.",
+  "name": "Irkutsk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Irkutsk_Oblast"
+ },
+ "RU:IVA": {
+  "extract": "Ivanovo Oblast is a federal subject of Russia. It had a population of 927,828 as of the 2021 Russian Census.",
+  "name": "Ivanovo Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Ivanovo_Oblast"
+ },
+ "RU:KAM": {
+  "extract": "Kamchatka Krai is a federal subject of Russia, situated in the Russian Far East. It is administratively part of the Far Eastern Federal District. Its administrative center and largest city is Petropavlovsk-Kamchatsky, home to over half of its population of 291,705.",
+  "name": "Kamchatka Krai",
+  "source_url": "https://en.wikipedia.org/wiki/Kamchatka_Krai"
+ },
+ "RU:KB": {
+  "extract": "Kabardino-Balkaria, officially the Kabardino-Balkarian Republic, is a republic of Russia located in the North Caucasus. As of the 2021 Census, its population was 904,200. Its capital is Nalchik. The area contains the highest mountain in Europe, Mount Elbrus, at 5,642 m (18,510 ft). Mount Elbrus has 22 glaciers that feed three rivers — Baksan, Malka and Kuban. The mountain is covered with snow year-round.",
+  "name": "Kabardino-Balkaria",
+  "source_url": "https://en.wikipedia.org/wiki/Kabardino-Balkaria"
+ },
+ "RU:KC": {
+  "extract": "Karachay-Cherkessia, officially the Karachay-Cherkess Republic, is a republic of Russia located in the North Caucasus. It is administratively part of the North Caucasian Federal District. As of the 2021 census, Karachay-Cherkessia has a population of 469,865. Cherkessk is the largest city and the capital of the republic.",
+  "name": "Karachay-Cherkess Republic",
+  "source_url": "https://en.wikipedia.org/wiki/Karachay-Cherkessia"
+ },
+ "RU:KDA": {
+  "extract": "Krasnodar Krai is a federal subject of Russia located in the North Caucasus region in Southern Russia and administratively part of the Southern Federal District. Its administrative center is the city of Krasnodar. The third most populous federal subject in Russia, it had a population of 5,838,273 as of the 2021 Census.",
+  "name": "Krasnodar Krai",
+  "source_url": "https://en.wikipedia.org/wiki/Krasnodar_Krai"
+ },
+ "RU:KEM": {
+  "extract": "Kemerovo Oblast, also known as Kuzbass, after the Kuznetsk Basin, is a federal subject of Russia. Kemerovo is the administrative center and largest city of the oblast. Kemerovo Oblast is one of Russia's most urbanized regions, with over 70% of the population living in its nine principal cities. Its ethnic composition is predominantly Russian, but native Shors and Kalmak Siberian Tatars also live in the oblast, along with Ukrainians, Volga Tatars, and Chuvash. The population recorded during the 2021 Census was 2,600,923.",
+  "name": "Kemerovo Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Kemerovo_Oblast"
+ },
+ "RU:KGD": {
+  "extract": "Kaliningrad Oblast is the westernmost federal subject of Russia. It is a semi-exclave on the Baltic Sea within the historical Baltic region of Prussia, bordered by Poland to the south, Lithuania to the north and east, and the Baltic Sea to the west. The largest city and administrative centre is Kaliningrad. The port town of Baltiysk is Russia's only port on the Baltic Sea that remains ice-free in winter. Kaliningrad Oblast had a population of roughly one million in the 2021 Russian census. It has an area of 15,125 square kilometres (5,840 sq mi).",
+  "name": "Kaliningrad Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Kaliningrad_Oblast"
+ },
+ "RU:KGN": {
+  "extract": "Kurgan Oblast is a federal subject of Russia. Its administrative center is the city of Kurgan. According to the 2021 Census, the population was 776,661, down from 910,807 recorded in the 2010 Census.",
+  "name": "Kurgan Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Kurgan_Oblast"
+ },
+ "RU:KHA": {
+  "extract": "Khabarovsk Krai is a federal subject of Russia. It is located in the Russian Far East and is administratively part of the Far Eastern Federal District. The administrative centre and largest city of the krai is the city of Khabarovsk, which is home to roughly half of the krai's population and the largest city in the Russian Far East. Khabarovsk Krai is the third-largest federal subject by area, and had a population of 1,343,869 as of 2010.",
+  "name": "Khabarovsk Krai",
+  "source_url": "https://en.wikipedia.org/wiki/Khabarovsk_Krai"
+ },
+ "RU:KHM": {
+  "extract": "Khanty-Mansi Autonomous Okrug–Yugra, also known as Khanty-Mansia (Khantia-Mansia), is a federal subject of Russia. It has a population of 1,532,243 as of the 2010 Census. Its administrative center is Khanty-Mansiysk.",
+  "name": "Khanty-Mansi Autonomous Okrug",
+  "source_url": "https://en.wikipedia.org/wiki/Khanty-Mansi_Autonomous_Okrug"
+ },
+ "RU:KIR": {
+  "extract": "Kirov Oblast is a federal subject of Russia located in Eastern Europe. Its administrative centre is the city of Kirov. As of the 2021 census, the population is 1,153,680.",
+  "name": "Kirov Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Kirov_Oblast"
+ },
+ "RU:KK": {
+  "extract": "Khakassia, officially the Republic of Khakassia, is a republic of Russia located in southern Siberia. It is situated between Krasnoyarsk Krai to the north and the Altai Republic to the south.",
+  "name": "Republic of Khakassia",
+  "source_url": "https://en.wikipedia.org/wiki/Khakassia"
+ },
+ "RU:KL": {
+  "extract": "Kalmykia, officially the Republic of Kalmykia, is a republic of Russia, located in the Volga region of European Russia. The republic is part of the Southern Federal District, and borders Dagestan to the south and Stavropol Krai to the southwest; Volgograd Oblast to the northwest and north and Astrakhan Oblast to the north and east; Rostov Oblast to the west and the Caspian Sea to the east. Through the Caspian Depression, the Kuma river forms Kalmykia's natural border with Dagestan. Kalmykia is the only polity within the European continent where Buddhism is the majority religion; the majority of Kalmyk people are Vajrayana Tibetan Buddhists of the Gelug and Kagyu lineages.",
+  "name": "Republic of Kalmykia",
+  "source_url": "https://en.wikipedia.org/wiki/Kalmykia"
+ },
+ "RU:KLU": {
+  "extract": "Kaluga Oblast is a federal subject of Russia. Its administrative center is the city of Kaluga. The 2021 Russian Census found a population of 1,069,904.",
+  "name": "Kaluga Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Kaluga_Oblast"
+ },
+ "RU:KO": {
+  "extract": "The Komi Republic, sometimes simply referred to as Komi, is a republic of Russia situated in the northeast of European Russia. Its capital is the city of Syktyvkar.",
+  "name": "Komi Republic",
+  "source_url": "https://en.wikipedia.org/wiki/Komi_Republic"
+ },
+ "RU:KOS": {
+  "extract": "Kostroma Oblast is a federal subject of Russia. Its administrative center is the city of Kostroma and its population as of the 2021 Census is 580,976. It was formed on August 13, 1944 on the territory detached from neighboring Yaroslavl Oblast.",
+  "name": "Kostroma Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Kostroma_Oblast"
+ },
+ "RU:KR": {
+  "extract": "The Republic of Karelia, or simply Karelia or Karjala is a republic of Russia situated in the northwest of the country. The republic is a part of the Northwestern Federal District, and covers an area of 172,400 square kilometres, with a population of 533,121 residents. Its capital is Petrozavodsk.",
+  "name": "Karelia",
+  "source_url": "https://en.wikipedia.org/wiki/Republic_of_Karelia"
+ },
+ "RU:KRS": {
+  "extract": "Kursk Oblast is a federal subject of Russia. Its administrative center is the city of Kursk. As of the 2021 census, Kursk Oblast had a population of 1,082,458.",
+  "name": "Kursk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Kursk_Oblast"
+ },
+ "RU:KYA": {
+  "extract": "Krasnoyarsk Krai is a federal subject of Russia located in Siberia. Its administrative center is the city of Krasnoyarsk, the second-largest city in Siberia after Novosibirsk. Comprising half of the Siberian Federal District, Krasnoyarsk Krai is the largest krai in Russia, the second-largest federal subject in the country after neighboring Sakha, and the third-largest country subdivision by area in the world. The krai covers an area of 2,366,797 square kilometers (913,825 sq mi), constituting roughly 13% of Russia's total area. Krasnoyarsk Krai has a population of 2,856,971 as of the 2021 census.",
+  "name": "Krasnoyarsk Krai",
+  "source_url": "https://en.wikipedia.org/wiki/Krasnoyarsk_Krai"
+ },
+ "RU:LEN": {
+  "extract": "Leningrad Oblast is a federal subject of Russia. The oblast has an area of 84,500 square kilometres (32,600 sq mi) and a population of 2,000,997 ; up from 1,716,868 recorded in the 2010 Census. Leningrad Oblast is highly industrialized. Its administrative center and largest city is Gatchina.",
+  "name": "Leningrad Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Leningrad_Oblast"
+ },
+ "RU:LIP": {
+  "extract": "Lipetsk Oblast is a federal subject of Russia. Its administrative center is the city of Lipetsk. As of the 2021 Census, its population was 1,143,224.",
+  "name": "Lipetsk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Lipetsk_Oblast"
+ },
+ "RU:MAG": {
+  "extract": "Magadan Oblast is a federal subject of Russia. It is geographically located in the Far East region of the country, and is administratively part of the Far Eastern Federal District. Magadan Oblast has a population of 136,085, making it the least populated oblast and the third-least populated federal subject in Russia.",
+  "name": "Magadan Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Magadan_Oblast"
+ },
+ "RU:ME": {
+  "extract": "Mari El, officially the Mari El Republic, is a republic of Russia. It is in the European region of the country, along the northern bank of the Volga River, and administratively part of the Volga Federal District. The republic has a population of 696,459. Yoshkar-Ola is the capital and largest city.",
+  "name": "Mari El Republic",
+  "source_url": "https://en.wikipedia.org/wiki/Mari_El"
+ },
+ "RU:MO": {
+  "extract": "Mordovia, officially the Republic of Mordovia, is a republic of Russia, situated in Eastern Europe. Its capital is the city of Saransk. As of the 2010 Census, the population of the republic was 834,755. Ethnic Russians (53.1%) and Mordvins (39.8%) account for the majority of the population.",
+  "name": "Republic of Mordovia",
+  "source_url": "https://en.wikipedia.org/wiki/Mordovia"
+ },
+ "RU:MOS": {
+  "extract": "Moscow Oblast, informally known as Podmoskovye, is a federal subject of Russia. With a population of 8,524,665 living in an area of 44,300 square kilometers (17,100 sq mi), it is one of the most densely populated regions in the country and is the second most populous federal subject. The oblast has no official administrative center; its public authorities are located in Moscow and Krasnogorsk, and also across other locations in the oblast.",
+  "name": "Moscow Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Moscow_Oblast"
+ },
+ "RU:MOW": {
+  "extract": "Moscow is the capital and largest city of Russia, situated on the Moskva River in Central Russia. The city has a population estimated at more than 13 million residents within city limits, more than 19.1 million residents in the urban area, and more than 21.5 million residents in the metropolitan area. The city covers an area of 2,511 square kilometers (970 sq mi); the urban area covers 5,891 square kilometers (2,275 sq mi); and the metropolitan area covers more than 26,000 square kilometers (10,000 sq mi). Moscow is among the world's largest cities: the most populous city entirely in Europe, the largest urban and metropolitan areas in Europe, and the largest city by land area on the European continent.",
+  "name": "Moscow",
+  "source_url": "https://en.wikipedia.org/wiki/Moscow"
+ },
+ "RU:MUR": {
+  "extract": "Murmansk Oblast is a federal subject of Russia, located in the northwestern part of the country, with a total land area of 144,900 square kilometres (55,900 sq mi). Its only internal border is the Republic of Karelia to the south, and it is bordered internationally by Finland to the west and Norway to the northwest and the Barents Sea lies to the north and White Sea lies to the south and east. Its administrative center and largest city is the port city of Murmansk. As of the 2010 Census, its population was 795,409; however, at the 2021 Census, the population had declined to 667,744.",
+  "name": "Murmansk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Murmansk_Oblast"
+ },
+ "RU:NEN": {
+  "extract": "The Nenets Autonomous Okrug, also known as Nenetsia, is a federal subject of Russia and an autonomous okrug of Arkhangelsk Oblast. Its administrative center is the town of Naryan-Mar. It has an area of 176,700 square kilometers (68,200 sq mi) and a population of 42,090 as of the 2010 Census, making it the least populous federal subject. It is the only federal subject of Russia that is divided into only one district.",
+  "name": "Nenets Autonomous Okrug",
+  "source_url": "https://en.wikipedia.org/wiki/Nenets_Autonomous_Okrug"
+ },
+ "RU:NGR": {
+  "extract": "Novgorod Oblast is a federal subject of Russia. Its administrative center is the city of Veliky Novgorod. Some of the oldest Russian cities, including Veliky Novgorod and Staraya Russa, are located in the oblast. The historic monuments of Veliky Novgorod and surroundings have been declared a UNESCO World Heritage Site. Population: 583,387.",
+  "name": "Novgorod Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Novgorod_Oblast"
+ },
+ "RU:NIZ": {
+  "extract": "Nizhny Novgorod Oblast is a federal subject of Russia. Its administrative center and largest city is the city of Nizhny Novgorod. It has a population of 3,119,115 as of the 2021 Census. From 1932 to 1990, it was known as Gorky Oblast.",
+  "name": "Nizhny Novgorod Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Nizhny_Novgorod_Oblast"
+ },
+ "RU:NVS": {
+  "extract": "Novosibirsk Oblast is a federal subject of Russia located in southwestern Siberia. Its administrative and economic center is the city of Novosibirsk, the third-largest city in the country. As of the 2021 Census, Novosibirsk Oblast had a population of 2,797,176 with the majority, 1.63 million, lives in Novosibirsk.",
+  "name": "Novosibirsk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Novosibirsk_Oblast"
+ },
+ "RU:OMS": {
+  "extract": "Omsk Oblast is a federal subject of Russia, located in southwestern Siberia. The oblast has an area of 139,700 square kilometers (53,900 sq mi). Its population is 1,977,665 with the majority, 1.12 million, living its primate city, Omsk, which is the administrative center and largest city.",
+  "name": "Omsk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Omsk_Oblast"
+ },
+ "RU:ORE": {
+  "extract": "Orenburg Oblast is a federal subject of Russia, mainly located in Eastern Europe, with some land in the southern and eastern portions of the oblast falling within Asia. Its administrative center is the city of Orenburg. From 1938 to 1957, it bore the name Chkalov Oblast in honor of Valery Chkalov. As of the 2021 Census, the oblast had a population of 1,862,767, down from 2,033,072 in the 2010 Census.",
+  "name": "Orenburg Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Orenburg_Oblast"
+ },
+ "RU:ORL": {
+  "extract": "Oryol Oblast, also known as Orlovshchina, is a federal subject of Russia. Its administrative center is the city of Oryol. As of the 2021 census, Oryol Oblast had a population of 713,374.",
+  "name": "Oryol Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Oryol_Oblast"
+ },
+ "RU:PER": {
+  "extract": "Perm Krai is a federal subject of Russia, located in Eastern Europe. Its administrative center is Perm. The population of the krai was 2,532,405.",
+  "name": "Perm Krai",
+  "source_url": "https://en.wikipedia.org/wiki/Perm_Krai"
+ },
+ "RU:PNZ": {
+  "extract": "Penza Oblast is a federal subject of Russia. Its administrative center is the city of Penza. As of the 2010 Census, its population was 1,266,348. It was formed in 1939 on the territory detached from neighboring Tambov Oblast.",
+  "name": "Penza Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Penza_Oblast"
+ },
+ "RU:PRI": {
+  "extract": "Primorsky Krai, informally known as Primorye, is a federal subject of Russia, part of the Far Eastern Federal District in the Russian Far East. The city of Vladivostok on the southern coast of the krai is its administrative center, and the second largest city in the Russian Far East, behind Khabarovsk in the neighbouring Khabarovsk Krai. Primorsky Krai has the largest economy among the federal subjects in the Russian Far East, and a population of 1,845,165 as of the 2021 Census.",
+  "name": "Primorsky Krai",
+  "source_url": "https://en.wikipedia.org/wiki/Primorsky_Krai"
+ },
+ "RU:PSK": {
+  "extract": "Pskov Oblast, also referred to as Pskovshchina is a federal subject of Russia, located in the west of the country. Its administrative center is the city of Pskov. As of the 2021 Census, its population was 599,084.",
+  "name": "Pskov Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Pskov_Oblast"
+ },
+ "RU:ROS": {
+  "extract": "Rostov Oblast is a federal subject of Russia, located in the Southern Federal District. The oblast has an area of 100,967 square kilometers (38,984 sq mi) and a population of 4,200,729, making it the sixth most populous federal subject in Russia. Its administrative center is the city of Rostov-on-Don, which also became the administrative center of the Southern Federal District in 2002.",
+  "name": "Rostov Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Rostov_Oblast"
+ },
+ "RU:RYA": {
+  "extract": "Ryazan Oblast, also referred to as Ryazanshchina, is a federal subject of Russia. Its administrative center is the city of Ryazan, which is also the oblast's largest city.",
+  "name": "Ryazan Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Ryazan_Oblast"
+ },
+ "RU:SA": {
+  "extract": "Sakha, officially the Republic of Sakha (Yakutia), is a republic of Russia, and the largest federal subject of Russia by area. It is located in the Russian Far East, along the Arctic Ocean, with a population of about one million. Sakha comprises half of the area of its governing Far Eastern Federal District, and is the world's largest country subdivision, covering over 3,083,523 square kilometers (1,190,555 sq mi). Yakutsk is the republic's capital and largest city. It is also the world's coldest major city.",
+  "name": "Sakha Republic",
+  "source_url": "https://en.wikipedia.org/wiki/Sakha_Republic"
+ },
+ "RU:SAK": {
+  "extract": "Sakhalin Oblast is a federal subject (oblast) of Russia comprising the island of Sakhalin and the Kuril Islands in the Russian Far East. The oblast has an area of 87,100 square kilometers (33,600 sq mi). Its administrative center and largest city is Yuzhno-Sakhalinsk. As of the 2021 Census, the oblast has a population of 466,609.",
+  "name": "Sakhalin Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Sakhalin_Oblast"
+ },
+ "RU:SAM": {
+  "extract": "Samara Oblast is a federal subject of Russia. Its administrative center is the city of Samara. From 1935 to 1991, it was known as Kuybyshev Oblast. As of the 2021 Census, the population of the oblast was 3,172,925.",
+  "name": "Samara Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Samara_Oblast"
+ },
+ "RU:SAR": {
+  "extract": "Saratov Oblast is a federal subject of Russia, located in the Volga Federal District. Its administrative center is the city of Saratov. As of the 2021 Census, its population was 2,442,575.",
+  "name": "Saratov Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Saratov_Oblast"
+ },
+ "RU:SE": {
+  "extract": "North Ossetia–Alania, officially the Republic of North Ossetia–Alania, is a republic of Russia situated in the North Caucasus of Eastern Europe. It borders the country of Georgia to the south, and the Russian federal subjects of Kabardino-Balkaria to the west, Stavropol Krai to the north, Chechnya to the east and Ingushetia to the southeast. Its population according to the 2021 Census was 687,357. The republic’s capital city is Vladikavkaz, located on the foothills of the Caucasus Mountains.",
+  "name": "Republic of North Ossetia-Alania",
+  "source_url": "https://en.wikipedia.org/wiki/North_Ossetia%E2%80%93Alania"
+ },
+ "RU:SEV": {
+  "extract": "Sevastopol, sometimes written Sebastopol, is the largest city in Crimea and a major port on the Black Sea. Due to its strategic location and the navigability of the city's harbours, Sevastopol has been an important port and naval base throughout its history. Since the city's founding by Catherine the Great in 1783, it has been a major base for Russia's Black Sea Fleet. During the Cold War of the 20th century, it was a closed city. The total administrative area is 864 square kilometres (334 sq mi) and includes a significant amount of rural land. The urban population, largely concentrated around Sevastopol Bay, is 479,394, and the total population is 547,820.",
+  "name": "Sevastopol",
+  "source_url": "https://en.wikipedia.org/wiki/Sevastopol"
+ },
+ "RU:SMO": {
+  "extract": "Smolensk Oblast, informally also called Smolenshchina, is a federal subject of Russia. Its administrative centre is the city of Smolensk. As of the 2021 Census, its population was 888,421.",
+  "name": "Smolensk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Smolensk_Oblast"
+ },
+ "RU:SPE": {
+  "extract": "Saint Petersburg, formerly known as Petrograd and then Leningrad, is the second-largest city in Russia, after Moscow, the nation's capital. St. Petersburg is situated on the Neva River at the head of the Gulf of Finland on the Baltic Sea. Its area of 1,439 km2 (556 sq mi) makes it the smallest administrative division of Russia. In the 2021 census, the city had 5,601,911 residents, making it the fourth-most-populous city in Europe, the most populous city on the Baltic Sea, and the world's northernmost city with a population of more than one million. As the former capital of the Russian Empire and a historically strategic Baltic port, St Petersburg is governed as a federal city.",
+  "name": "Saint Petersburg",
+  "source_url": "https://en.wikipedia.org/wiki/Saint_Petersburg"
+ },
+ "RU:STA": {
+  "extract": "Stavropol Krai, also known as Stavropolye, is a federal subject of Russia. It is geographically located in the North Caucasus region in Southern Russia, and is administratively part of the North Caucasian Federal District. Stavropol Krai has a population of 2,907,593, according to the 2021 Census.",
+  "name": "Stavropol Krai",
+  "source_url": "https://en.wikipedia.org/wiki/Stavropol_Krai"
+ },
+ "RU:SVE": {
+  "extract": "Sverdlovsk Oblast is a federal subject of Russia located in the Ural Federal District. Its administrative center is the city of Yekaterinburg, formerly known as Sverdlovsk. Its population is 4,268,998.",
+  "name": "Sverdlovsk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Sverdlovsk_Oblast"
+ },
+ "RU:TA": {
+  "extract": "Tatarstan, officially the Republic of Tatarstan, sometimes also called Tataria, is a republic of Russia located in Eastern Europe. It is a part of the Volga Federal District; and its capital and largest city is Kazan, an important cultural centre in Russia. The region's main source of wealth is oil with a strong petrochemical industry.",
+  "name": "Republic of Tatarstan",
+  "source_url": "https://en.wikipedia.org/wiki/Tatarstan"
+ },
+ "RU:TAM": {
+  "extract": "Tambov Oblast is a federal subject of Russia. Its administrative center is the city of Tambov. As of the 2010 Census, its population was 1,091,994.",
+  "name": "Tambov Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Tambov_Oblast"
+ },
+ "RU:TOM": {
+  "extract": "Tomsk Oblast is a federal subject of Russia. It lies in the southeastern West Siberian Plain, in the southwest of the Siberian Federal District. Its administrative center is the city of Tomsk. Population: 1,047,394.",
+  "name": "Tomsk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Tomsk_Oblast"
+ },
+ "RU:TUL": {
+  "extract": "Tula Oblast is a federal subject of Russia. It is geographically located in European Russia and is administratively part of the Central Federal District, covering an area of 25,700 square kilometers (9,900 sq mi). It has a population of 1,553,925 (2010 census). Tula is the largest city and the administrative center of the oblast.",
+  "name": "Tula Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Tula_Oblast"
+ },
+ "RU:TVE": {
+  "extract": "Tver Oblast is a federal subject of Russia. Its administrative center is the city of Tver. From 1935 to 1990, it was known as Kalinin Oblast. Population: 1,353,392 (2010 census).",
+  "name": "Tver Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Tver_Oblast"
+ },
+ "RU:TY": {
+  "extract": "Tuva or Tyva, officially the Republic of Tyva, is a republic of Russia. Tuva lies at the geographical center of Asia, in southern Siberia. The republic borders the federal subjects of the Altai Republic, Buryatia, Irkutsk Oblast, Khakassia, and Krasnoyarsk Krai, and shares an international border with Mongolia to the south. Tuva has a population of 336,651. Its capital city is Kyzyl, in which more than a third of the population reside.",
+  "name": "Tuva Republic",
+  "source_url": "https://en.wikipedia.org/wiki/Tuva"
+ },
+ "RU:TYU": {
+  "extract": "Tyumen Oblast is a federal subject of Russia. It is located in Western Siberia, and is administratively part of the Ural Federal District. The oblast has administrative jurisdiction over two autonomous okrugs: the Khanty-Mansi and Yamalo-Nenets Autonomous Okrug. The oblast, including its autonomous okrugs, is the third-largest federal subject by area, and has a population of 3,395,755 (2010).",
+  "name": "Tyumen Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Tyumen_Oblast"
+ },
+ "RU:UD": {
+  "extract": "Udmurtia, officially the Udmurt Republic, is a republic of Russia located in Eastern Europe. It is administratively part of the Volga Federal District. Its capital is the city of Izhevsk.",
+  "name": "Udmurt Republic",
+  "source_url": "https://en.wikipedia.org/wiki/Udmurtia"
+ },
+ "RU:ULY": {
+  "extract": "Ulyanovsk Oblast is a federal subject of Russia. It is located in the Volga Federal District. Its administrative center is the city of Ulyanovsk. It has a population of 1,292,799.",
+  "name": "Ulyanovsk Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Ulyanovsk_Oblast"
+ },
+ "RU:VGG": {
+  "extract": "Volgograd Oblast is a federal subject (oblast) of Russia, located in the Lower Volga region of Southern Russia. Its administrative center is Volgograd. The population of the oblast was 2,500,781 in the 2021 Census.",
+  "name": "Volgograd Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Volgograd_Oblast"
+ },
+ "RU:VLA": {
+  "extract": "Vladimir Oblast is a federal subject of Russia. Its administrative center is the city of Vladimir, which is located 190 kilometers (120 mi) east of Moscow. As of the 2010 Census, the oblast's population was 1,443,693.",
+  "name": "Vladimir Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Vladimir_Oblast"
+ },
+ "RU:VLG": {
+  "extract": "Vologda Oblast is a federal subject of Russia. Its administrative center is Vologda. The oblast has a population of 1,202,444. The largest city is Cherepovets, the home of the Severstal metallurgical plant, the largest industrial enterprise in the oblast.",
+  "name": "Vologda Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Vologda_Oblast"
+ },
+ "RU:VOR": {
+  "extract": "Voronezh Oblast is a federal subject of Russia. Its administrative center is the city of Voronezh. Its population was 2,308,792 as of the 2021 Census.",
+  "name": "Voronezh Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Voronezh_Oblast"
+ },
+ "RU:YAN": {
+  "extract": "The Yamalo-Nenets Autonomous Okrug, also known as Yamalia is a federal subject of Russia and an autonomous okrug of Tyumen Oblast. Its administrative center is the town of Salekhard, and its largest city is Novy Urengoy. The 2021 Russian Census recorded its population as 510,490.",
+  "name": "Yamalo-Nenets Autonomous Okrug",
+  "source_url": "https://en.wikipedia.org/wiki/Yamalo-Nenets_Autonomous_Okrug"
+ },
+ "RU:YAR": {
+  "extract": "Yaroslavl Oblast is a federal subject of Russia, which is located in the Central Federal District, surrounded by the Tver, Moscow, Ivanovo, Vladimir, Kostroma, and Vologda oblasts.",
+  "name": "Yaroslavl Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Yaroslavl_Oblast"
+ },
+ "RU:YEV": {
+  "extract": "The Jewish Autonomous Oblast (JAO) is a federal subject of Russia in the far east of the country, bordering Khabarovsk Krai and Amur Oblast in Russia and Heilongjiang province in China. Its administrative center is the town of Birobidzhan.",
+  "name": "Jewish Autonomous Oblast",
+  "source_url": "https://en.wikipedia.org/wiki/Jewish_Autonomous_Oblast"
+ },
+ "RU:ZAB": {
+  "extract": "Zabaykalsky Krai is a federal subject of Russia, located in the Russian Far East. Its administrative center is Chita. As of the 2021 Census, the population was 1,004,125.",
+  "name": "Zabaykalsky Krai",
+  "source_url": "https://en.wikipedia.org/wiki/Zabaykalsky_Krai"
+ }
+}

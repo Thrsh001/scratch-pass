@@ -1,8 +1,12 @@
+import html
 import re
 from functools import lru_cache
 from pathlib import Path
 
 _REGION_ATTR_RE = re.compile(r'data-region="([A-Z]{2}(?::[A-Z0-9]{1,3})?)"')
+_REGION_LABEL_RE = re.compile(
+    r'<path\b[^>]*?data-region="([A-Z]{2}(?::[A-Z0-9]{1,3})?)"[^>]*?aria-label="([^"]*)"'
+)
 _PARTIALS_DIR = Path(__file__).parent / "templates" / "maps" / "partials"
 _WORLD_SVG_PATH = _PARTIALS_DIR / "world.svg"
 _SUBDIVISIONS_DIR = _PARTIALS_DIR / "subdivisions"
@@ -21,6 +25,21 @@ def valid_region_ids():
     for text in texts:
         ids.update(_REGION_ATTR_RE.findall(text))
     return frozenset(ids)
+
+
+@lru_cache(maxsize=1)
+def region_names():
+    """Region id -> display name, from the same SVG paths' aria-label, so
+    offline data built from it (SP-18.1 descriptions) names regions
+    exactly as the map does."""
+    texts = [_WORLD_SVG_PATH.read_text()]
+    if _SUBDIVISIONS_DIR.is_dir():
+        texts += [p.read_text() for p in _SUBDIVISIONS_DIR.glob("*.svg")]
+    names = {}
+    for text in texts:
+        for region_id, label in _REGION_LABEL_RE.findall(text):
+            names[region_id] = html.unescape(label)
+    return names
 
 
 def has_subdivisions(code):

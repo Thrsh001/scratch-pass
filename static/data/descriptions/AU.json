@@ -1,0 +1,47 @@
+{
+ "AU": {
+  "extract": "Australia, officially the Commonwealth of Australia, is a country comprising the mainland of the Australian continent, the island of Tasmania and numerous smaller islands. It has a land area of 7,688,287 km2 (2,968,464 sq mi), making it the sixth-largest country in the world, and is the world's flattest and driest inhabited continent. It is a megadiverse country, and its size gives it a wide variety of landscapes and climates, including large deserts centrally and tropical rainforests along the coast.",
+  "name": "Australia",
+  "source_url": "https://en.wikipedia.org/wiki/Australia"
+ },
+ "AU:ACT": {
+  "extract": "The Australian Capital Territory (ACT), known as the Federal Capital Territory until 1938, is an internal territory of Australia. Canberra, the capital city of Australia, is situated within the territory and is the territory's primate city. The Australian Capital Territory is located in southeastern Australia as an enclave surrounded by the state of New South Wales. The territory was excised from New South Wales in 1911 to serve as the seat of government for the Commonwealth, in accordance with Section 125 of the Australian Constitution. Today, the ACT hosts important institutions, such as the Parliament of Australia and High Court of Australia, as well as the headquarters of many federal departments and agencies.",
+  "name": "Australian Capital Territory",
+  "source_url": "https://en.wikipedia.org/wiki/Australian_Capital_Territory"
+ },
+ "AU:NSW": {
+  "extract": "New South Wales is a state on the east coast of Australia. It borders Queensland to the north, Victoria to the south, and South Australia to the west. Its coast borders the Coral and Tasman Seas to the east. The Australian Capital Territory and Jervis Bay Territory are enclaves within the state. New South Wales' state capital is Sydney, which is also Australia's most populous city. As of September 2025, the population of New South Wales was over 8.6 million, making it Australia's most populous state. Almost two-thirds of the state's population live in the Greater Sydney area.",
+  "name": "New South Wales",
+  "source_url": "https://en.wikipedia.org/wiki/New_South_Wales"
+ },
+ "AU:NT": {
+  "extract": "The Northern Territory is an Australian internal territory in the central and central-northern regions of Australia. The Northern Territory shares its borders with Western Australia to the west, South Australia to the south, and Queensland to the east. To the north, the Northern Territory looks out to the Timor Sea, the Arafura Sea, and the Gulf of Carpentaria, including Western New Guinea and various other islands of the Indonesian archipelago.",
+  "name": "Northern Territory",
+  "source_url": "https://en.wikipedia.org/wiki/Northern_Territory"
+ },
+ "AU:QLD": {
+  "extract": "Queensland is a state in northeastern Australia, the second-largest and third-most-populous state in Australia. It is bordered by the Northern Territory, South Australia and New South Wales to the west, south-west and south, respectively. To the east, Queensland is bounded by the Coral Sea and the Pacific Ocean; to the state's north is the Torres Strait, separating the Australian mainland from Papua New Guinea, and the Gulf of Carpentaria to the north-west. With an area of 1,723,030 square kilometres (665,270 sq mi), Queensland is the world's sixth-largest subdivision of any country on earth; it is larger than all but 16 countries. Due to its size, Queensland's geographical features and climates are diverse, and include tropical rainforests, rivers, coral reefs, mountain ranges and white sandy beaches in its tropical and sub-tropical coastal regions, as well as deserts and savanna in the semi-arid and desert climatic regions of its interior.",
+  "name": "Queensland",
+  "source_url": "https://en.wikipedia.org/wiki/Queensland"
+ },
+ "AU:SA": {
+  "extract": "South Australia is a state in the southern central part of Australia. With a total land area of 984,314 square kilometres (380,046 sq mi), it is the fourth-largest of Australia's states and territories by area, which includes some of the most arid parts of the continent. It is the 17th-largest subdivision in the world and the fifth-largest in Australasia. It is the second-most highly centralised state in the nation after Western Australia, with more than 67% of the 1.9 million South Australians living in the capital Adelaide or its environs. Other population centres in the state are relatively small; Mount Gambier is the second-largest centre, with a population of 26,878.",
+  "name": "South Australia",
+  "source_url": "https://en.wikipedia.org/wiki/South_Australia"
+ },
+ "AU:TAS": {
+  "extract": "Tasmania is an island state of Australia. It is located 240 kilometres to the south of the Australian mainland, and is separated from it by the Bass Strait. The state encompasses the main island of Tasmania, the 26th-largest island in the world, and the surrounding 1000 islands. It is Australia's smallest and least populous state, with 573,479 residents as of June 2023. The state capital and largest city is Hobart, with around 40% of the population living in the Greater Hobart area. Tasmania is the most decentralised state in Australia, with the lowest proportion of its residents living within its capital city.",
+  "name": "Tasmania",
+  "source_url": "https://en.wikipedia.org/wiki/Tasmania"
+ },
+ "AU:VIC": {
+  "extract": "Victoria, commonly abbreviated as VIC, is a state in southeastern Australia. It is the second most populous state with a population of over 7 million, and the second-smallest, with a land area of 227,444 square kilometres (87,817 sq mi), making it the most densely populated state in Australia. Named in honour of Queen Victoria, Victoria was separated from New South Wales and established as a separate Crown colony in 1851, achieving responsible government in 1855.",
+  "name": "Victoria",
+  "source_url": "https://en.wikipedia.org/wiki/Victoria_(state)"
+ },
+ "AU:WA": {
+  "extract": "Western Australia is the westernmost state of Australia. It is bounded by the Indian Ocean to the north and west, the Southern Ocean to the south, the Northern Territory to the north-east, and South Australia to the south-east. Western Australia is Australia's largest state, with a land area of 2,527,013 square kilometres (975,685 sq mi), and is also the second-largest subdivision of any country on Earth.",
+  "name": "Western Australia",
+  "source_url": "https://en.wikipedia.org/wiki/Western_Australia"
+ }
+}

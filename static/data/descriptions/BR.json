@@ -1,0 +1,142 @@
+{
+ "BR": {
+  "extract": "Brazil, officially the Federative Republic of Brazil, is the largest country in South America, the world's fifth-largest country by area, and the seventh-largest country by population, with over 214 million people. Brazil is a federation composed of 26 states and a Federal District, which hosts the capital, Brasília. Its most populous city is São Paulo, followed by Rio de Janeiro. Brazil has the largest Lusophone population in the world and is the only Portuguese-speaking country in the Americas, where it is the official language.",
+  "name": "Brazil",
+  "source_url": "https://en.wikipedia.org/wiki/Brazil"
+ },
+ "BR:AC": {
+  "extract": "Acre is a state located in the west of the North Region of Brazil and the Amazonia Legal. Located in the westernmost part of the country, at a two-hour time difference from Brasília, Acre is bordered clockwise by the Brazilian states of Amazonas and Rondônia to the north and east, along with an international border with the Bolivian department of Pando to the southeast, and the Peruvian regions of Madre de Dios, Ucayali and Loreto to the south and west. Its capital and largest city is Rio Branco. Other important places include Cruzeiro do Sul, Sena Madureira, Tarauacá and Feijó. The state, which has 0.42% of the Brazilian population, generates 0.2% of the Brazilian GDP.",
+  "name": "Acre",
+  "source_url": "https://en.wikipedia.org/wiki/Acre_(state)"
+ },
+ "BR:AL": {
+  "extract": "Alagoas is one of the 27 federative units of Brazil and is situated in the eastern part of the Northeast Region. It borders Pernambuco to the north, Sergipe to the south, Bahia to the southwest, and the Atlantic Ocean to the east. Its capital city is Maceió. It is made up of 102 municipalities and its most populous cities are Maceió, Arapiraca, Palmeira dos Índios, Rio Largo, Penedo, União dos Palmares, São Miguel dos Campos, Santana do Ipanema, Delmiro Gouveia, Coruripe, and Campo Alegre.",
+  "name": "Alagoas",
+  "source_url": "https://en.wikipedia.org/wiki/Alagoas"
+ },
+ "BR:AM": {
+  "extract": "Amazonas is a state of Brazil, located in the North Region in the north-western corner of the country. It is the largest Brazilian state by area and the ninth-largest country subdivision in the world with an area of 1,570,745.7 square kilometers. It is the largest country subdivision in South America, being greater than the areas of Chile, Paraguay, and Uruguay combined. Neighbouring states are Roraima, Pará, Mato Grosso, Rondônia, and Acre. It also borders the nations of Peru, Colombia and Venezuela. This includes the Departments of Amazonas, Vaupés and Guainía in Colombia, as well as the Amazonas state in Venezuela, and the Loreto Region in Peru.",
+  "name": "Amazonas",
+  "source_url": "https://en.wikipedia.org/wiki/Amazonas_(Brazilian_state)"
+ },
+ "BR:AP": {
+  "extract": "Amapá is one of the 26 states of Brazil. It is in the North Region of Brazil. It is the second-least populous state and the eighteenth-largest state by area. Located in the far northern part of the country, Amapá is bordered clockwise by French Guiana to the north for 730 km, the Atlantic Ocean to the east for 578 km, Pará to the south and west, and Suriname to the northwest for 63 km. The capital and largest city is Macapá. The state has 0.4% of the Brazilian population and is responsible for 0.22% of the Brazilian GDP.",
+  "name": "Amapá",
+  "source_url": "https://en.wikipedia.org/wiki/Amap%C3%A1"
+ },
+ "BR:BA": {
+  "extract": "Bahia is one of the 26 states of Brazil, located in the Northeast Region of the country. It is the fourth-largest Brazilian state by population and the 5th-largest by area. Bahia's capital is the city of Salvador, on a spit of land separating the Bay of All Saints from the Atlantic. Once a stronghold of supporters of direct rule of Brazil by the Portuguese monarchy, and dominated by agricultural, slaving, and ranching interests, Bahia is now a predominantly working-class industrial and agricultural state. The state is home to 7% of the Brazilian population and produces 4.2% of the country's GDP. It is divided into 417 municipalities.",
+  "name": "Bahia",
+  "source_url": "https://en.wikipedia.org/wiki/Bahia"
+ },
+ "BR:CE": {
+  "extract": "Ceará is one of the 26 states of Brazil, located in the northeastern part of the country, on the Atlantic coast. It is the eighth-largest Brazilian State by population and the 17th by area. It is also one of the main tourist destinations in Brazil. The state capital is the city of Fortaleza, the country's fourth most populous city. The state has 4.3% of the Brazilian population and produces 2.1% of the Brazilian GDP. It is divided into 184 municipalities.",
+  "name": "Ceará",
+  "source_url": "https://en.wikipedia.org/wiki/Cear%C3%A1"
+ },
+ "BR:DF": {
+  "extract": "The Federal District is one of 27 federative units of Brazil. Located in the Center-West Region, it is the smallest Brazilian federal unit and the only one that has no municipalities, being divided into 35 administrative regions. The federal capital of Brazil, Brasília, which is also the seat of government of the Federal District, is located in its territory. The Federal District shares a small border with Minas Gerais and is otherwise surrounded by the state of Goiás.",
+  "name": "Distrito Federal",
+  "source_url": "https://en.wikipedia.org/wiki/Federal_District_(Brazil)"
+ },
+ "BR:ES": {
+  "extract": "Espírito Santo is a state in southeastern Brazil. Its capital is Vitória, and its largest city is Serra. With an extensive coastline, the state hosts some of the country's main ports, and its beaches are significant tourist attractions.",
+  "name": "Espírito Santo",
+  "source_url": "https://en.wikipedia.org/wiki/Esp%C3%ADrito_Santo"
+ },
+ "BR:GO": {
+  "extract": "Goiás is a Brazilian state located in the Central-West region. Goiás borders the Federal District and the states of Tocantins, Bahia, Minas Gerais, Mato Grosso do Sul and Mato Grosso. The state capital is Goiânia. With 7.2 million inhabitants, Goiás is the most populous state in the Central-West region and the 11th most populous in the country. It has the ninth largest economy among Brazilian federative units. In Brazil's geoeconomic division, Goiás belongs to the Centro-Sul (Center-South), being the northernmost state of the southern portion of Brazil. The state has 3.3% of the Brazilian population and is responsible for 2.7% of the Brazilian GDP.",
+  "name": "Goiás",
+  "source_url": "https://en.wikipedia.org/wiki/Goi%C3%A1s"
+ },
+ "BR:MA": {
+  "extract": "Maranhão is a state in Brazil. Located in Brazil's Northeast Region, it has a population of about 7 million, an area of 332,000 km², and is divided into 217 municipalities. Clockwise from the north, it is bordered by the Atlantic Ocean, with a coastline of 2,243 km, and by the states of Piauí, Tocantins, and Pará. The people of Maranhão have a distinctive accent among Northeastern Brazilian Portuguese dialects. Maranhão is featured in literary works such as Exile Song by Gonçalves Dias and Casa de Pensão by Aluísio Azevedo.",
+  "name": "Maranhão",
+  "source_url": "https://en.wikipedia.org/wiki/Maranh%C3%A3o"
+ },
+ "BR:MG": {
+  "extract": "Minas Gerais is one of the 27 federative units of Brazil, being the fourth largest state by area and the second largest in number of inhabitants with a population of 20,539,989 according to the 2022 census. Located in the Southeast Region of the country, it is bordered by São Paulo in the south and southwest; Mato Grosso do Sul to the west; Goiás and the Federal District to the northwest; Bahia to the north and northeast; Espírito Santo to the east; and Rio de Janeiro to the southeast. The state's capital and largest city, Belo Horizonte, is a major urban and finance center in Brazil, being the sixth most populous municipality in the country while its metropolitan area ranks as the third largest in Brazil with just over 5.8 million inhabitants, after those of São Paulo and Rio de Janeiro. Minas Gerais' territory is subdivided into 853 municipalities, the largest number among Brazilian states.",
+  "name": "Minas Gerais",
+  "source_url": "https://en.wikipedia.org/wiki/Minas_Gerais"
+ },
+ "BR:MS": {
+  "extract": "Mato Grosso do Sul is one of Brazil's 27 federal units, located in the southern part of the Central-West Region, bordering five Brazilian states: Mato Grosso, Goiás and Minas Gerais (northeast), São Paulo (east) and Paraná (southeast); and two South American countries: Paraguay and Bolivia (west). It is divided into 79 municipalities and covers an area of 357,145.532 square kilometers, which is about the same size as Germany. With a population of 2,946,317 inhabitants in 2026, Mato Grosso do Sul is the 21st most populous state in Brazil.",
+  "name": "Mato Grosso do Sul",
+  "source_url": "https://en.wikipedia.org/wiki/Mato_Grosso_do_Sul"
+ },
+ "BR:MT": {
+  "extract": "Mato Grosso is one of the states of Brazil, the third largest by area, located in the Central-West region. The state has 1.66% of the Brazilian population and is responsible for 1.9% of the Brazilian GDP. Neighboring states are: Rondônia, Amazonas, Pará, Tocantins, Goiás and Mato Grosso do Sul. It is divided into 142 municipalities and covers an area of 903,357 square kilometers, \nconsequently the state is roughly 82.2% of the size of its southwest neighbor, the nation of Bolivia.",
+  "name": "Mato Grosso",
+  "source_url": "https://en.wikipedia.org/wiki/Mato_Grosso"
+ },
+ "BR:PA": {
+  "extract": "Pará is a state of Brazil, located in northern Brazil and traversed by the lower Amazon River. It borders the Brazilian states of Amapá, Maranhão, Tocantins, Mato Grosso, Amazonas and Roraima. To the northwest are the borders of Guyana and Suriname, and to the northeast is the Atlantic Ocean. The capital and largest city is Belém, which is located at in the bay of Marajó, near the estuary of the Amazon river. The state, which is home to 4.1% of the Brazilian population, is responsible for 2.2% of the Brazilian GDP.",
+  "name": "Pará",
+  "source_url": "https://en.wikipedia.org/wiki/Par%C3%A1"
+ },
+ "BR:PB": {
+  "extract": "Paraíba is a state in Brazil. It is located in the Brazilian Northeast, and it is bordered by Rio Grande do Norte to the north, Ceará to the west, Pernambuco to the south and the Atlantic Ocean to the east. Paraíba is the third most densely populated state of the Northeast; João Pessoa, the coastal state capital, and Campina Grande, in the countryside, rank among the fifteen largest municipalities in the Northeast of Brazil. The state is home to 1.9% of the Brazilian population and produces 0.9% of the Brazilian GDP and it is divided into 223 municipalities.",
+  "name": "Paraíba",
+  "source_url": "https://en.wikipedia.org/wiki/Para%C3%ADba"
+ },
+ "BR:PE": {
+  "extract": "Pernambuco is a state of Brazil, on the east coast in the Northeast region of the country. With an estimated population of 9.5 million people as of 2024, it is the seventh-most populous state of Brazil and with around 98,067.877 km2, it is the 19th-largest in area among federative units of the country. It is also the sixth-most densely populated with around 92.37 people per km2. Its capital and largest city, Recife, is one of the most important economic and urban hubs in the country. Based on 2019 estimates, the Recife Metropolitan Region is seventh-most populous in the country, and the second-largest in northeastern Brazil. In 2015, the state had 4.4% of the national population and produced 2.8% of the national gross domestic product (GDP).",
+  "name": "Pernambuco",
+  "source_url": "https://en.wikipedia.org/wiki/Pernambuco"
+ },
+ "BR:PI": {
+  "extract": "Piauí is one of the states of Brazil, located in the country's Northeast Region. The state has 1.6% of the Brazilian population and produces 0.7% of the Brazilian GDP.",
+  "name": "Piauí",
+  "source_url": "https://en.wikipedia.org/wiki/Piau%C3%AD"
+ },
+ "BR:PR": {
+  "extract": "Paraná is one of the 26 states of Brazil, in the south of the country. It is bordered in the north by São Paulo state, in the east by the Atlantic Ocean, in the south by Santa Catarina and the Argentine province of Misiones, and in the west by Mato Grosso do Sul and Paraguay, with the Paraná River as its western boundary. It is subdivided into 399 municipalities, and its capital is the city of Curitiba. Other major cities are Londrina, Maringá, Ponta Grossa, Cascavel, São José dos Pinhais and Foz do Iguaçu. The state is home to 5.4% of the Brazilian population and generates 6.2% of the Brazilian GDP.",
+  "name": "Paraná",
+  "source_url": "https://en.wikipedia.org/wiki/Paran%C3%A1_(state)"
+ },
+ "BR:RJ": {
+  "extract": "Rio de Janeiro, officially the State of Rio de Janeiro, is one of the 27 federative units of Brazil. It has the second largest economy of Brazil, with the largest being that of the state of São Paulo. The state, which has 8.2% of the Brazilian population, is responsible for 9.2% of the Brazilian GDP.",
+  "name": "Rio de Janeiro",
+  "source_url": "https://en.wikipedia.org/wiki/Rio_de_Janeiro_(state)"
+ },
+ "BR:RN": {
+  "extract": "Rio Grande do Norte is one of the states of Brazil. It is located in the northeastern region of the country, forming the northeasternmost tip of the South American continent. The name literally translates to \"Great Northern River\", referring to the mouth of the Potenji River.",
+  "name": "Rio Grande do Norte",
+  "source_url": "https://en.wikipedia.org/wiki/Rio_Grande_do_Norte"
+ },
+ "BR:RO": {
+  "extract": "Rondônia is one of the 26 states of Brazil, located in the North Region. It is bordered by Acre in the west, \nAmazonas in the north, Mato Grosso in the east, and Bolivia in the south. Rondônia has a population of 1,815,000 as of 2021. It is the fifth least populated state. Its capital and largest city is Porto Velho, bathed by the Madeira River. The state was named after Cândido Rondon, who explored the north of the country during the 1910s. The state, which is home to c. 0.7% of the Brazilian population, is responsible for c. 0.3% of the Brazilian GDP.",
+  "name": "Rondônia",
+  "source_url": "https://en.wikipedia.org/wiki/Rond%C3%B4nia"
+ },
+ "BR:RR": {
+  "extract": "Roraima is one of the 26 states of Brazil. Located in the country's North Region, it is the northernmost and most geographically and logistically isolated state in Brazil. It is bordered by the state of Pará to the southeast, Amazonas to the south and west, Venezuela to the north and northwest, and Guyana to the east.",
+  "name": "Roraima",
+  "source_url": "https://en.wikipedia.org/wiki/Roraima"
+ },
+ "BR:RS": {
+  "extract": "Rio Grande do Sul is a state in the southern region of Brazil. It is the fifth-most populous state and the ninth-largest by area and it is divided into 497 municipalities. Located in the southernmost part of the country, Rio Grande do Sul is bordered clockwise by Santa Catarina to the north and northeast, the Atlantic Ocean to the east, the Uruguayan departments of Rocha, Treinta y Tres, Cerro Largo, Rivera, and Artigas to the south and southwest, and the Argentine provinces of Corrientes and Misiones to the west and northwest. The capital and largest city is Porto Alegre. The state has the highest life expectancy in Brazil, and the crime rate is relatively low compared to the Brazilian national average. The state has 5.4% of the Brazilian population and it is responsible for 6.6% of the Brazilian GDP.",
+  "name": "Rio Grande do Sul",
+  "source_url": "https://en.wikipedia.org/wiki/Rio_Grande_do_Sul"
+ },
+ "BR:SC": {
+  "extract": "Santa Catarina is one of the 27 federative units of Brazil. It is located in the centre of the country's Southern region. It is bordered to the north by the state of Paraná, to the south by the state of Rio Grande do Sul, to the east by the Atlantic Ocean, and to the west by the Argentine province of Misiones.",
+  "name": "Santa Catarina",
+  "source_url": "https://en.wikipedia.org/wiki/Santa_Catarina_(state)"
+ },
+ "BR:SE": {
+  "extract": "Sergipe, officially the State of Sergipe, is a state of Brazil. Located in the Northeast Region along the Atlantic coast of the country, Sergipe is the smallest state in Brazil by geographical area at 21,910 square kilometres (8,460 mi2), larger only than the Federal District. Sergipe borders Bahia to the south and west and Alagoas to the north. Aracaju is the capital and the largest city in the state; the state is divided into 75 municipalities. The state has 1.1% of the Brazilian population and produces 0.6% of the Brazilian GDP.",
+  "name": "Sergipe",
+  "source_url": "https://en.wikipedia.org/wiki/Sergipe"
+ },
+ "BR:SP": {
+  "extract": "São Paulo is one of the 26 states of the Federative Republic of Brazil and is named after Saint Paul of Tarsus. It is located in the Southeast Region and is bordered by the states of Minas Gerais to the north and northeast, Paraná to the south, Rio de Janeiro to the east, and Mato Grosso do Sul to the west, in addition to the Atlantic Ocean to the southeast. It is divided into 645 municipalities. The total area is 248,219.481 square kilometres, comprising 2.9% of Brazil's territory. Its capital is the municipality of São Paulo, which is the most populous city in the country.",
+  "name": "São Paulo",
+  "source_url": "https://en.wikipedia.org/wiki/S%C3%A3o_Paulo_(state)"
+ },
+ "BR:TO": {
+  "extract": "Tocantins is one of the 26 states of Brazil. It is the newest state, formed in 1988 and encompassing what had formerly been the northern two-fifths of the state of Goiás. Tocantins covers 277,620.91 square kilometres (107,190.03 mi2) and had an estimated population of 1,595,994 in 2026. Construction of its capital, Palmas, began in 1989; most of the other cities in the state date to the Portuguese colonial period. With the exception of Araguaína, there are few other cities with a significant population in the state. The government has invested in a new capital, a major hydropower dam, railroads and related infrastructure to develop this primarily agricultural area. The state has 0.75% of the Brazilian population and is responsible for 0.5% of the Brazilian GDP.",
+  "name": "Tocantins",
+  "source_url": "https://en.wikipedia.org/wiki/Tocantins"
+ }
+}

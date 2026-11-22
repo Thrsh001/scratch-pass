@@ -1,0 +1,162 @@
+{
+ "CN": {
+  "extract": "China, officially the People's Republic of China (PRC), is a country in East Asia. It is divided into 33 province-level divisions, including two special administrative regions. Beijing is the capital, while Shanghai is the most populous city by urban area. Its geography features the Central Plain, major rivers such as the Yangtze and Yellow River, deserts, subtropical and temperate forests, plateaus, and mountain ranges such as the Himalayas. It is the world's second-most populous country after India, with a population exceeding 1.4 billion. Covering 9.6 million square kilometers (3,700,000 sq mi), it is the third largest country by area.",
+  "name": "China",
+  "source_url": "https://en.wikipedia.org/wiki/China"
+ },
+ "CN:AH": {
+  "extract": "Anhui is an inland province located in East China. Its provincial capital and largest city is Hefei. The province is located across the basins of the Yangtze and Huai rivers, bordering Jiangsu and Zhejiang to the east, Jiangxi to the south, Hubei and Henan to the west, and Shandong to the north. With a population of 61 million, Anhui is the 9th most populous province in China. It is the 22nd largest Chinese province based on area, and the 12th most densely populated region of all 34 Chinese provincial regions. Anhui's population is mostly composed of Han Chinese. Languages spoken within the province include Lower Yangtze Mandarin, Wu, Hui, Gan and small portion of Central Plains Mandarin.",
+  "name": "Anhui",
+  "source_url": "https://en.wikipedia.org/wiki/Anhui"
+ },
+ "CN:BJ": {
+  "extract": "Beijing, previously romanized as Peking, is the capital city of China. With more than 21.8 million residents, it is the world's most populous national capital city, as well as China's second-largest city by urban area, after Shanghai. It is located in Northern China and is governed as a provincial-level direct-administered municipality with 16 municipal districts. Beijing is mostly surrounded by Hebei Province and neighbors Tianjin Municipality to the southeast; together, the three divisions form the Jing-Jin-Ji cluster.",
+  "name": "Beijing",
+  "source_url": "https://en.wikipedia.org/wiki/Beijing"
+ },
+ "CN:CQ": {
+  "extract": "Chongqing is a provincial-level direct-administered municipality in Southwestern China. It is one of the four direct-administered municipalities of China and the only one located inland.",
+  "name": "Chongqing",
+  "source_url": "https://en.wikipedia.org/wiki/Chongqing"
+ },
+ "CN:FJ": {
+  "extract": "Fujian is a province in southeast China. Fujian is bordered by Zhejiang to the north, Jiangxi to the west, Guangdong to the south, and the Taiwan Strait to the east. Its capital is Fuzhou and its largest prefecture city by population is Quanzhou, with other notable cities including the port city of Xiamen and Zhangzhou. Fujian is located on the west coast of the Taiwan Strait as the closest province geographically and culturally to Taiwan. Additionally, a small portion of historical Fujian is administered by the government of the Republic of China (Taiwan), romanized as Fuchien, a result of the Chinese Civil War.",
+  "name": "Fujian",
+  "source_url": "https://en.wikipedia.org/wiki/Fujian"
+ },
+ "CN:GD": {
+  "extract": "Guangdong is a coastal province in South China, on the north shore of the South China Sea with Guangzhou as the capital. With a population of 128.590 million across a total area of about 179,800 km2 (69,400 sq mi), Guangdong is the Chinese province with the largest GDP, the largest population and the 15th-largest by area, as well as the fifth-most populous country subdivision and the 5th largest country subdivision by GDP in the world.",
+  "name": "Guangdong",
+  "source_url": "https://en.wikipedia.org/wiki/Guangdong"
+ },
+ "CN:GS": {
+  "extract": "Gansu is a province in Northwestern China. Its capital and largest city is Lanzhou, in the southeastern part of the province. The seventh-largest administrative district by area at 453,700 square kilometres (175,200 sq mi), Gansu lies between the Tibetan and Loess plateaus and borders Xinjiang and Qinghai to the west, Sichuan to the south, Shaanxi to the east, and Inner Mongolia, Ningxia and Mongolia's Govi-Altai Province to the north. The Yellow River passes through the southern part of the province. Part of Gansu's territory is located in the Gobi Desert. The Qilian Mountains are located in the south of the Province.",
+  "name": "Gansu",
+  "source_url": "https://en.wikipedia.org/wiki/Gansu"
+ },
+ "CN:GX": {
+  "extract": "Guangxi, officially the Guangxi Zhuang Autonomous Region (GZAR), is an autonomous region of the People's Republic of China, located in South China and bordering Vietnam and the Gulf of Tonkin. Formerly a province, Guangxi became an autonomous region in 1958. Its current capital is Nanning.",
+  "name": "Guangxi",
+  "source_url": "https://en.wikipedia.org/wiki/Guangxi"
+ },
+ "CN:GZ": {
+  "extract": "Guizhou is an inland province in Southwestern China with its capital and largest city as Guiyang, located in the center of the province. Guizhou borders the Guangxi Zhuang Autonomous Region to the south, Yunnan to the west, Sichuan to the northwest, the municipality of Chongqing to the north, and Hunan to the east. Guizhou has a humid subtropical climate. It covers a total area of 176,200 square kilometers and consists of six prefecture-level cities and three autonomous prefectures. The population of Guizhou stands at 38.5 million, ranking 18th among the provinces in China.",
+  "name": "Guizhou",
+  "source_url": "https://en.wikipedia.org/wiki/Guizhou"
+ },
+ "CN:HA": {
+  "extract": "Henan is a province in Central China. Henan is China's third-most populous province and the most populous among inland provinces, with a population of over 99 million as of 2020. The area around Henan was historically known as the Central Plains (Zhongyuan) and is considered the core region of Chinese cultural history. Four of the historical capitals of China, Luoyang, Anyang, Kaifeng and Zhengzhou, are in Henan.",
+  "name": "Henan",
+  "source_url": "https://en.wikipedia.org/wiki/Henan"
+ },
+ "CN:HB": {
+  "extract": "Hubei is a province in Central China. It has the seventh-largest economy among Chinese provinces, the second-largest within Central China, and the third-largest among inland provinces. Its provincial capital at Wuhan serves as a major political, cultural, and economic hub for the region.",
+  "name": "Hubei",
+  "source_url": "https://en.wikipedia.org/wiki/Hubei"
+ },
+ "CN:HE": {
+  "extract": "Hebei is a province in North China. Its capital and largest city is Shijiazhuang. Hebei encloses the direct-administered municipalities of Beijing and Tianjin on land, and borders Liaoning to the northeast, Inner Mongolia to the northwest, Shanxi to the west, Henan to the south and Shandong to the southeast; to the east it faces the Bohai Sea. With 74.6 million inhabitants at the 2020 census, it is China's sixth-most populous province; the provincial statistics bureau estimated the resident population at 73.54 million at the end of 2025.",
+  "name": "Hebei",
+  "source_url": "https://en.wikipedia.org/wiki/Hebei"
+ },
+ "CN:HI": {
+  "extract": "Hainan is an island and the southernmost province of China, consisting of the eponymous Hainan Island and various smaller islands in the South China Sea under the province's administration. Its name literally means \"South of the Sea\".",
+  "name": "Hainan",
+  "source_url": "https://en.wikipedia.org/wiki/Hainan"
+ },
+ "CN:HL": {
+  "extract": "Heilongjiang is an inland province in northeast China. It is the northernmost and easternmost province of the country and contains China's northernmost point and easternmost point.",
+  "name": "Heilongjiang",
+  "source_url": "https://en.wikipedia.org/wiki/Heilongjiang"
+ },
+ "CN:HN": {
+  "extract": "Hunan is an inland province in Central China. Located in the middle reaches of the Yangtze watershed, it borders the province-level divisions of Hubei to the north, Jiangxi to the east, Guangdong and Guangxi to the south, and Guizhou and Chongqing to the northwest. Its capital and largest city is Changsha, which abuts the Xiang River. Hengyang, Zhuzhou, and Yueyang are among its most populous urban cities.",
+  "name": "Hunan",
+  "source_url": "https://en.wikipedia.org/wiki/Hunan"
+ },
+ "CN:JL": {
+  "extract": "Jilin is one of the three provinces of Northeast China. Its capital and largest city is Changchun. Jilin borders North Korea to the south, Russia to the east, Heilongjiang to the north, and Liaoning and Inner Mongolia to the west.",
+  "name": "Jilin",
+  "source_url": "https://en.wikipedia.org/wiki/Jilin"
+ },
+ "CN:JS": {
+  "extract": "Jiangsu is a coastal province in East China. It is one of the leading provinces in finance, education, technology, and tourism, with its capital in Nanjing. Jiangsu is the third smallest, but the fourth most populous, with a population of 84.75 million, and the most densely populated of the 22 provinces of the People's Republic of China. Jiangsu has the highest GDP per capita and second-highest GDP of Chinese provinces, after Guangdong. Jiangsu borders Shandong in the north, Anhui to the west, and Zhejiang and Shanghai to the south. Jiangsu has a coastline of over 1,000 kilometers (620 mi) along the Yellow Sea, and the Yangtze flows through the southern part of the province.",
+  "name": "Jiangsu",
+  "source_url": "https://en.wikipedia.org/wiki/Jiangsu"
+ },
+ "CN:JX": {
+  "extract": "Jiangxi is an inland province in east China. Spanning from the banks of the Yangtze river in the north into hillier areas in the south and east, it borders Anhui to the north, Zhejiang to the northeast, Fujian to the east, Guangdong to the south, Hunan to the west, and Hubei to the northwest. Major prefecture cities include its capital Nanchang, Ganzhou, and Jiujiang.",
+  "name": "Jiangxi",
+  "source_url": "https://en.wikipedia.org/wiki/Jiangxi"
+ },
+ "CN:LN": {
+  "extract": "Liaoning is a coastal province in Northeastern China that is the smallest, southernmost, and most populous province in the region. With its capital at Shenyang, it is located on the northern shore of the Yellow Sea, and is the northernmost coastal province of the People's Republic of China.",
+  "name": "Liaoning",
+  "source_url": "https://en.wikipedia.org/wiki/Liaoning"
+ },
+ "CN:NM": {
+  "extract": "Inner Mongolia, officially the Inner Mongolia Autonomous Region (IMAR), is an autonomous region of China. Its border includes two-thirds of the length of China's border with the country of Mongolia, as well as a small section with Russia. Its capital is Hohhot; other major cities include Baotou, Chifeng, Tongliao and Ordos.",
+  "name": "Inner Mongolia",
+  "source_url": "https://en.wikipedia.org/wiki/Inner_Mongolia"
+ },
+ "CN:NX": {
+  "extract": "Ningxia, officially the Ningxia Hui Autonomous Region (NHAR), is an autonomous region in Northwestern China. Formerly a province, Ningxia was incorporated into Gansu in 1954 but was later separated from Gansu in 1958 and reconstituted as an autonomous region for the Hui people, one of the 56 officially recognised ethnicities in China. Twenty percent of China's Hui population lives in Ningxia.",
+  "name": "Ningxia",
+  "source_url": "https://en.wikipedia.org/wiki/Ningxia"
+ },
+ "CN:QH": {
+  "extract": "Qinghai is an inland province in Northwestern China. It is the largest province of China by area and has the third-smallest population, with its capital and largest city being Xining. Qinghai borders Gansu on the northeast, Xinjiang on the northwest, Sichuan on the southeast, and the Tibet Autonomous Region on the southwest. It is named after Qinghai Lake, the largest lake in China.",
+  "name": "Qinghai",
+  "source_url": "https://en.wikipedia.org/wiki/Qinghai"
+ },
+ "CN:SC": {
+  "extract": "Sichuan is an inland province in Southwestern China. It is located in the Sichuan Basin and Tibetan Plateau—between the Jinsha River to the west, the Daba Mountains to the north, and the Yunnan–Guizhou Plateau to the south. Its capital city is Chengdu, and the province's population stands at 83 million. Sichuan neighbors Qinghai and Gansu to the north, Shaanxi and Chongqing to the east, Guizhou and Yunnan to the south, and Tibet to the west.",
+  "name": "Sichuan",
+  "source_url": "https://en.wikipedia.org/wiki/Sichuan"
+ },
+ "CN:SD": {
+  "extract": "Shandong is a coastal province in East China. It is China's second-most populous province, with 101.5 million people at the 2020 census. Jinan is the capital, while Linyi is the largest city by area and population. Shandong has played a major role in the development of the Chinese civilization and culture as it has served as a pivotal cultural and religious center for Taoism, Chinese Buddhism and Confucianism. Shandong's Mount Tai is the most revered mountain of Taoism and a site with one of the longest histories of continuous religious worship in the world. The Buddhist temples in the mountains south of the provincial capital of Jinan were once among the foremost Buddhist sites in China. The city of Qufu was the birthplace of Confucius, and later became the center of Confucianism.",
+  "name": "Shandong",
+  "source_url": "https://en.wikipedia.org/wiki/Shandong"
+ },
+ "CN:SH": {
+  "extract": "Shanghai is a provincial-level direct-administered municipality in China. It has a population of 30,050,000 in the urban area as of 2026, thus making it China's most populous city and the fifth-largest city in the world by population. The city is located on the southern estuary of the Yangtze River, with the Huangpu River bisecting the city.",
+  "name": "Shanghai",
+  "source_url": "https://en.wikipedia.org/wiki/Shanghai"
+ },
+ "CN:SN": {
+  "extract": "Shaanxi is a province in Northwestern China. It borders the province-level divisions of Inner Mongolia to the north; Shanxi and Henan to the east; Hubei, Chongqing, and Sichuan to the south; and Gansu and Ningxia to the west.",
+  "name": "Shaanxi",
+  "source_url": "https://en.wikipedia.org/wiki/Shaanxi"
+ },
+ "CN:SX": {
+  "extract": "Shanxi is a province in North China. Its capital and largest city is Taiyuan, and its next most populated prefecture-level cities are Changzhi and Datong.",
+  "name": "Shanxi",
+  "source_url": "https://en.wikipedia.org/wiki/Shanxi"
+ },
+ "CN:TJ": {
+  "extract": "Tianjin, previously romanized as Tienchin or Tientsin, is a provincial-level direct-administered municipality in China. It is located on the shore of the Bohai Sea. It has a total population of 13,866,009 inhabitants at the 2020 census.",
+  "name": "Tianjin",
+  "source_url": "https://en.wikipedia.org/wiki/Tianjin"
+ },
+ "CN:XJ": {
+  "extract": "Xinjiang, officially the Xinjiang Uygur Autonomous Region (XUAR), is an autonomous region of the People's Republic of China (PRC), in the northwest of the country at the crossroads of Central Asia and East Asia. The largest province-level division of China by area and the 8th-largest country subdivision in the world, Xinjiang spans over 1.6 million square kilometers (620,000 sq mi) and has about 25 million inhabitants. Xinjiang borders the countries of Afghanistan, India, Kazakhstan, Kyrgyzstan, Mongolia, Pakistan, Russia, and Tajikistan. The rugged Karakoram, Kunlun, and Tian Shan mountain ranges occupy much of Xinjiang's borders, as well as its western and southern regions. The Aksai Chin and Trans-Karakoram Tract regions are claimed by India but administered by China. Xinjiang also borders the Tibet Autonomous Region and the provinces of Gansu and Qinghai. The best-known route of the historic Silk Road ran through the territory from the east to its northwestern border.",
+  "name": "Xinjiang",
+  "source_url": "https://en.wikipedia.org/wiki/Xinjiang"
+ },
+ "CN:XZ": {
+  "extract": "The Tibet Autonomous Region (TAR), often shortened in English to Tibet and sometimes to Xizang, is an autonomous region of the People's Republic of China. It was established in 1965 to replace the Tibet Area, a former administrative division of the Republic of China.",
+  "name": "Tibet",
+  "source_url": "https://en.wikipedia.org/wiki/Tibet_Autonomous_Region"
+ },
+ "CN:YN": {
+  "extract": "Yunnan is an inland province in Southwestern China, spanning approximately 394,000 km2 (152,000 sq mi) and has a population of 47.2 million. The capital of the province is Kunming. The province borders the Chinese provinces of Guizhou, Sichuan, autonomous regions of Guangxi and Tibet, as well as Southeast Asian countries Myanmar (Burma), Vietnam, and Laos. Yunnan is China's fourth least developed province based on disposable income per capita in 2014.",
+  "name": "Yunnan",
+  "source_url": "https://en.wikipedia.org/wiki/Yunnan"
+ },
+ "CN:ZJ": {
+  "extract": "Zhejiang is a coastal province in East China. Its capital and largest city is Hangzhou, with other notable cities including Ningbo, Yiwu and Wenzhou. Zhejiang is bordered by Jiangsu and Shanghai to the north, Anhui to the northwest, Jiangxi to the west and Fujian to the south. To the east is the East China Sea, beyond which lies the Ryukyu Islands. The population of Zhejiang stands at 64.6 million, the 8th largest in China. It is a major driving force in the Chinese economy and the birthplace of several notable people, including the Chinese Nationalist leader Chiang Kai-shek and entrepreneur Jack Ma. Zhejiang consists of 90 counties.",
+  "name": "Zhejiang",
+  "source_url": "https://en.wikipedia.org/wiki/Zhejiang"
+ }
+}

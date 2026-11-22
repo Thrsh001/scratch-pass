@@ -1,15 +1,22 @@
 import json
+from io import StringIO
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from unittest.mock import patch
-from urllib.parse import parse_qs, urlparse
+from urllib.error import HTTPError
+from urllib.parse import parse_qs, unquote, urlparse
 
 import requests
 from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.models import User
+from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
+from .management.commands import fetch_region_descriptions as fetch_cmd
 from .models import UserProfile
-from .regions import has_subdivisions, subdivision_svg_path, valid_region_ids
+from .regions import has_subdivisions, region_names, subdivision_svg_path, valid_region_ids
 
 
 class UserProfileTests(TestCase):
@@ -651,3 +658,203 @@ class FacebookLoginFlowTests(TestCase):
         self.assertRedirects(response, reverse("login"))
         self.assertContains(response, "Facebook login failed.")
         self.assertFalse(User.objects.exists())
+
+
+def _sparql_row(code, qid, title, links):
+    return {
+        "code": {"value": code},
+        "item": {"value": f"http://www.wikidata.org/entity/{qid}"},
+        "article": {"value": f"https://en.wikipedia.org/wiki/{title}"},
+        "links": {"value": str(links)},
+    }
+
+
+class _FakeWikimedia:
+    """Stands in for Wikidata SPARQL + Wikipedia REST (external systems)."""
+
+    def __init__(self, country_rows=(), subdivision_rows=(), summaries=None):
+        self.country_rows = list(country_rows)
+        self.subdivision_rows = list(subdivision_rows)
+        self.summaries = summaries or {}
+        self.urls = []
+
+    def __call__(self, url):
+        self.urls.append(url)
+        if url.startswith(fetch_cmd.SPARQL_URL):
+            query = parse_qs(urlparse(url).query)["query"][0]
+            rows = self.subdivision_rows if "P300" in query else self.country_rows
+            return {"results": {"bindings": rows}}
+        title = unquote(url[len(fetch_cmd.SUMMARY_URL):])
+        if title not in self.summaries:
+            raise HTTPError(url, 404, "Not Found", None, None)
+        return self.summaries[title]
+
+
+def _summary(title, extract="An extract.", page_type="standard"):
+    return {
+        "type": page_type,
+        "extract": extract,
+        "content_urls": {"desktop": {"page": f"https://en.wikipedia.org/wiki/{title}"}},
+    }
+
+
+class RegionNamesTests(TestCase):
+    def test_returns_aria_label_when_region_on_map(self):
+        names = region_names()
+
+        self.assertEqual(names["AF"], "Afghanistan")
+        self.assertEqual(names["FR:ARA"], "Auvergne-Rhône-Alpes")
+
+    def test_covers_every_valid_region_id(self):
+        self.assertEqual(set(region_names()), set(valid_region_ids()))
+
+
+class RegionDescriptionMappingTests(TestCase):
+    def test_iso_code_uses_hyphen_when_region_is_subdivision(self):
+        self.assertEqual(fetch_cmd.region_id_to_iso("FR:ARA"), "FR-ARA")
+        self.assertEqual(fetch_cmd.region_id_to_iso("IT"), "IT")
+        self.assertEqual(fetch_cmd.iso_to_region_id("FR-ARA"), "FR:ARA")
+
+    def test_most_linked_item_wins_when_iso_code_shared(self):
+        rows = [
+            _sparql_row("CY", "Q644636", "Cyprus_(island)", 90),
+            _sparql_row("CY", "Q229", "Cyprus", 300),
+        ]
+
+        matches, rejected = fetch_cmd.pick_matches(rows, {"CY"})
+
+        self.assertEqual(matches, {"CY": ("Q229", "Cyprus")})
+        self.assertEqual(rejected, {"CY": ["Q644636"]})
+
+    def test_codes_not_on_map_ignored_when_matching(self):
+        rows = [_sparql_row("FR-A", "Q1", "Alsace", 50), _sparql_row("FR-ARA", "Q2", "ARA", 50)]
+
+        matches, _ = fetch_cmd.pick_matches(rows, {"FR:ARA"})
+
+        self.assertEqual(set(matches), {"FR:ARA"})
+
+    def test_title_decoded_when_article_url_percent_encoded(self):
+        rows = [_sparql_row("CI", "Q1008", "C%C3%B4te_d%27Ivoire", 300)]
+
+        matches, _ = fetch_cmd.pick_matches(rows, {"CI"})
+
+        self.assertEqual(matches["CI"], ("Q1008", "Côte_d'Ivoire"))
+
+    def test_subdivision_query_limited_to_drilldown_countries(self):
+        sparql = fetch_cmd.build_sparql("P300", {"IT", "FR"})
+
+        self.assertIn('IN ("FR-", "IT-")', sparql)
+        self.assertIn("P576", sparql)
+
+
+class BuildRegionDescriptionsTests(TestCase):
+    def test_entry_has_name_extract_and_source_url_when_matched(self):
+        fake = _FakeWikimedia(
+            country_rows=[_sparql_row("IT", "Q38", "Italy", 300)],
+            subdivision_rows=[_sparql_row("IT-21", "Q1216", "Piedmont", 120)],
+            summaries={"Italy": _summary("Italy", "Italy is a country."), "Piedmont": _summary("Piedmont")},
+        )
+
+        entries, report = fetch_cmd.build_entries(
+            {"IT", "IT:21"}, {"IT": "Italy", "IT:21": "Piedmont"}, {}, get_json=fake
+        )
+
+        self.assertEqual(entries["IT"], {
+            "name": "Italy",
+            "extract": "Italy is a country.",
+            "source_url": "https://en.wikipedia.org/wiki/Italy",
+        })
+        self.assertIn("IT:21", entries)
+        self.assertEqual(report["unmatched"], [])
+
+    def test_unmatched_reported_when_no_wikidata_item(self):
+        fake = _FakeWikimedia()
+
+        entries, report = fetch_cmd.build_entries({"XK"}, {"XK": "Kosovo"}, {}, get_json=fake)
+
+        self.assertEqual(entries, {})
+        self.assertEqual(report["unmatched"], ["XK"])
+
+    def test_override_title_skips_wikidata_when_given(self):
+        fake = _FakeWikimedia(summaries={"Kosovo": _summary("Kosovo", "Kosovo is a country.")})
+
+        entries, _ = fetch_cmd.build_entries(
+            {"XK"}, {"XK": "Kosovo"}, {"XK": {"wikipedia_title": "Kosovo"}}, get_json=fake
+        )
+
+        self.assertEqual(entries["XK"]["extract"], "Kosovo is a country.")
+        self.assertFalse(any(u.startswith(fetch_cmd.SPARQL_URL) for u in fake.urls))
+
+    def test_override_fields_win_when_fetched_data_exists(self):
+        fake = _FakeWikimedia(
+            country_rows=[_sparql_row("CD", "Q974", "Democratic_Republic_of_the_Congo", 250)],
+            summaries={"Democratic_Republic_of_the_Congo": _summary("Democratic_Republic_of_the_Congo")},
+        )
+        overrides = {"CD": {"name": "DR Congo", "extract": "Hand-written."}}
+
+        entries, _ = fetch_cmd.build_entries({"CD"}, {"CD": "Dem. Rep. Congo"}, overrides, get_json=fake)
+
+        self.assertEqual(entries["CD"]["name"], "DR Congo")
+        self.assertEqual(entries["CD"]["extract"], "Hand-written.")
+
+    def test_fetch_failure_reported_when_summary_is_disambiguation(self):
+        fake = _FakeWikimedia(
+            country_rows=[_sparql_row("GE", "Q230", "Georgia", 300)],
+            summaries={"Georgia": _summary("Georgia", page_type="disambiguation")},
+        )
+
+        entries, report = fetch_cmd.build_entries({"GE"}, {"GE": "Georgia"}, {}, get_json=fake)
+
+        self.assertEqual(entries, {})
+        self.assertEqual(report["fetch_failed"], ["GE"])
+
+    def test_fetch_failure_reported_when_http_error(self):
+        fake = _FakeWikimedia(country_rows=[_sparql_row("PT", "Q45", "Portugal", 300)])
+
+        entries, report = fetch_cmd.build_entries(
+            {"PT"}, {"PT": "Portugal"}, {}, get_json=fake, log=lambda msg: None
+        )
+
+        self.assertEqual(entries, {})
+        self.assertEqual(report["fetch_failed"], ["PT"])
+
+    def test_country_file_holds_country_and_subdivisions_when_written(self):
+        entry = {"name": "n", "extract": "e", "source_url": "u"}
+        entries = {"IT": entry, "IT:21": entry, "PT": entry}
+
+        with TemporaryDirectory() as tmp:
+            fetch_cmd.write_country_files(entries, Path(tmp))
+
+            files = sorted(p.name for p in Path(tmp).iterdir())
+            italy = json.loads((Path(tmp) / "IT.json").read_text(encoding="utf-8"))
+
+        self.assertEqual(files, ["IT.json", "PT.json"])
+        self.assertEqual(set(italy), {"IT", "IT:21"})
+        self.assertEqual(set(italy["IT:21"]), {"name", "extract", "source_url"})
+
+
+class FetchRegionDescriptionsCommandTests(TestCase):
+    def test_reports_unmatched_instead_of_failing_when_ids_missing(self):
+        fake = _FakeWikimedia(
+            country_rows=[_sparql_row("PT", "Q45", "Portugal", 300)],
+            summaries={"Portugal": _summary("Portugal")},
+        )
+        out = StringIO()
+
+        with TemporaryDirectory() as tmp, \
+                patch.object(fetch_cmd, "OUTPUT_DIR", Path(tmp)), \
+                patch.object(fetch_cmd, "http_get_json", fake), \
+                patch.object(fetch_cmd, "load_overrides", return_value={}):
+            call_command("fetch_region_descriptions", "--only", "PT", "AD", "--delay", "0", stdout=out)
+            written = sorted(p.name for p in Path(tmp).iterdir())
+
+        self.assertEqual(written, ["PT.json"])
+        self.assertIn("countries 1/2", out.getvalue())
+        self.assertIn("AD", out.getvalue())
+
+    def test_raises_when_only_names_unknown_country(self):
+        with self.assertRaises(CommandError):
+            call_command("fetch_region_descriptions", "--only", "ZZ", stdout=StringIO())
+
+    def test_committed_overrides_only_reference_ids_on_map(self):
+        self.assertLessEqual(set(fetch_cmd.load_overrides()), valid_region_ids())

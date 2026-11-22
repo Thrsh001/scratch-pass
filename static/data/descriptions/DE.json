@@ -1,0 +1,87 @@
+{
+ "DE": {
+  "extract": "Germany, officially the Federal Republic of Germany, is a country in Western and Central Europe. It lies between the Baltic Sea and the North Sea to the north with the Alps to the south. Its 16 constituent states have a total population of over 83 million, making it the most populous member state of the European Union (EU). Germany borders Denmark to the north; Poland and the Czech Republic to the east; Austria and Switzerland to the south; and France, Luxembourg, Belgium, and the Netherlands to the west. The nation's capital and most populous city is Berlin and its main financial centre is Frankfurt; the largest urban area is the Ruhr.",
+  "name": "Germany",
+  "source_url": "https://en.wikipedia.org/wiki/Germany"
+ },
+ "DE:BB": {
+  "extract": "Brandenburg, officially the State of Brandenburg, is a landlocked state in northeastern Germany. Brandenburg borders Poland and the states of Berlin, Mecklenburg-Vorpommern, Lower Saxony, Saxony-Anhalt, and Saxony. It is the fifth-largest German state by area and the tenth-most populous, with 2.5 million residents. Potsdam is the state capital and largest city. Other major towns are Cottbus, Brandenburg an der Havel and Frankfurt (Oder).",
+  "name": "Brandenburg",
+  "source_url": "https://en.wikipedia.org/wiki/Brandenburg"
+ },
+ "DE:BE": {
+  "extract": "Berlin is the capital and largest city of Germany. With 3.7 million inhabitants, it has the highest population within its city limits of any city in the European Union (EU). The metropolis is also one of the states of Germany, being the third-smallest state in the country by area. Berlin is surrounded by the state of Brandenburg, bordering Brandenburg's capital Potsdam to the southwest. The urban area of Berlin has a population of 4.5 million, making it the second most populous in Germany after the Ruhr. The Berlin-Brandenburg capital region has around 6.2 million inhabitants and is Germany's second-largest metropolitan region after the Rhine-Ruhr region, as well as the fifth-biggest metropolitan region by GDP in the EU. Berlin is a global city of culture, politics, media and science.",
+  "name": "Berlin",
+  "source_url": "https://en.wikipedia.org/wiki/Berlin"
+ },
+ "DE:BW": {
+  "extract": "Baden-Württemberg, commonly shortened to BW or BaWü, is a landlocked state in Southwest Germany, east of the Rhine, which forms the southern part of the country's western border with France. With more than 11.07 million inhabitants as of 2019 across a total area of nearly 35,752 km2 (13,804 sq mi), it is the third-largest German state by both area and population. The largest city in Baden-Württemberg is the state capital of Stuttgart, followed by Mannheim and Karlsruhe. Other major cities are Freiburg im Breisgau, Heidelberg, Heilbronn, Konstanz, Pforzheim, Reutlingen, Tübingen, and Ulm.",
+  "name": "Baden-Württemberg",
+  "source_url": "https://en.wikipedia.org/wiki/Baden-W%C3%BCrttemberg"
+ },
+ "DE:BY": {
+  "extract": "Bavaria, officially the Free State of Bavaria, is a landlocked state of Germany. It borders the states of Baden-Württemberg to the west, Hesse to the north-west, and Thuringia and Saxony to the north, as well as the countries of Switzerland and Austria to the south and the Czech Republic to the east. The state's capital and largest city is Munich; other major cities include Nuremberg, Augsburg, Regensburg, and Ingolstadt. With an area of 70,550 square kilometres, it is the largest German state, and with 13.08 million inhabitants, the second-most populous.",
+  "name": "Bavaria",
+  "source_url": "https://en.wikipedia.org/wiki/Bavaria"
+ },
+ "DE:HB": {
+  "extract": "Bremen, officially the Free Hanseatic City of Bremen, is the smallest and least populous of Germany's 16 states. It is informally called Land Bremen, although the term is sometimes used in official contexts. The state consists of the capital and larger city of Bremen and a less populated seaport exclave, Bremerhaven, surrounded by the larger state of Lower Saxony in northern Germany.",
+  "name": "Bremen",
+  "source_url": "https://en.wikipedia.org/wiki/Bremen_(state)"
+ },
+ "DE:HE": {
+  "extract": "Hesse or Hessen, officially the State of Hesse, is a landlocked state in Germany. Its capital city is Wiesbaden, and the largest urban area is Frankfurt am Main, which is also the country's principal financial centre. Two other major historic cities are Darmstadt and Kassel. With an area of 21,114.73 square kilometers and a population of over six million, it ranks seventh and fifth, respectively, among the sixteen German states. Frankfurt Rhine-Main, Germany's second-largest metropolitan area, is mainly located in Hesse.",
+  "name": "Hesse",
+  "source_url": "https://en.wikipedia.org/wiki/Hesse"
+ },
+ "DE:HH": {
+  "extract": "Hamburg, officially the Free and Hanseatic City of Hamburg, is the second-largest city in Germany after Berlin and sixth-largest city in the European Union, with a population of over 1.9 million. The Hamburg Metropolitan Region has a population of over 5.1 million and is the tenth-largest metropolitan region by GDP in the European Union. At the base of the Jutland Peninsula, the 110 km (68 mi)-long Elbe estuary begins in Hamburg, at the confluence of the Alster and Bille. Hamburg is one of Germany's three city-states alongside Berlin and Bremen, and is surrounded by Schleswig-Holstein to the north and Lower Saxony to the south. The Port of Hamburg is Germany's largest and Europe's third-largest, after Rotterdam and Antwerp. The local dialect is a variant of Low Saxon.",
+  "name": "Hamburg",
+  "source_url": "https://en.wikipedia.org/wiki/Hamburg"
+ },
+ "DE:MV": {
+  "extract": "Mecklenburg-Vorpommern, often known by its anglicised name Mecklenburg–West Pomerania, is a coastal state in the north-east of Germany. Of the country's sixteen states, Mecklenburg-Vorpommern ranks 14th in population; it covers an area of 23,300 km2 (9,000 sq mi), making it the sixth largest German state in area; and it is 16th in population density. Schwerin is the state capital and Rostock is the largest city. Other major cities include Neubrandenburg, Stralsund, Greifswald, Wismar, and Güstrow. It was named after the two regions of Mecklenburg and Western Pomerania.",
+  "name": "Mecklenburg-Vorpommern",
+  "source_url": "https://en.wikipedia.org/wiki/Mecklenburg-Vorpommern"
+ },
+ "DE:NI": {
+  "extract": "Lower Saxony is a coastal state in northwestern Germany. It is the second-largest state by land area, with 47,614 km2 (18,384 sq mi), and fourth-largest in population among the 16 Länder of the Federal Republic of Germany. In rural areas, Northern Low Saxon and Saterland Frisian are spoken to varying degrees.",
+  "name": "Lower Saxony",
+  "source_url": "https://en.wikipedia.org/wiki/Lower_Saxony"
+ },
+ "DE:NW": {
+  "extract": "North Rhine-Westphalia or North-Rhine/Westphalia, commonly shortened to NRW, is a landlocked state in Western Germany. With more than 18 million inhabitants, it is the most populous state in Germany. Apart from the city-states, it is also the most densely populated state in Germany. Covering an area of 34,084 km2 (13,160 sq mi), it is the fourth-largest German state by size.",
+  "name": "North Rhine-Westphalia",
+  "source_url": "https://en.wikipedia.org/wiki/North_Rhine-Westphalia"
+ },
+ "DE:RP": {
+  "extract": "Rhineland-Palatinate is a landlocked state in western Germany. It covers 19,846 km2 (7,663 sq mi) and has about 4.05 million residents. It is the ninth largest and sixth most populous of the sixteen states. Mainz is the capital and largest city. Other cities are Ludwigshafen am Rhein, Koblenz, Trier, Kaiserslautern, Worms, and Neuwied. It is bordered by North Rhine-Westphalia, Saarland, Baden-Württemberg and Hesse and by France, Luxembourg and Belgium.",
+  "name": "Rhineland-Palatinate",
+  "source_url": "https://en.wikipedia.org/wiki/Rhineland-Palatinate"
+ },
+ "DE:SH": {
+  "extract": "Schleswig-Holstein, officially the State of Schleswig-Holstein, is a coastal state that is the northernmost of the sixteen states of Germany, comprising most of the historical Duchy of Holstein and the southern part of the former Duchy of Schleswig. It borders Denmark, Mecklenburg-Vorpommern, Lower Saxony and the city-state of Hamburg. Its capital city is Kiel; other notable cities are Lübeck and Flensburg. It covers an area of 15,763 km2 (6,086 sq mi), making it the 5th smallest German state by area. Historically, the name can also refer to a larger region, containing both present-day Schleswig-Holstein and the former South Jutland County in Denmark.",
+  "name": "Schleswig-Holstein",
+  "source_url": "https://en.wikipedia.org/wiki/Schleswig-Holstein"
+ },
+ "DE:SL": {
+  "extract": "Saarland is a landlocked federal state of Germany in the southwest of the country. With an area of 2,570 km2 (990 sq mi) and a population of 1 million in 2024, it is the smallest German state in area apart from the city-states of Berlin, Bremen, and Hamburg, and the smallest in population apart from Bremen. Saarbrücken is the state capital and largest city; other cities include Neunkirchen and Saarlouis. Saarland is mainly surrounded by the department of Moselle in France to the west and south and the neighboring state of Rhineland-Palatinate in Germany to the north and east; it also shares a short border, about 8 kilometres long, with the canton of Remich in Luxembourg to the northwest.",
+  "name": "Saarland",
+  "source_url": "https://en.wikipedia.org/wiki/Saarland"
+ },
+ "DE:SN": {
+  "extract": "Saxony, officially the Free State of Saxony, is a landlocked state of Germany, bordering the states of Brandenburg, Saxony-Anhalt, Thuringia, and Bavaria, as well as the countries of the Czechia and Poland. Its capital is Dresden, and its largest city is Leipzig. Saxony is the tenth largest of Germany's sixteen states, with an area of 18,450 square kilometres (7,124 sq mi), and the seventh most populous, with more than 4 million inhabitants. Together with Saxony-Anhalt and Thuringia, Saxony is one of the three states commonly associated with Central Germany.",
+  "name": "Saxony",
+  "source_url": "https://en.wikipedia.org/wiki/Saxony"
+ },
+ "DE:ST": {
+  "extract": "Saxony-Anhalt is a landlocked state of Germany. It covers an area of 20,555 square kilometres (7,936 sq mi)\nand has a population of about 2.14 million inhabitants, making it the 8th-largest state in Germany by area and the 11th-largest by population. Saxony-Anhalt borders the states of Brandenburg, Saxony, Thuringia and Lower Saxony. Its capital is Magdeburg.",
+  "name": "Saxony-Anhalt",
+  "source_url": "https://en.wikipedia.org/wiki/Saxony-Anhalt"
+ },
+ "DE:TH": {
+  "extract": "Thuringia is a landlocked state in Germany, indeed the country's centermost state. With 2.1 million people, it is the 12th-largest of Germany's 16 states by population, and with 16,171 square kilometers (6,244 sq mi) the 11th-largest in area.",
+  "name": "Thuringia",
+  "source_url": "https://en.wikipedia.org/wiki/Thuringia"
+ }
+}

@@ -1,0 +1,102 @@
+{
+ "ES": {
+  "extract": "Spain, officially the Kingdom of Spain, is a country in Southern and Western Europe with territories in North Africa. Featuring the southernmost point of continental Europe, it is the largest country in Southern Europe and the fourth-most populous European Union (EU) member state. Spanning the majority of the Iberian Peninsula, its territory also includes the Canary Islands, in the Eastern Atlantic Ocean; the Balearic Islands, in the Western Mediterranean Sea; and the autonomous cities of Ceuta and Melilla, in mainland Africa. Spain is bordered to the north by France, Andorra, and the Bay of Biscay; to the east and south by the Mediterranean Sea, Gibraltar and Morocco ; and to the west by Portugal and the Atlantic Ocean. Spain's capital and largest city is Madrid; other major urban areas include Barcelona, Valencia, Zaragoza, Seville, Bilbao, Málaga, Murcia, Palma de Mallorca and Las Palmas.",
+  "name": "Spain",
+  "source_url": "https://en.wikipedia.org/wiki/Spain"
+ },
+ "ES:AN": {
+  "extract": "Andalusia is the southernmost autonomous community in Peninsular Spain, located in the south of the Iberian Peninsula, in southwestern Europe. With a population of 8,676,713 in an area of 87,598.86 square kilometres (33,822.11 sq mi) as of 2025, it is the most populous and the second-largest autonomous community in the country. It is officially recognized as a historical nationality and a national reality. The territory is divided into eight provinces: Almería, Cádiz, Córdoba, Granada, Huelva, Jaén, Málaga, and Sevilla. Its capital city is Sevilla, while the seat of its High Court of Justice is the city of Granada.",
+  "name": "Andalusia",
+  "source_url": "https://en.wikipedia.org/wiki/Andalusia"
+ },
+ "ES:AR": {
+  "extract": "Aragon is an autonomous community in Spain, coextensive with the medieval Kingdom of Aragon. In northeastern Spain, the Aragonese autonomous community comprises three provinces : Huesca, Zaragoza, and Teruel. Its capital is Zaragoza. The current Statute of Autonomy declares Aragon a historic nationality of Spain.",
+  "name": "Aragon",
+  "source_url": "https://en.wikipedia.org/wiki/Aragon"
+ },
+ "ES:AS": {
+  "extract": "Asturias, officially the Principality of Asturias, is an autonomous community in northwestern Spain. It is coextensive with the province of Asturias and contains some of the territory that was part of the larger Kingdom of Asturias in the Middle Ages. Divided into eight comarcas (counties), the autonomous community of Asturias is bordered by Cantabria to the east, by León to the south, by Lugo (Galicia) to the west, and by the Cantabrian Sea to the north. With a population of about 1 million, it is one of the least populous autonomous communities of Spain.",
+  "name": "Asturias",
+  "source_url": "https://en.wikipedia.org/wiki/Asturias"
+ },
+ "ES:CB": {
+  "extract": "Cantabria is an autonomous community and province in northern Spain with Santander as its capital city. It is called a comunidad histórica, a historic community, in its current statute of autonomy.",
+  "name": "Cantabria",
+  "source_url": "https://en.wikipedia.org/wiki/Cantabria"
+ },
+ "ES:CE": {
+  "extract": "Ceuta is an autonomous city of Spain on the North African coast. Bordered by Morocco, it lies between the Mediterranean Sea and the Atlantic Ocean. Ceuta is one of the special territories of members of the European Economic Area: it is part of the Schengen area, but with specific provisions such as border checks between Ceuta and European Spain.",
+  "name": "Ceuta",
+  "source_url": "https://en.wikipedia.org/wiki/Ceuta"
+ },
+ "ES:CL": {
+  "extract": "Castile and León is an autonomous community of Spain. While a capital has not been explicitly declared, the seats of the executive and legislative powers are set in Valladolid by law, and for all purposes that city serves as the de facto regional capital.",
+  "name": "Castile and León",
+  "source_url": "https://en.wikipedia.org/wiki/Castile_and_Le%C3%B3n"
+ },
+ "ES:CM": {
+  "extract": "Castilla–La Mancha Spanish: [kasˈtiʎa la ˈmant͡ʃa] ) is an autonomous community of Spain. Comprising the provinces of Albacete, Ciudad Real, Cuenca, Guadalajara and Toledo, it was created in 1982. The government headquarters are in Toledo, which is the capital de facto.",
+  "name": "Castilla-La Mancha",
+  "source_url": "https://en.wikipedia.org/wiki/Castilla%E2%80%93La_Mancha"
+ },
+ "ES:CN": {
+  "extract": "The Canary Islands or Canaries are an archipelago in the Atlantic Ocean and the southernmost autonomous community of Spain, located about 100 kilometres (60 mi) off the northwest coast of Africa. The archipelago has a population of over 2.2 million inhabitants, making it the most populous overseas special territory of the European Union.",
+  "name": "Canary Islands",
+  "source_url": "https://en.wikipedia.org/wiki/Canary_Islands"
+ },
+ "ES:CT": {
+  "extract": "Catalonia is an autonomous community of Spain, designated as a nationality by its Statute of Autonomy. Its territory is situated on the northeast of the Iberian Peninsula, to the south of the Pyrenees mountain range. Catalonia is administratively divided into four provinces or eight vegueries (regions), which are in turn divided into 43 comarques. With a population of 8,124,126, it is the 2nd-most populous autonomous community of Spain, and the capital and largest city, Barcelona, is the 2nd-most populous city in Spain and the 5th-most populous urban area in the European Union.",
+  "name": "Catalonia",
+  "source_url": "https://en.wikipedia.org/wiki/Catalonia"
+ },
+ "ES:EX": {
+  "extract": "Extremadura is a landlocked autonomous community of Spain. Its capital city is Mérida, and its largest city is Badajoz.",
+  "name": "Extremadura",
+  "source_url": "https://en.wikipedia.org/wiki/Extremadura"
+ },
+ "ES:GA": {
+  "extract": "Galicia is an autonomous community of Spain and historic nationality under Spanish law. Located in the northwest Iberian Peninsula, it includes the provinces of A Coruña, Lugo, Ourense, and Pontevedra.",
+  "name": "Galicia",
+  "source_url": "https://en.wikipedia.org/wiki/Galicia_(Spain)"
+ },
+ "ES:IB": {
+  "extract": "The Balearic Islands are an archipelago in the western Mediterranean Sea, off the eastern coast of the Iberian Peninsula, constituting an autonomous community and province of Spain, with Palma as their capital and largest city. With a population of 1,249,844, they are the 6th least populous autonomous community of Spain, and with an area of 4,991.70 square kilometres (1,927.31 sq mi), the smallest.",
+  "name": "Balearic Islands",
+  "source_url": "https://en.wikipedia.org/wiki/Balearic_Islands"
+ },
+ "ES:MC": {
+  "extract": "The Region of Murcia is an autonomous community of Spain located in the southeastern part of the Iberian Peninsula, on the Mediterranean coast. The region has a population of 1,586,989 in an area of 11,316.17 km2 (4,369.20 sq mi) as of 2025. About a third of its population lives in the capital, Murcia. Its Mediterranean coastline extends along 258 kilometres (160 mi), alternating beaches, cliffs and rocky shores, in addition to the 73 kilometres (45 mi) of shoreline of the coastal lagoon of Mar Menor. At 2,014 m (6,608 ft), the region's highest point is Los Obispos Peak in the Revolcadores Massif.",
+  "name": "Murcia",
+  "source_url": "https://en.wikipedia.org/wiki/Region_of_Murcia"
+ },
+ "ES:MD": {
+  "extract": "The Community of Madrid is one of the seventeen autonomous communities and 50 provinces of Spain. It is located at the heart of the Iberian Peninsula and Central Plateau ; its capital and largest municipality is Madrid. The Community of Madrid is bounded to the south and east by Castilla–La Mancha and to the north and west by Castile and León. It was formally created in 1983, in order to address the particular status of the city of Madrid as the capital of the Spanish State and in urban hierarchy. Its boundaries are coextensive with those of the province of Madrid, which was until then conventionally included in the historical region of New Castile.",
+  "name": "Madrid",
+  "source_url": "https://en.wikipedia.org/wiki/Community_of_Madrid"
+ },
+ "ES:ML": {
+  "extract": "Melilla is an autonomous city of Spain on the North African coast. It lies on the eastern side of the Cape Three Forks, on the Morocco–Spain border, adjacent to the Moroccan port town of Beni Ansar, and faces the Mediterranean Sea. It has an area of 14.24 km2 (5.50 sq mi).",
+  "name": "Melilla",
+  "source_url": "https://en.wikipedia.org/wiki/Melilla"
+ },
+ "ES:NC": {
+  "extract": "Navarre, officially the Chartered Community of Navarre, is a landlocked foral autonomous community and province in northern Spain, bordering the Basque Autonomous Community, La Rioja, and Aragon in Spain and Nouvelle-Aquitaine in France. The capital city is Pamplona. The present-day province makes up the majority of the territory of the medieval Kingdom of Navarre, a long-standing Pyrenean kingdom that occupied lands on both sides of the western Pyrenees, with its northernmost part, Lower Navarre, located in the southwest corner of France. As of 2025, Navarra is the 15th most populous autonomous community in Spain with a population of 683,854, which, with an area of 10,392.16 square kilometres (4,012.44 sq mi), makes a population density of 65.8 inhabitants per km2.",
+  "name": "Navarre",
+  "source_url": "https://en.wikipedia.org/wiki/Navarre"
+ },
+ "ES:PV": {
+  "extract": "The Basque Country or Basque Autonomous Community, also officially called Euskadi, is an autonomous community in northern Spain. It includes the Basque provinces of Álava (Araba), Biscay (Bizkaia), and Gipuzkoa (Guipúzcoa). It surrounds two enclaves, Treviño and Valle de Villaverde. With a population of 2,242,343, it is the 8th most populous autonomous community of Spain.",
+  "name": "Basque Country",
+  "source_url": "https://en.wikipedia.org/wiki/Basque_Country_(autonomous_community)"
+ },
+ "ES:RI": {
+  "extract": "La Rioja is an autonomous community and province in Spain. Its capital and largest city is Logroño. Other cities and towns in the province include Calahorra, Arnedo, Alfaro, Haro, Santo Domingo de la Calzada, and Nájera. As of 2025, it had a population of 326,803, making it the least populated autonomous community of Spain.",
+  "name": "La Rioja",
+  "source_url": "https://en.wikipedia.org/wiki/La_Rioja"
+ },
+ "ES:VC": {
+  "extract": "The Valencian Community is an autonomous community of Spain. It is the fourth most populous Spanish autonomous community after Andalusia, Catalonia and the Community of Madrid with more than 5 million inhabitants. Its eponymous capital and most populous city is Valencia, the third-largest city and metropolitan area in Spain. It is located along the Mediterranean coast on the east side of the Iberian Peninsula. It borders Catalonia to the north, Aragon and Castilla–La Mancha to the west, and Murcia to the south, and the Balearic Islands are to its east. The Valencian Community is divided into three provinces: Castellón, Valencia and Alicante.",
+  "name": "Valencian Community",
+  "source_url": "https://en.wikipedia.org/wiki/Valencian_Community"
+ }
+}

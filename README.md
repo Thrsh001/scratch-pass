@@ -44,6 +44,26 @@ A first social login creates a new account automatically. It isn't linked
 to any existing username/password account (those have no email to match
 on), and Google and Facebook logins are separate accounts too.
 
+## Region descriptions (Wikipedia)
+
+The region popup's short descriptions are committed static files,
+`static/data/descriptions/<CC>.json` (one per country, holding the
+country and its subdivisions). The app never contacts Wikipedia at
+runtime. To regenerate them:
+
+```bash
+python manage.py fetch_region_descriptions            # all regions, ~4 min
+python manage.py fetch_region_descriptions --only IT  # one country + its regions
+```
+
+It matches each map id to Wikidata by ISO code, then takes the English
+Wikipedia summary. Re-run it when regions are added to the map SVGs, or
+occasionally to pick up article edits, then review the diff before
+committing. When it reports ids it couldn't match, or an extract reads
+badly, add an entry to `maps/data/description_overrides.json`. Overrides
+always win over fetched data. The text is CC BY-SA 4.0, so keep each
+entry's `source_url` for attribution.
+
 ## PostgreSQL (optional)
 
 By default the app uses a local SQLite file (`db.sqlite3`) and needs no
