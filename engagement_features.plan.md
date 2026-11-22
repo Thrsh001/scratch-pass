@@ -55,15 +55,15 @@ is easier to land on top of a known-good production setup.
 
 ## Open questions
 
-1. **Phone interaction — deferred by the user (2026-11-03).** To decide
-   before SP-18.2's mobile work:
-   - Does a tap open the popup (like a desktop click) or keep toggling
-     directly?
-   - Popup layout on a phone. Recommendation: a bottom sheet rather than
-     a floating box, so it doesn't cover the region that was tapped.
-   - Long-press as a quick-scratch shortcut (SP-18.3), if tapping opens
-     the popup. Recommendation: yes, so filling in many regions doesn't
-     take two taps each.
+1. **Phone interaction — mostly decided (user, 2026-11-22).**
+   - ~~Does a tap open the popup or keep toggling?~~ **A tap opens the
+     popup**, like a desktop click.
+   - ~~Popup layout on a phone?~~ **A bottom sheet.** While it's open
+     the map re-centres in the space above it, so the tapped region
+     stays visible.
+   - Long-press as a quick-scratch shortcut (SP-18.3): still open.
+     Recommendation: yes, so filling in many regions doesn't take two
+     taps each.
 2. **Sight markers on the map, or sights listed only in the popup?**
    Recommendation: popup list first (SP-20.2); markers are an optional
    follow-up (SP-20.4) because ~1,200 points need zoom-dependent
@@ -75,7 +75,7 @@ is easier to land on top of a known-good production setup.
 
 - **Click a region → the popup opens** for that region. Panning behaves
   as today (the existing tap-vs-drag threshold in `map.js` decides what
-  counts as a click). Phone taps follow open question 1.
+  counts as a click). Phone taps do the same (decided 2026-11-22).
 - **Popup contents:** region name (from the path's existing
   `aria-label`, no new data needed), Wikipedia extract, a "Read more on
   Wikipedia" link + licence line, and the primary action:
@@ -85,9 +85,8 @@ is easier to land on top of a known-good production setup.
     button that enters the drill-down. No scratch button, because that
     country's visited state is derived from its regions.
 - **Wide viewport:** docked as a card at the side of the map. **Narrow
-  viewport:** layout pending open question 1 (recommended: the same
-  element as a bottom sheet, switched by a CSS media query — no separate
-  code paths).
+  viewport:** the same element as a bottom sheet, switched by a CSS media
+  query, with no separate code path (decided 2026-11-22).
 - **Non-modal:** the map stays interactive behind it. Clicking another
   region swaps the content; clicking empty map, the close button, or
   `Esc` closes it.

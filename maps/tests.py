@@ -159,6 +159,15 @@ class MapViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "maps/map.html")
 
+    def test_renders_region_panel_pointing_at_descriptions_when_logged_in(self):
+        User.objects.create_user(username="hank", password="pw12345")
+        self.client.login(username="hank", password="pw12345")
+
+        response = self.client.get(reverse("map"))
+
+        self.assertContains(response, 'data-region-panel ')
+        self.assertContains(response, 'data-descriptions-url="/static/data/descriptions/"')
+
 
 class ValidRegionIdsTests(TestCase):
     def test_contains_known_country_codes(self):
@@ -858,3 +867,31 @@ class FetchRegionDescriptionsCommandTests(TestCase):
 
     def test_committed_overrides_only_reference_ids_on_map(self):
         self.assertLessEqual(set(fetch_cmd.load_overrides()), valid_region_ids())
+
+
+class CommittedRegionDescriptionsTests(TestCase):
+    """The popup fetches static/data/descriptions/<CC>.json by the region's
+    country prefix, so the committed files must line up with the map."""
+
+    def test_every_country_has_its_own_description_when_files_committed(self):
+        countries = {r for r in valid_region_ids() if ":" not in r}
+
+        missing = {cc for cc in countries
+                   if not (fetch_cmd.OUTPUT_DIR / f"{cc}.json").exists()
+                   or cc not in json.loads((fetch_cmd.OUTPUT_DIR / f"{cc}.json").read_text(encoding="utf-8"))}
+
+        self.assertEqual(missing, set())
+
+    def test_entries_only_reference_map_ids_in_their_own_country_file(self):
+        ids = valid_region_ids()
+
+        for path in fetch_cmd.OUTPUT_DIR.glob("*.json"):
+            entries = json.loads(path.read_text(encoding="utf-8"))
+            for region_id, entry in entries.items():
+                self.assertIn(region_id, ids)
+                self.assertEqual(region_id.split(":")[0], path.stem)
+                self.assertEqual(set(entry), {"name", "extract", "source_url"})
+                # Real Wikipedia summaries run well past this; a shorter one
+                # means placeholder text leaked in (it happened once, from a
+                # test writing to the real directory).
+                self.assertGreaterEqual(len(entry["extract"]), 60, region_id)

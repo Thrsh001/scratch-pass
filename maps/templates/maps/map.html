@@ -35,6 +35,22 @@
            every subdivided country's geometry on every page load (SP-13.3). -->
     </svg>
     <button type="button" class="drilldown-hint" data-drilldown-hint hidden>Return to world view</button>
+    <!-- Region info popup (SP-18.2): one element, a docked card on wide
+         screens and a bottom sheet on narrow ones (CSS media query).
+         Descriptions are lazy-loaded per country from the static JSON
+         written by fetch_region_descriptions (SP-18.1). -->
+    <section class="region-panel" role="dialog" aria-labelledby="region-panel-title"
+             data-region-panel data-descriptions-url="{% get_static_prefix %}data/descriptions/" hidden>
+      <button type="button" class="region-panel-close" data-region-panel-close aria-label="Close">&times;</button>
+      <h2 class="region-panel-title" id="region-panel-title" data-region-panel-title></h2>
+      <p class="region-panel-extract" data-region-panel-extract hidden></p>
+      <p class="region-panel-source" data-region-panel-source hidden>
+        <a data-region-panel-link target="_blank" rel="noopener">Read more on Wikipedia</a>
+        <span class="region-panel-license">Text from Wikipedia,
+          <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener license">CC BY-SA 4.0</a></span>
+      </p>
+      <button type="button" class="region-panel-action" data-region-panel-action></button>
+    </section>
   </div>
   <script src="{% static 'js/map.js' %}"></script>
 </body>

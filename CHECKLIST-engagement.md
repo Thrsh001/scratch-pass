@@ -15,11 +15,12 @@ SP-20.
 ## Epic 3 — Engagement features
 
 ### SP-18: Region info popup
-**Status:** To Do
+**Status:** In Progress (SP-18.1, SP-18.2 done; SP-18.3 pending)
 **Description:** Clicking a region opens a popup with its name and a
 short Wikipedia description; scratching moves to a button inside the
-popup (user decision, 2026-11-03). Docked card on wide screens; phone
-behaviour deferred (plan open question 1). Plan section 1.
+popup (user decision, 2026-11-03). Docked card on wide screens; on
+phones a tap opens the same popup as a bottom sheet (user decision,
+2026-11-22). Plan section 1.
 
 ### SP-18.1: Region description data from Wikipedia
 **Status:** Done
@@ -57,41 +58,54 @@ the map's abbreviations (e.g. "Dem. Rep. Congo"). A full run takes about
   entities); the command must prefer current ones and log the rest.
 
 ### SP-18.2: Popup / bottom sheet UI
-**Status:** To Do
+**Status:** Done, except the check on a real phone
 **Blocked by:** SP-18.1 for descriptions (the shell can be built first
 and show the name only)
 **Acceptance criteria:**
-- [ ] Click (existing tap-vs-drag threshold) opens the popup instead of
+- [x] Click (existing tap-vs-drag threshold) opens the popup instead of
       toggling; panning unaffected
-- [ ] Phone interaction implemented as decided in plan open question 1
+- [x] Phone interaction implemented as decided in plan open question 1
       (tap behaviour + layout; recommended: bottom sheet) — decide
       before starting the mobile part
-- [ ] Shows the name (from `aria-label`), the extract, "Read more on
+- [x] Shows the name (from `aria-label`), the extract, "Read more on
       Wikipedia" link and a CC BY-SA attribution line
-- [ ] Plain region → "Scratch it" / "Un-scratch" button with
+- [x] Plain region → "Scratch it" / "Un-scratch" button with
       `aria-pressed`; scratching updates the map, counter and server
       exactly as clicking did before
-- [ ] Country with a drill-down → "Explore regions" button instead of
+- [x] Country with a drill-down → "Explore regions" button instead of
       scratch; inside a drill-down, subdivisions get the scratch button
-- [ ] Description JSON lazy-loaded per country on first open, cached for
+- [x] Description JSON lazy-loaded per country on first open, cached for
       the session; missing description → name only, no error
-- [ ] Docked card on wide screens; narrow-screen layout per open
+- [x] Docked card on wide screens; narrow-screen layout per open
       question 1, from the same element via a CSS media query
-- [ ] Non-modal: clicking another region swaps content; close button,
+- [x] Non-modal: clicking another region swaps content; close button,
       clicking empty map, or `Esc` closes it
-- [ ] Keyboard: `Enter`/`Space` on a region opens it and moves focus
+- [x] Keyboard: `Enter`/`Space` on a region opens it and moves focus
       inside; closing returns focus to the region
-- [ ] Slide-in animates `transform` only; no slide under
+- [x] Slide-in animates `transform` only; no slide under
       `prefers-reduced-motion: reduce`
-- [ ] Touch targets sized for touch, no horizontal overflow on a phone
-- [ ] Verified in a browser on desktop and on a phone
+- [x] Touch targets sized for touch, no horizontal overflow on a phone
+- [ ] Verified in a browser on desktop and on a phone (desktop + emulated
+      phone done; real phone pending)
+**Implementation note (2026-11-22):** phone decision: tap opens the
+popup as a bottom sheet (user). The title uses the map's `aria-label`
+(user, 2026-11-22). The wide-screen card docks on the left, clear of the
+bottom-right "Return to world view" button. On phones that button hides
+while the sheet is open. The map area is also padded by the sheet's
+height, because otherwise the sheet covers the lower half of the
+letterboxed map, often including the region just tapped. Choosing
+"Explore regions" from the keyboard moves focus to the drill-down's
+first region. Verified in headless Chrome (desktop 1280×800 and a
+390×844 touch phone viewport, both motion settings). It still needs a
+check on a real phone.
 **Risks:**
 - Scratching now takes two clicks instead of one — see SP-18.3 for
   phones.
 
 ### SP-18.3: Long-press quick scratch *(Pending decision)*
-**Status:** To Do — part of the deferred phone decisions (plan open
-question 1); only needed if a tap opens the popup on phones
+**Status:** To Do — now relevant: a tap opens the popup on phones
+(decided 2026-11-22). Whether to build it is still open (plan open
+question 1).
 **Description:** Long-press (~500 ms, no movement) on a region toggles it
 directly without opening the popup, so filling in many regions stays
 fast.

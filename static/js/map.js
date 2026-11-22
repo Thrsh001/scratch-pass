@@ -2,12 +2,13 @@
 // pointer drag to pan, double-click/double-tap to reset. Pure viewBox
 // manipulation via the Pointer Events API — no dependencies.
 //
-// Click-to-toggle: a pointerdown->pointerup with little to no movement is a
-// tap (toggles the region); one that moved past TAP_MOVE_THRESHOLD is a pan
-// and does not toggle anything.
+// Click-to-open: a pointerdown->pointerup with little to no movement is a
+// tap, which opens the region info panel (SP-18.2); scratching happens from
+// the panel's button. One that moved past TAP_MOVE_THRESHOLD is a pan and
+// opens nothing. A tap on empty map closes the panel.
 //
-// Subdivision drill-down: clicking a country with subdivisions (currently
-// just Italy) zooms in on it in place — same <svg>, same coordinate space,
+// Subdivision drill-down: the panel's "Explore regions" button on a country
+// with subdivisions zooms in on it in place — same <svg>, same coordinate space,
 // neighbors stay visible — rather than swapping to a separate view.
 // Clicking the "Return to world view" button zooms back out to wherever
 // the view was before drilling in, instead of resetting to the whole
@@ -145,6 +146,15 @@
   const visitedCountEl = document.querySelector("[data-visited-count]");
   const drilldownHintEl = document.querySelector("[data-drilldown-hint]");
 
+  const panelEl = document.querySelector("[data-region-panel]");
+  const panelTitleEl = panelEl && panelEl.querySelector("[data-region-panel-title]");
+  const panelExtractEl = panelEl && panelEl.querySelector("[data-region-panel-extract]");
+  const panelSourceEl = panelEl && panelEl.querySelector("[data-region-panel-source]");
+  const panelLinkEl = panelEl && panelEl.querySelector("[data-region-panel-link]");
+  const panelActionEl = panelEl && panelEl.querySelector("[data-region-panel-action]");
+  const panelCloseEl = panelEl && panelEl.querySelector("[data-region-panel-close]");
+  let panelRegionEl = null; // the region the open panel describes
+
   function updateVisitedCount() {
     if (!visitedCountEl) return;
     let n, singular, plural;
@@ -168,6 +178,9 @@
       el.setAttribute("aria-pressed", String(isVisited));
     });
     updateVisitedCount();
+    // Server resync or rollback can change visited state under an open
+    // panel, so its button follows every apply, not just its own clicks.
+    renderPanelAction();
   }
 
   function setVisited(ids) {
@@ -279,6 +292,7 @@
   }
 
   async function enterDrilldown(code) {
+    closePanel();
     const sub = SUBDIVISIONS[code];
     const countryEl = document.querySelector(`.region[data-region="${code}"]`);
     if (!sub || !countryEl || drilldownCountry || loadingSubdivisions.has(code)) return;
@@ -317,6 +331,7 @@
 
   function exitDrilldown() {
     if (!drilldownCountry) return;
+    closePanel();
     const countryEl = document.querySelector(`.region[data-region="${drilldownCountry}"]`);
     const group = document.querySelector(`.subdivision-group[data-country="${drilldownCountry}"]`);
     if (group) setHidden(group, true);
@@ -331,25 +346,128 @@
     updateVisitedCount();
   }
 
-  // Dispatcher for both the pointer-tap and keyboard activation paths: a
-  // country with subdivisions always drills in instead of toggling;
-  // everything else (including regions inside an open drill-down) toggles
-  // normally.
-  function handleRegionActivate(el) {
-    const code = el.dataset.region;
-    if (code && SUBDIVISIONS[code] && !drilldownCountry) {
-      enterDrilldown(code);
+  // --- Region info panel (SP-18.2) ---
+
+  // Per-country description files, fetched once per page load. A failed or
+  // missing file resolves to {} so the panel just shows the name.
+  const descriptionCache = new Map();
+
+  function loadDescriptions(country) {
+    if (!descriptionCache.has(country)) {
+      const base = panelEl.dataset.descriptionsUrl;
+      descriptionCache.set(
+        country,
+        fetch(`${base}${country}.json`)
+          .then((res) => (res.ok ? res.json() : {}))
+          .catch(() => ({})),
+      );
+    }
+    return descriptionCache.get(country);
+  }
+
+  // A country with a drill-down map is never scratched directly (its
+  // state is derived from its regions), so the world view offers to
+  // explore it instead.
+  function panelOffersExplore(code) {
+    return Boolean(SUBDIVISIONS[code]) && !drilldownCountry;
+  }
+
+  function renderPanelAction() {
+    if (!panelRegionEl || !panelActionEl) return;
+    const code = panelRegionEl.dataset.region;
+    if (panelOffersExplore(code)) {
+      panelActionEl.textContent = "Explore regions";
+      panelActionEl.removeAttribute("aria-pressed");
+      panelActionEl.classList.remove("is-visited");
     } else {
-      toggleRegion(el);
+      const isVisited = visited.includes(code);
+      panelActionEl.textContent = isVisited ? "Un-scratch" : "Scratch it";
+      panelActionEl.setAttribute("aria-pressed", String(isVisited));
+      panelActionEl.classList.toggle("is-visited", isVisited);
     }
   }
+
+  function renderPanelDescription(entry) {
+    const hasEntry = Boolean(entry && entry.extract);
+    panelExtractEl.textContent = hasEntry ? entry.extract : "";
+    setHidden(panelExtractEl, !hasEntry);
+    setHidden(panelSourceEl, !(hasEntry && entry.source_url));
+    if (hasEntry && entry.source_url) panelLinkEl.href = entry.source_url;
+  }
+
+  function openPanel(el, { moveFocus = false } = {}) {
+    if (!panelEl) return;
+    const code = el.dataset.region;
+    panelRegionEl = el;
+    panelTitleEl.textContent = el.getAttribute("aria-label") || code;
+    renderPanelDescription(null);
+    renderPanelAction();
+    const wasHidden = panelEl.hasAttribute("hidden");
+    setHidden(panelEl, false);
+    document.body.classList.add("region-panel-open");
+    // Restart the slide-in only on a fresh open, not when swapping regions.
+    if (wasHidden) {
+      panelEl.classList.remove("is-entering");
+      void panelEl.offsetWidth;
+      panelEl.classList.add("is-entering");
+    }
+    if (moveFocus) panelActionEl.focus();
+
+    loadDescriptions(code.split(":")[0]).then((data) => {
+      // The user may have moved on to another region while this loaded.
+      if (panelRegionEl === el) renderPanelDescription(data[code]);
+    });
+  }
+
+  function closePanel() {
+    if (!panelEl || !panelRegionEl) return;
+    const regionEl = panelRegionEl;
+    const hadFocus = panelEl.contains(document.activeElement);
+    panelRegionEl = null;
+    setHidden(panelEl, true);
+    document.body.classList.remove("region-panel-open");
+    if (hadFocus && !regionEl.hasAttribute("hidden")) regionEl.focus();
+  }
+
+  function handlePanelAction() {
+    if (!panelRegionEl) return;
+    const code = panelRegionEl.dataset.region;
+    if (panelOffersExplore(code)) {
+      // The country path gets hidden while drilled in, so keyboard focus
+      // can't return to it; hand it to the first region instead.
+      const hadFocus = panelEl.contains(document.activeElement);
+      enterDrilldown(code).then(() => {
+        if (!hadFocus || drilldownCountry !== code) return;
+        const first = svg.querySelector(`.subdivision-group[data-country="${code}"] .region`);
+        if (first) first.focus();
+      });
+    } else {
+      toggleRegion(panelRegionEl);
+    }
+  }
+
+  if (panelEl) {
+    panelActionEl.addEventListener("click", handlePanelAction);
+    panelCloseEl.addEventListener("click", closePanel);
+    // On narrow screens the bottom sheet would cover the lower half of the
+    // letterboxed map (often the region just tapped). The CSS reserves
+    // this height below the map so it re-centres above the sheet; tracked
+    // live because the extract loads after the sheet opens.
+    new ResizeObserver(() => {
+      document.body.style.setProperty("--region-panel-height", `${panelEl.offsetHeight}px`);
+    }).observe(panelEl);
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && panelRegionEl) closePanel();
+  });
 
   svg.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
     const el = e.target.closest(".region");
     if (!el) return;
     e.preventDefault();
-    handleRegionActivate(el);
+    openPanel(el, { moveFocus: true });
   });
 
   svg.addEventListener(
@@ -366,7 +484,7 @@
   const pointers = new Map();
   let dragLast = null;
   let pinchLastDist = null;
-  let tap = null; // { el, startX, startY } — candidate region tap, single pointer only
+  let tap = null; // { el, startX, startY } — candidate tap (el null = empty map), single pointer only
 
   const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
   const midpoint = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 });
@@ -382,7 +500,7 @@
     } else if (pointers.size === 1) {
       dragLast = { x: e.clientX, y: e.clientY };
       const regionEl = e.target.closest(".region");
-      tap = regionEl ? { el: regionEl, startX: e.clientX, startY: e.clientY } : null;
+      tap = { el: regionEl, startX: e.clientX, startY: e.clientY };
     }
   });
 
@@ -423,7 +541,8 @@
 
   svg.addEventListener("pointerup", (e) => {
     if (pointers.size === 1 && tap) {
-      handleRegionActivate(tap.el);
+      if (tap.el) openPanel(tap.el);
+      else closePanel();
     }
     pointers.delete(e.pointerId);
     tap = null;
